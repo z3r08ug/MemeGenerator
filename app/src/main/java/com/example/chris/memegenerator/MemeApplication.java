@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.example.chris.memegenerator.di.app.AppComponent;
 import com.example.chris.memegenerator.di.app.AppModule;
+import com.example.chris.memegenerator.di.app.DaggerAppComponent;
 import com.example.chris.memegenerator.di.main.MainComponent;
 import com.example.chris.memegenerator.di.main.MainModule;
 
@@ -26,9 +27,9 @@ public class MemeApplication extends Application
         
         AppModule appModule = new AppModule(BASE_URL, API_KEY);
         
-//        appComponent = DaggerAppComponent.builder()
-//                .appModule(appModule)
-//                .build();
+        appComponent = DaggerAppComponent.builder()
+                .appModule(appModule)
+                .build();
     }
     
     public static MemeApplication get(Context context)

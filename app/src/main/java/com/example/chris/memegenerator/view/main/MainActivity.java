@@ -62,6 +62,15 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     
     }
     
+    
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        MemeApplication.get(this).clearMapsComponent();
+    }
+    
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {

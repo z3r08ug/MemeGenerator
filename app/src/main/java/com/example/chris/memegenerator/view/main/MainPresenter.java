@@ -1,7 +1,13 @@
 package com.example.chris.memegenerator.view.main;
 
 import android.util.Log;
+
+import com.example.chris.memegenerator.data.remote.RemoteDataSource;
+
 import java.util.List;
+
+import javax.inject.Inject;
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -13,11 +19,16 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MainPresenter implements MainContract.Presenter
 {
+    RemoteDataSource remoteDataSource;
     MainContract.View view;
     public static final String TAG = MainPresenter.class.getSimpleName() + "_TAG";
 //    private TopTrendingResponse topTrendingResponse;
 //    private InterestTrendingResponse interestTrendingResponse;
-    
+    @Inject
+    public MainPresenter(RemoteDataSource remoteDataSource)
+    {
+        this.remoteDataSource = remoteDataSource;
+    }
     
     @Override
     public void attachView(MainContract.View view)

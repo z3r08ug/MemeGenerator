@@ -1,6 +1,7 @@
 package com.example.chris.memegenerator.di.main;
 
 
+import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.view.main.MainPresenter;
 
 import javax.inject.Singleton;
@@ -16,8 +17,8 @@ import dagger.Provides;
 public class MainModule
 {
     @Provides
-    MainPresenter providerMainPresenter()
+    MainPresenter providerMainPresenter(RemoteDataSource remoteDataSource)
     {
-        return new MainPresenter();
+        return new MainPresenter(remoteDataSource);
     }
 }
