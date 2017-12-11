@@ -15,6 +15,8 @@ import timber.log.Timber;
  * Created by chris on 12/9/2017.
  */
 
+//Nabeel wuz here......
+
 public class MemeApplication extends Application
 {
     private static final String BASE_URL = "http://";
