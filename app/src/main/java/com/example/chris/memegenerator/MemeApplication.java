@@ -9,6 +9,8 @@ import com.example.chris.memegenerator.di.app.DaggerAppComponent;
 import com.example.chris.memegenerator.di.main.MainComponent;
 import com.example.chris.memegenerator.di.main.MainModule;
 
+import timber.log.Timber;
+
 /**
  * Created by chris on 12/9/2017.
  */
@@ -24,6 +26,8 @@ public class MemeApplication extends Application
     public void onCreate()
     {
         super.onCreate();
+    
+        Timber.plant(new Timber.DebugTree());
         
         AppModule appModule = new AppModule(BASE_URL, API_KEY);
         
