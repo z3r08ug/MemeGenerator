@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,10 +38,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
+
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    
+        Log.d("TAG", "onCreate: ");
         MemeApplication.get(this).getMainComponent().inject(this);
         
         
@@ -164,4 +166,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     }
+
+
 }
