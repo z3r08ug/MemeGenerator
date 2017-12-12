@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MemeGenerator.iml" filepath="$PROJECT_DIR$/MemeGenerator.iml" />
-      <module fileurl="file://C:\Users\ Admin\AndroidStudioProjects\MemeGenerator\MemeGenerator.iml" filepath="C:\Users\ Admin\AndroidStudioProjects\MemeGenerator\MemeGenerator.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\ Admin\AndroidStudioProjects\MemeGenerator\app\app.iml" filepath="C:\Users\ Admin\AndroidStudioProjects\MemeGenerator\app\app.iml" />
     </modules>
   </component>
 </project>

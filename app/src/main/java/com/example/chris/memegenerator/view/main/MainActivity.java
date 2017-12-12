@@ -151,4 +151,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     }
+
+
 }
