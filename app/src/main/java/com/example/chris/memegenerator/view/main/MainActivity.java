@@ -13,6 +13,7 @@ import android.widget.ToggleButton;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
+import com.facebook.login.widget.LoginButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ import javax.inject.Inject;
 public class MainActivity extends AppCompatActivity implements MainContract.View
 {
     public static final String TAG = MainActivity.class.getSimpleName() + "_TAG";
-    
+
     @Inject
     MainPresenter presenter;
     
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private ToggleButton btnTopTrend;
     private ToggleButton btnInterestTrend;
     private List<String> memes;
-    
+    public LoginButton fbLoginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -44,7 +45,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerView = findViewById(R.id.rvMemeThumbnails);
         btnInterestTrend = findViewById(R.id.btnTrendingInterests);
         btnTopTrend = findViewById(R.id.btnTopTrending);
-        
+
+        //Register Facebook Login Button
+        fbLoginButton = findViewById(R.id.facebook_login_button);
+        presenter.initializeFacebookLogin(fbLoginButton);
+
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         
