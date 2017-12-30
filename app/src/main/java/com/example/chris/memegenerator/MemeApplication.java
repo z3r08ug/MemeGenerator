@@ -46,7 +46,7 @@ public class MemeApplication extends Application
         mainComponent = appComponent.add(new MainModule());
         return mainComponent;
     }
-    public void clearMapsComponent()
+    public void clearMainComponent()
     {
         mainComponent = null;
     }

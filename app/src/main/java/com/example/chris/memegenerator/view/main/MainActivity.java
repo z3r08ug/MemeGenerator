@@ -1,33 +1,33 @@
 package com.example.chris.memegenerator.view.main;
-
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ToggleButton;
-
-import com.example.chris.memegenerator.MemeApplication;
-import com.example.chris.memegenerator.R;
-import com.example.chris.memegenerator.util.RecyclerAdapter;
-import com.facebook.login.widget.LoginButton;
-import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
+        
+        import android.content.Intent;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.support.v7.widget.DefaultItemAnimator;
+        import android.support.v7.widget.GridLayoutManager;
+        import android.support.v7.widget.LinearLayoutManager;
+        import android.support.v7.widget.RecyclerView;
+        import android.util.Log;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.ToggleButton;
+        
+        import com.example.chris.memegenerator.MemeApplication;
+        import com.example.chris.memegenerator.R;
+        import com.example.chris.memegenerator.util.RecyclerAdapter;
+        import com.facebook.login.widget.LoginButton;
+        import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
+        
+        import java.util.ArrayList;
+        import java.util.List;
+        
+        import javax.inject.Inject;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View
 {
     public static final String TAG = MainActivity.class.getSimpleName() + "_TAG";
-
+    
     @Inject
     MainPresenter presenter;
     
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public LoginButton fbLoginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState)
-
+    
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -50,11 +50,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerView = findViewById(R.id.rvMemeThumbnails);
         btnInterestTrend = findViewById(R.id.btnTrendingInterests);
         btnTopTrend = findViewById(R.id.btnTopTrending);
-
+        
         //Register Facebook Login Button
         fbLoginButton = findViewById(R.id.facebook_login_button);
         presenter.initializeFacebookLogin(fbLoginButton);
-
+        
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         
@@ -62,14 +62,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerView.setItemAnimator(itemAnimator);
         
         presenter.attachView(this);
-    
+        
         memes = new ArrayList<>();
         
         if (btnTopTrend.isChecked())
             loadTopTrending();
         else
             loadInterestTrending();
-    
+        
     }
     
     
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onStop()
     {
         super.onStop();
-        MemeApplication.get(this).clearMapsComponent();
+        MemeApplication.get(this).clearMainComponent();
     }
     
     
@@ -171,7 +171,4 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     }
-}
-
-
 }
