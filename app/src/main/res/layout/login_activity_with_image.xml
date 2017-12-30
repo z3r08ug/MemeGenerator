@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/lets_laugh"
+    android:orientation="vertical"
+
+    tools:context="com.example.chris.memegenerator.view.main.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:elevation="10dp"
+
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="cursive"
+            android:gravity="center"
+
+            android:includeFontPadding="false"
+            android:text="Welcome"
+            android:textColor="@android:color/black"
+            android:textSize="42dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+
+            android:text="A good laugh is sunshine in the house."
+            android:textColor="@android:color/black"
+            android:textSize="24sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.7"
+            android:background="@android:color/holo_orange_dark"
+            android:fontFamily="casual"
+            android:gravity="center"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="Get Started With World of Memes"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp">
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:alpha="0.8"
+                android:background="@android:color/holo_blue_light"
+                android:elevation="20dp"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Signin With Facebook"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:alpha="0.8"
+                android:background="@android:color/holo_red_light"
+                android:fontFamily="sans-serif"
+                android:text="Signin With Google"
+                android:textColor="@android:color/white" />
+        </FrameLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

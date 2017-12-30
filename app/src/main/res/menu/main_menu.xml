@@ -2,6 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/create"
+        android:title="Create a Meme"
+        android:icon="@drawable/add"
+        app:showAsAction="always"
+        />
+    <item
         android:id="@+id/favorites"
         android:title="Favorites"
         android:icon="@drawable/heart"

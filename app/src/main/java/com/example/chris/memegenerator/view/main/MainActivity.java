@@ -1,12 +1,15 @@
 package com.example.chris.memegenerator.view.main;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ToggleButton;
 
@@ -14,6 +17,7 @@ import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
 import com.facebook.login.widget.LoginButton;
+import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +39,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public LoginButton fbLoginButton;
     @Override
     protected void onCreate(Bundle savedInstanceState)
+
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    
+        Log.d("TAG", "onCreate: ");
         MemeApplication.get(this).getMainComponent().inject(this);
         
         
@@ -80,6 +85,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch (item.getItemId())
+        {
+            case R.id.create:
+                startActivity(new Intent(this, CreateMemeActivity.class));
+                break;
+        }
         return true;
     }
     
@@ -154,4 +171,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     }
+}
+
+
 }
