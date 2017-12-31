@@ -1,5 +1,6 @@
 package com.example.chris.memegenerator.view.main;
 
+
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -30,6 +31,33 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+
+        
+        import android.content.Intent;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.support.v7.widget.DefaultItemAnimator;
+        import android.support.v7.widget.GridLayoutManager;
+        import android.support.v7.widget.LinearLayoutManager;
+        import android.support.v7.widget.RecyclerView;
+        import android.util.Log;
+        import android.view.Menu;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.ToggleButton;
+        
+        import com.example.chris.memegenerator.MemeApplication;
+        import com.example.chris.memegenerator.R;
+        import com.example.chris.memegenerator.util.RecyclerAdapter;
+        import com.facebook.login.widget.LoginButton;
+        import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
+        
+        import java.util.ArrayList;
+        import java.util.List;
+        
+        import javax.inject.Inject;
+
+
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -50,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private ToggleButton btnTopTrend;
     private ToggleButton btnInterestTrend;
     private List<String> memes;
+
     private List<Item> result;
     Runnable mrunnable;
     Handler mhandler = new Handler(){
@@ -65,9 +94,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     };
 
 
+
+    
+
+    public LoginButton fbLoginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
-
+    
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -79,15 +113,20 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         btnInterestTrend = findViewById(R.id.btnTrendingInterests);
         btnTopTrend = findViewById(R.id.btnTopTrending);
         
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this
-                , 2, LinearLayoutManager.HORIZONTAL, false);
+
+        //Register Facebook Login Button
+  //      fbLoginButton = findViewById(R.id.facebook_login_button);
+//        presenter.initializeFacebookLogin(fbLoginButton);
+        
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
+
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(itemAnimator);
         
         presenter.attachView(this);
-    
+        
         memes = new ArrayList<>();
 
         
@@ -95,7 +134,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             loadTopTrending();
         else
             loadInterestTrending();
-    
+        
     }
     
     
@@ -103,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onStop()
     {
         super.onStop();
-        MemeApplication.get(this).clearMapsComponent();
+        MemeApplication.get(this).clearMainComponent();
     }
     
     
@@ -223,6 +262,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     }
+
     public void networkrestcaller(final String serach_key_words, final String date, final Integer page ){
         final List<String> memesUrl = new ArrayList<>();
         new Thread(new Runnable() {
@@ -266,5 +306,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             }
         }).start();
     }
+
 
 }

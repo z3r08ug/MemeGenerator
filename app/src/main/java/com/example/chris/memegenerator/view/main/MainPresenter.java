@@ -1,8 +1,14 @@
 package com.example.chris.memegenerator.view.main;
 
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
+import com.example.chris.memegenerator.util.FacebookHandler;
+import com.facebook.CallbackManager;
+import com.facebook.login.widget.LoginButton;
 
 import java.util.List;
 
@@ -53,5 +59,10 @@ public class MainPresenter implements MainContract.Presenter
     public void getInterestTrending()
     {
     
+    }
+
+    @Override
+    public void initializeFacebookLogin(LoginButton fbLoginButton) {
+        FacebookHandler.getInstance().registerLoginButton(fbLoginButton);
     }
 }

@@ -31,6 +31,13 @@
                 android:layout_gravity="right"/>
         </FrameLayout>
 
+        <com.facebook.login.widget.LoginButton
+            android:layout_gravity="center"
+            android:id="@+id/facebook_login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login with Facebook"/>
+
         <LinearLayout
             android:gravity="center_horizontal"
             android:orientation="horizontal"

@@ -15,8 +15,6 @@ import timber.log.Timber;
  * Created by chris on 12/9/2017.
  */
 
-//Nabeel wuz here......
-
 public class MemeApplication extends Application
 {
     //private static final String BASE_URL = "http://"; // TODO not used
@@ -51,7 +49,7 @@ public class MemeApplication extends Application
         mainComponent = appComponent.add(new MainModule());
         return mainComponent;
     }
-    public void clearMapsComponent()
+    public void clearMainComponent()
     {
         mainComponent = null;
     }
