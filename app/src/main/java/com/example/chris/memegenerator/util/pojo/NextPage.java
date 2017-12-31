@@ -1,5 +1,5 @@
 
-package com.example.ady.memesapp.pojo;
+package com.example.chris.memegenerator.util.pojo;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
