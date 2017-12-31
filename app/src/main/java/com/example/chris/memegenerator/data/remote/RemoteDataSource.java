@@ -39,10 +39,10 @@ public class RemoteDataSource
         
         return retrofit;
     }
-    public static Call<GoogleResponse> responseback(String mysearch, String date){
+    public static Call<GoogleResponse> responseback(String mysearch, String date, Integer page){
         Retrofit retrofit = create();
         RemoteService service = retrofit.create(RemoteService.class);
-        return service.responseback(mysearch,date);
+        return service.responseback(mysearch,date,page);
     }
 
 /* Todo refrofit causing error

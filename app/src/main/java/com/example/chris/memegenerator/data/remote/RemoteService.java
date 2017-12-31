@@ -24,6 +24,8 @@ public interface RemoteService
   */
 
 
-  @GET("v1?key=AIzaSyCP2dP0cMCpQtw2v63bEtAYbiG7yB9R1P4&cx=005947202212711455101:s0hxc7549dg&searchtype=image&num=10&start=1")
-  Call<GoogleResponse> responseback(@Query("q") String mysearch, @Query("dateRestrict") String date);
+  @GET("v1?key=AIzaSyCP2dP0cMCpQtw2v63bEtAYbiG7yB9R1P4&cx=005947202212711455101:s0hxc7549dg&searchtype=image")
+  Call<GoogleResponse> responseback(@Query("q") String mysearch,
+                                    @Query("dateRestrict") String date,
+                                    @Query("start") Integer page);
 }
