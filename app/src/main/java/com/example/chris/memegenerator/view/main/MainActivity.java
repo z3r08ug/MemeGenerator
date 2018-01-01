@@ -1,11 +1,10 @@
 package com.example.chris.memegenerator.view.main;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,14 +15,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.example.Keywords;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
+import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
-import com.example.chris.memegenerator.util.pojo.GoogleResponse;
-import com.example.chris.memegenerator.util.pojo.Item;
+import com.example.chris.memegenerator.util.pojo.googleserach.GoogleResponse;
+import com.example.chris.memegenerator.util.pojo.googleserach.Item;
 import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
 
 import java.util.ArrayList;
@@ -32,39 +36,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 
-        
-        import android.content.Intent;
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
-        import android.support.v7.widget.DefaultItemAnimator;
-        import android.support.v7.widget.GridLayoutManager;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import android.util.Log;
-        import android.view.Menu;
-        import android.view.MenuItem;
-        import android.view.View;
-        import android.widget.ToggleButton;
-        
-        import com.example.chris.memegenerator.MemeApplication;
-        import com.example.chris.memegenerator.R;
-        import com.example.chris.memegenerator.util.RecyclerAdapter;
-        import com.facebook.login.widget.LoginButton;
-        import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
-        
-        import java.util.ArrayList;
-        import java.util.List;
-        
-        import javax.inject.Inject;
+import com.facebook.login.widget.LoginButton;
 
 
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View
 {
@@ -246,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
        // for (int i = 0; i < 10; i++)
          //   memes.add("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png");
         for (int i = 1; i <50 ; i=i+10) {
-            networkrestcaller("popular memes",null,i);
+            GoogleSerachCall("popular memes",null,i);
         }
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
@@ -257,18 +235,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
        // for (int i = 0; i < 10; i++)
          //   memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
         for (int i = 1; i <50 ; i=i+10) {
-            networkrestcaller("memes","d30",i);
+            GoogleSerachCall("memes","d30",i);
         }
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     }
 
-    public void networkrestcaller(final String serach_key_words, final String date, final Integer page ){
+    public void GoogleSerachCall(final String KeyWordsToSearch, final String date, final Integer page ){
         final List<String> memesUrl = new ArrayList<>();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                RemoteDataSource.responseback(serach_key_words,date,page)
+                Constants.whichCall("google");
+                RemoteDataSource.GoogleResponse(KeyWordsToSearch,date,page)
                         .enqueue(new Callback<GoogleResponse>() {
                             @Override
                             public void onResponse(Call<GoogleResponse> call, Response<GoogleResponse> response) {
@@ -280,9 +259,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                                         Log.d(TAG, "onResponse: " + result.size());
                                         if (result.get(i).getPagemap() != null) {
                                             if (result.get(i).getPagemap().getCseImage() != null) {
-                                                Log.d(TAG, "onResponse: " + i + " PageMap "
+                                                Timber.d("onResponse: " + i + " PageMap "
                                                         + result.get(i).getPagemap().getCseImage().get(0).getSrc());
-                                                Log.d(TAG, "onResponse: " + i + " CseImage Size "
+                                                Timber.d("onResponse: " + i + " CseImage Size "
                                                         + result.get(i).getPagemap().getCseImage().size());
                                                 memesUrl.add(result.get(i).getPagemap().getCseImage().get(0).getSrc());
                                             } else {
@@ -307,5 +286,50 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         }).start();
     }
 
+
+    public void searchForMemes(View view) {
+        EditText etSerach = findViewById(R.id.etSearch);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etSerach.getWindowToken(), 0);
+        KeyWordrestCall(etSerach.getText().toString());
+
+    }
+    public void KeyWordrestCall (final String phrase){
+        Constants.whichCall("keyword");
+        RemoteDataSource.KeyWordResponse(phrase)
+                .enqueue(new Callback<Keywords>() {
+                    @Override
+                    public void onResponse(Call<Keywords> call, Response<Keywords> response) {
+
+                        for (int i = 0; i <response.body().getText().size() ; i++) {
+                            Log.d(TAG, "onResponse: this is i: " + i);
+                            for (int j = 0; j <response.body().getText().get(i).size() ; j++) {
+                                Log.d(TAG, "onResponse: this is j: " + j);
+                                for (int k = 0; k <response.body().getText().get(i).get(j).size() ; k++) {
+                                    Log.d(TAG, "onResponse: this is k: " + k);
+                                    Log.d(TAG, "onResponse: word "
+                                            + response.body().getText().get(i).get(j).get(k).getWord() +
+                                            " tag " + response.body().getText().get(i).get(j).get(k).getTag() );
+                                    Toast.makeText(MainActivity.this," word: " +
+                                                    response.body().getText().get(i).get(j).get(k).getWord()
+                                                    + "\ntag: " + response.body().getText().get(i).get(j).get(k).getTag()
+                                            ,Toast.LENGTH_LONG).show();
+
+                                }
+
+                            }
+
+                        }
+
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Keywords> call, Throwable t) {
+
+                    }
+                });
+    }
 
 }

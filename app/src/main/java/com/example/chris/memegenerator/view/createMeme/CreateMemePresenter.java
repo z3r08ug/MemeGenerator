@@ -1,9 +1,6 @@
 package com.example.chris.memegenerator.view.createMeme;
 
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
-import com.example.chris.memegenerator.util.BaseView;
-import com.example.chris.memegenerator.view.main.MainContract;
-import com.example.chris.memegenerator.view.main.MainPresenter;
 
 import javax.inject.Inject;
 

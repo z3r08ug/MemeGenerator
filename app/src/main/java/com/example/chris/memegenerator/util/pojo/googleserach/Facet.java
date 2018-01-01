@@ -1,5 +1,5 @@
 
-package com.example.chris.memegenerator.util.pojo;
+package com.example.chris.memegenerator.util.pojo.googleserach;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

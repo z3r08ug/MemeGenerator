@@ -1,23 +1,10 @@
 package com.example.chris.memegenerator.view.main;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-
-import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.util.FacebookHandler;
-import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
 
-import java.util.List;
-
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Admin on 11/29/2017.

@@ -8,4 +8,12 @@ public class Constants
 {
    // public static final String BASE_URL = "http://api.wunderground.com/";
    public static final String BASE_URL = "https://www.googleapis.com/customsearch/";
+   public static boolean isGoogle;
+
+   public static void whichCall(String whichcall) {
+      if(whichcall == "google")
+         Constants.isGoogle = true;
+      else
+         Constants.isGoogle = false;
+   }
 }
