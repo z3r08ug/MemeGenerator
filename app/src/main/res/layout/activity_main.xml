@@ -17,7 +17,9 @@
             <EditText
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:textAlignment="viewStart"
+                />
 
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"

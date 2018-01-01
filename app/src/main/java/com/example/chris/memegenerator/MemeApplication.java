@@ -17,7 +17,10 @@ import timber.log.Timber;
 
 public class MemeApplication extends Application
 {
-    private static final String BASE_URL = "http://";
+    //private static final String BASE_URL = "http://"; // TODO not used
+    //private static final String API_KEY = "AIzaSyBgFi0vAWqYPVS7VvKxV5ZzPiDYcunr7Fo"; // TODO not used
+
+    private static final String BASE_URL = "https://www.googleapis.com/customsearch/";
     private static final String API_KEY = "AIzaSyBgFi0vAWqYPVS7VvKxV5ZzPiDYcunr7Fo";
     private AppComponent appComponent;
     private MainComponent mainComponent;

@@ -6,5 +6,6 @@ package com.example.chris.memegenerator.util;
 
 public class Constants
 {
-    public static final String BASE_URL = "http://api.wunderground.com/";
+   // public static final String BASE_URL = "http://api.wunderground.com/";
+   public static final String BASE_URL = "https://www.googleapis.com/customsearch/";
 }
