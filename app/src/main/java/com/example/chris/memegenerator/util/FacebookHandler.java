@@ -95,6 +95,7 @@ public class FacebookHandler {
         return accessToken.getCurrentAccessToken().getDeclinedPermissions();
     }
 
+    //Make Post to Facebook
     public void shareDialog(Bitmap bitmap, Activity activity) {
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(bitmap)
