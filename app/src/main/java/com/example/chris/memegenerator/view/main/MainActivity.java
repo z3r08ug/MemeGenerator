@@ -26,6 +26,7 @@ import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
+import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
 import com.example.chris.memegenerator.util.pojo.googleserach.GoogleResponse;
 import com.example.chris.memegenerator.util.pojo.googleserach.Item;
 import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
@@ -46,6 +47,7 @@ import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View
 {
+
     public static final String TAG = MainActivity.class.getSimpleName() + "_TAG";
     
     @Inject
@@ -76,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     
 
     public LoginButton fbLoginButton;
+    private EditText etSerach;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -112,6 +115,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             loadTopTrending();
         else
             loadInterestTrending();
+
+        BingSerach("memes");
         
     }
     
@@ -198,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private void loadInterestTrending()
     {
         memes.clear();
+
         /*todo rxjava causinhg an error
         RemoteDataSource.googleresult("TrendingMemes")
                 .subscribeOn(Schedulers.io())
@@ -228,10 +234,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         }
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
+
+
     }
     private void loadTopTrending()
     {
         memes.clear();
+
+
        // for (int i = 0; i < 10; i++)
          //   memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
         for (int i = 1; i <50 ; i=i+10) {
@@ -239,14 +249,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         }
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
+
+
     }
 
     public void GoogleSerachCall(final String KeyWordsToSearch, final String date, final Integer page ){
         final List<String> memesUrl = new ArrayList<>();
+        Constants.whichCall(Constants.google);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Constants.whichCall("google");
                 RemoteDataSource.GoogleResponse(KeyWordsToSearch,date,page)
                         .enqueue(new Callback<GoogleResponse>() {
                             @Override
@@ -284,52 +297,70 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
             }
         }).start();
+
     }
 
 
     public void searchForMemes(View view) {
-        EditText etSerach = findViewById(R.id.etSearch);
+        etSerach = findViewById(R.id.etSearch);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(etSerach.getWindowToken(), 0);
         KeyWordrestCall(etSerach.getText().toString());
 
     }
     public void KeyWordrestCall (final String phrase){
-        Constants.whichCall("keyword");
-        RemoteDataSource.KeyWordResponse(phrase)
-                .enqueue(new Callback<Keywords>() {
-                    @Override
-                    public void onResponse(Call<Keywords> call, Response<Keywords> response) {
+        Constants.whichCall(Constants.keyword);
 
-                        for (int i = 0; i <response.body().getText().size() ; i++) {
-                            Log.d(TAG, "onResponse: this is i: " + i);
-                            for (int j = 0; j <response.body().getText().get(i).size() ; j++) {
-                                Log.d(TAG, "onResponse: this is j: " + j);
-                                for (int k = 0; k <response.body().getText().get(i).get(j).size() ; k++) {
-                                    Log.d(TAG, "onResponse: this is k: " + k);
-                                    Log.d(TAG, "onResponse: word "
-                                            + response.body().getText().get(i).get(j).get(k).getWord() +
-                                            " tag " + response.body().getText().get(i).get(j).get(k).getTag() );
-                                    Toast.makeText(MainActivity.this," word: " +
-                                                    response.body().getText().get(i).get(j).get(k).getWord()
-                                                    + "\ntag: " + response.body().getText().get(i).get(j).get(k).getTag()
-                                            ,Toast.LENGTH_LONG).show();
-
+            RemoteDataSource.KeyWordResponse(phrase)
+                    .enqueue(new Callback<Keywords>() {
+                        @Override
+                        public void onResponse(Call<Keywords> call, Response<Keywords> response) {
+                            for (int i = 0; i < response.body().getText().size(); i++) {
+                                Log.d(TAG, "onResponse: this is i: " + i);
+                                for (int j = 0; j < response.body().getText().get(i).size(); j++) {
+                                    Log.d(TAG, "onResponse: this is j: " + j);
+                                    for (int k = 0; k < response.body().getText().get(i).get(j).size(); k++) {
+                                        Log.d(TAG, "onResponse: this is k: " + k);
+                                        Log.d(TAG, "onResponse: word "
+                                                + response.body().getText().get(i).get(j).get(k).getWord() +
+                                                " tag " + response.body().getText().get(i).get(j).get(k).getTag());
+                                        Toast.makeText(MainActivity.this, " word: " +
+                                                        response.body().getText().get(i).get(j).get(k).getWord()
+                                                        + "\ntag: " + response.body().getText().get(i).get(j).get(k).getTag()
+                                                , Toast.LENGTH_LONG).show();
+                                    }
                                 }
-
                             }
-
                         }
 
+                        @Override
+                        public void onFailure(Call<Keywords> call, Throwable t) {
 
+                        }
+                    });
 
-                    }
+    }
+    public void BingSerach(String search){
 
-                    @Override
-                    public void onFailure(Call<Keywords> call, Throwable t) {
+        Constants.whichCall(Constants.bing);
 
-                    }
-                });
+            RemoteDataSource.BingResponse(search)
+                    .enqueue(new Callback<BingSearch>() {
+                        @Override
+                        public void onResponse(Call<BingSearch> call, Response<BingSearch> response) {
+                            if (response.body() != null)
+                                Log.d(TAG, "onResponse: bing " + response.body().getValue().get(0).getThumbnailUrl());
+                            else
+                                Log.d(TAG, "onResponse: Bing Response is empty");
+                        }
+
+                        @Override
+                        public void onFailure(Call<BingSearch> call, Throwable t) {
+                            Log.d(TAG, "onFailure: " + t.getMessage());
+
+                        }
+                    });
+
     }
 
 }

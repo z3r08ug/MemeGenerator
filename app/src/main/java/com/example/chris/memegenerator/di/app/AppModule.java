@@ -15,18 +15,20 @@ public class AppModule
     String GoogleBaseUrl;
     String apiKey;
     String KeyWordBaseUrl;
+    String BingBaseUrl;
     
-    public AppModule(String googleBaseUrl, String apiKey, String keyWordBaseUrl)
+    public AppModule(String googleBaseUrl, String apiKey, String keyWordBaseUrl, String BingBaseUrl)
     {
         this.GoogleBaseUrl = googleBaseUrl;
         this.apiKey = apiKey;
         this.KeyWordBaseUrl = keyWordBaseUrl;
+        this.BingBaseUrl = BingBaseUrl;
     }
     
     @Provides
     RemoteDataSource providesRemoteDataSource()
 
     {
-        return new RemoteDataSource(GoogleBaseUrl, apiKey,KeyWordBaseUrl);
+        return new RemoteDataSource(GoogleBaseUrl, apiKey,KeyWordBaseUrl,BingBaseUrl);
     }
 }
