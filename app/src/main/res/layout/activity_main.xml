@@ -17,7 +17,9 @@
             <EditText
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:textAlignment="viewStart"
+                />
 
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
@@ -26,7 +28,9 @@
                 android:src="@drawable/ic_search"
                 app:fabSize="normal"
                 android:elevation="7dp"
-                android:layout_gravity="right"/>
+                android:layout_gravity="right"
+                android:onClick="searchForMemes"
+                />
         </FrameLayout>
 
         <com.facebook.login.widget.LoginButton
@@ -69,5 +73,12 @@
             android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/btnCreateMeme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onHandleClicks"
+            android:text="Create Meme"/>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
