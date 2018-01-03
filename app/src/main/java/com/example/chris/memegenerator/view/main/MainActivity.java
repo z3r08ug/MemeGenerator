@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     private List<Item> result;
     Runnable mrunnable;
-    Handler mhandler = new Handler(){
+    Handler mhandler = new Handler()
+    {
         @Override
         public void handleMessage(Message msg) {
             if(msg.what == 1){
@@ -191,6 +192,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 btnInterestTrend.setChecked(true);
                 presenter.getInterestTrending();
                 loadInterestTrending();
+                break;
+            case R.id.btnCreateMeme:
+                startActivity(new Intent(this, CreateMemeActivity.class));
                 break;
         }
     }
