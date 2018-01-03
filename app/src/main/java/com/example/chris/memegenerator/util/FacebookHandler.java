@@ -1,6 +1,8 @@
 package com.example.chris.memegenerator.util;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.facebook.AccessToken;
@@ -10,6 +12,10 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.share.model.ShareContent;
+import com.facebook.share.model.ShareMediaContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.widget.ShareDialog;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -25,14 +31,14 @@ public class FacebookHandler {
     private static final String TAG = "FacebookHandlerTag";
     private AccessToken accessToken=null;
     private CallbackManager callbackManager;
-    private static FacebookHandler handler;
+    private static FacebookHandler handler=null;
 
     private FacebookHandler() {
 
     }
 
     public static synchronized FacebookHandler getInstance() {
-        if(handler!=null)
+        if(handler==null)
             handler = new FacebookHandler();
         return handler;
     }
@@ -69,6 +75,11 @@ public class FacebookHandler {
     }
 
     public AccessToken getAccessToken() {
+        //If user is already logged in, set accessToken to current one
+        if(accessToken==null)
+            if(AccessToken.getCurrentAccessToken()!=null)
+                accessToken=AccessToken.getCurrentAccessToken();
+
         return accessToken;
     }
 
@@ -84,6 +95,19 @@ public class FacebookHandler {
         return accessToken.getCurrentAccessToken().getDeclinedPermissions();
     }
 
-    
+    //Make Post to Facebook
+    public void shareDialog(Bitmap bitmap, Activity activity) {
+        SharePhoto sharePhoto = new SharePhoto.Builder()
+                .setBitmap(bitmap)
+                .build();
+        ShareContent shareContent = new ShareMediaContent.Builder()
+                .addMedium(sharePhoto)
+                .build();
+        ShareDialog shareDialog = new ShareDialog(activity);
+        shareDialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
+    }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
 }

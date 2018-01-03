@@ -23,6 +23,7 @@ import android.widget.ToggleButton;
 import com.example.Keywords;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.util.FacebookHandler;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
@@ -120,7 +121,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         BingSerach("memes");
         
     }
-    
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        FacebookHandler.getInstance().onActivityResult(requestCode, resultCode, data);
+    }
     
     @Override
     protected void onStop()
