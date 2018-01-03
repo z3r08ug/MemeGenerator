@@ -15,6 +15,7 @@ import android.widget.ToggleButton;
 
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.util.FacebookHandler;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
 import com.facebook.login.widget.LoginButton;
 import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
@@ -71,7 +72,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             loadInterestTrending();
     
     }
-    
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        FacebookHandler.getInstance().onActivityResult(requestCode, resultCode, data);
+    }
     
     @Override
     protected void onStop()
