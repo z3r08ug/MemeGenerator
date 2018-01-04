@@ -42,6 +42,8 @@ public class RemoteDataSource
             baseurl =KeyWordSerachBaseUrl;
         else if(Constants.isbing)
             baseurl = BingSearchBaseurl;
+        else if (Constants.istrending)
+            baseurl = BingSearchBaseurl;
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseurl)
@@ -67,7 +69,11 @@ public class RemoteDataSource
         Retrofit retrofit = create();
         BingSearchRemoteService service = retrofit.create(BingSearchRemoteService.class);
         return service.BingResponse(search);
-
+    }
+    public static Call<BingSearch> BingTrendingResponse(String search ){
+        Retrofit retrofit = create();
+        BingTrendingSearchRemoteService service = retrofit.create(BingTrendingSearchRemoteService.class);
+        return service.BingTrendingResponse(search);
     }
 /* Todo refrofit causing error
        public static Observable<List<GoogleResponse>> googleresult(String mysearch)

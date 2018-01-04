@@ -210,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         //for (int i = 1; i <50 ; i=i+10) {
           //  GoogleSerachCall("memes","d30",i);
         //}
-        BingSerach("memes");
+        trendingBingSearch("memes");
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     }
@@ -319,9 +319,47 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                                     Log.d(TAG, "onResponse: bing is empty calling the google api");
                                     GoogleSerachCall(search,null,null);
                                 }
-
+                            }
+                            @Override
+                            public void onFailure(Call<BingSearch> call, Throwable t) {
 
                             }
+                        });
+            }
+        }).start();
+    }
+    public void trendingBingSearch (final String search){
+        Constants.whichCall(Constants.trending);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final List<String> memesurl = new ArrayList<>();
+                RemoteDataSource.BingTrendingResponse(search)
+                        .enqueue(new Callback<BingSearch>() {
+                            @Override
+                            public void onResponse(Call<BingSearch> call, Response<BingSearch> response) {
+                                if (response.body() != null){
+
+                                    List<Value> item = new ArrayList<>();
+                                    if (response.body().getValue() != null){
+                                        item = response.body().getValue();
+                                        Log.d(TAG, "onResponse: Trending Response size is " + item.size());
+                                        for (int i = 0; i <item.size() ; i++) {
+                                            memesurl.add(item.get(i).getThumbnailUrl());
+                                        }
+                                        Message message = mhandler.obtainMessage();
+                                        message.what = 1;
+                                        message.obj = memesurl;
+                                        mhandler.sendMessage(message);
+                                    }
+                                }
+                                else{
+                                    Log.d(TAG, "onResponse:  Trending bing is empty calling the google api");
+                                    GoogleSerachCall(search +"trending",null,null);
+                                }
+
+                            }
+
                             @Override
                             public void onFailure(Call<BingSearch> call, Throwable t) {
 
