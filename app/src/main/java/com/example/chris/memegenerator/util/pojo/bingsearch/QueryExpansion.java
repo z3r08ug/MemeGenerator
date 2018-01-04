@@ -18,9 +18,9 @@ public class QueryExpansion {
     @SerializedName("searchLink")
     @Expose
     private String searchLink;
-    @SerializedName("thumbnail")
+    @SerializedName("thumbnail1")
     @Expose
-    private Thumbnail_ thumbnail;
+    private Object thumbnail1;
 
     public String getText() {
         return text;
@@ -54,12 +54,12 @@ public class QueryExpansion {
         this.searchLink = searchLink;
     }
 
-    public Thumbnail_ getThumbnail() {
-        return thumbnail;
+    public Object getThumbnail1() {
+        return thumbnail1;
     }
 
-    public void setThumbnail(Thumbnail_ thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setThumbnail1(Object thumbnail1) {
+        this.thumbnail1 = thumbnail1;
     }
 
 }

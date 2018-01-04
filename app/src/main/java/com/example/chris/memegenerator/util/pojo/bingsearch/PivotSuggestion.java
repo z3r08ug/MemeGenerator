@@ -12,7 +12,7 @@ public class PivotSuggestion {
     private String pivot;
     @SerializedName("suggestions")
     @Expose
-    private List<Suggestion> suggestions = null;
+    private List<Object> suggestions = null;
 
     public String getPivot() {
         return pivot;
@@ -22,11 +22,11 @@ public class PivotSuggestion {
         this.pivot = pivot;
     }
 
-    public List<Suggestion> getSuggestions() {
+    public List<Object> getSuggestions() {
         return suggestions;
     }
 
-    public void setSuggestions(List<Suggestion> suggestions) {
+    public void setSuggestions(List<Object> suggestions) {
         this.suggestions = suggestions;
     }
 
