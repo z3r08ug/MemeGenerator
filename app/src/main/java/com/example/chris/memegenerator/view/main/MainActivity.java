@@ -135,22 +135,22 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     
     private void loadInterestTrending()
     {
-        memes.clear();
-        for (int i = 0; i < 10; i++)
-            memes.add("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png");
-        
-        recyclerAdapter = new RecyclerAdapter(memes);
-        recyclerView.setAdapter(recyclerAdapter);
+//        memes.clear();
+//        for (int i = 0; i < 10; i++)
+//            memes.add("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png");
+//
+//        recyclerAdapter = new RecyclerAdapter(memes);
+//        recyclerView.setAdapter(recyclerAdapter);
     }
-    
+
     private void loadTopTrending()
     {
-        memes.clear();
-        for (int i = 0; i < 10; i++)
-            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
-        
-        recyclerAdapter = new RecyclerAdapter(memes);
-        recyclerView.setAdapter(recyclerAdapter);
+//        memes.clear();
+//        for (int i = 0; i < 10; i++)
+//            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
+//
+//        recyclerAdapter = new RecyclerAdapter(memes);
+//        recyclerView.setAdapter(recyclerAdapter);
     }
 
 
