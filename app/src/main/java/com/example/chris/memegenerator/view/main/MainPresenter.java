@@ -1,17 +1,10 @@
 package com.example.chris.memegenerator.view.main;
 
-import android.util.Log;
-
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
-
-import java.util.List;
+import com.example.chris.memegenerator.util.FacebookHandler;
+import com.facebook.login.widget.LoginButton;
 
 import javax.inject.Inject;
-
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Admin on 11/29/2017.
@@ -53,5 +46,10 @@ public class MainPresenter implements MainContract.Presenter
     public void getInterestTrending()
     {
     
+    }
+
+    @Override
+    public void initializeFacebookLogin(LoginButton fbLoginButton) {
+        FacebookHandler.getInstance().registerLoginButton(fbLoginButton);
     }
 }

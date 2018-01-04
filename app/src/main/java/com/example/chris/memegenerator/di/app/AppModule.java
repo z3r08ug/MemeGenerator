@@ -12,18 +12,23 @@ import dagger.Provides;
 @Module
 public class AppModule
 {
-    String BaseURL;
+    String GoogleBaseUrl;
     String apiKey;
+    String KeyWordBaseUrl;
+    String BingBaseUrl;
     
-    public AppModule(String baseURL, String apiKey)
+    public AppModule(String googleBaseUrl, String apiKey, String keyWordBaseUrl, String BingBaseUrl)
     {
-        this.BaseURL = baseURL;
+        this.GoogleBaseUrl = googleBaseUrl;
         this.apiKey = apiKey;
+        this.KeyWordBaseUrl = keyWordBaseUrl;
+        this.BingBaseUrl = BingBaseUrl;
     }
     
     @Provides
     RemoteDataSource providesRemoteDataSource()
+
     {
-        return new RemoteDataSource(BaseURL, apiKey);
+        return new RemoteDataSource(GoogleBaseUrl, apiKey,KeyWordBaseUrl,BingBaseUrl);
     }
 }

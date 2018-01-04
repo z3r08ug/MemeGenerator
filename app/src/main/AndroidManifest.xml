@@ -12,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme">
         <activity
             android:name=".view.main.MainActivity"
             android:screenOrientation="portrait">
@@ -24,6 +25,9 @@
         <activity android:name=".catergory.MemeCatergorySelec" />
         <activity android:name=".view.main.MemeHomeActivity" />
         <activity android:name=".SpalashScreen"></activity>
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+        <activity android:name=".view.createMeme.CreateMemeActivity"></activity>
     </application>
 
 </manifest>
