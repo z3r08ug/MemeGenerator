@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Meme Generator</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello</string>
     <string name="facebook_app_id">1779381205696405</string>
     <string name="fb_login_protocol_scheme">fb1779381205696405</string>
 </resources>
