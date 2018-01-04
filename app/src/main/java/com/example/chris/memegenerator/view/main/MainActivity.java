@@ -341,10 +341,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                             @Override
                             public void onFailure(Call<BingSearch> call, Throwable t) {
 
-    public void newActivity(View view) {
-        Intent intent = new Intent(this, MemeHomeActivity.class);
-        startActivity(intent);
-    }
+//    public void newActivity(View view) {
+//        Intent intent = new Intent(this, MemeHomeActivity.class);
+//        startActivity(intent);
+//    }
 }
                             }
                         });
@@ -390,5 +390,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         });
             }
         }).start();
+    }
+
+    public void newActivity(View view) {
     }
 }
