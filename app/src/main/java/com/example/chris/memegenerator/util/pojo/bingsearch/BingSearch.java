@@ -13,33 +13,33 @@ public class BingSearch {
     @SerializedName("instrumentation")
     @Expose
     private Instrumentation instrumentation;
-    @SerializedName("readLink")
-    @Expose
-    private String readLink;
     @SerializedName("webSearchUrl")
     @Expose
     private String webSearchUrl;
     @SerializedName("totalEstimatedMatches")
     @Expose
     private Integer totalEstimatedMatches;
-    @SerializedName("nextOffset")
-    @Expose
-    private Integer nextOffset;
     @SerializedName("value")
     @Expose
     private List<Value> value = null;
     @SerializedName("queryExpansions")
     @Expose
     private List<QueryExpansion> queryExpansions = null;
+    @SerializedName("nextOffsetAddCount")
+    @Expose
+    private Integer nextOffsetAddCount;
     @SerializedName("pivotSuggestions")
     @Expose
     private List<PivotSuggestion> pivotSuggestions = null;
+    @SerializedName("displayShoppingSourcesBadges")
+    @Expose
+    private Boolean displayShoppingSourcesBadges;
+    @SerializedName("displayRecipeSourcesBadges")
+    @Expose
+    private Boolean displayRecipeSourcesBadges;
     @SerializedName("similarTerms")
     @Expose
-    private List<SimilarTerm> similarTerms = null;
-    @SerializedName("relatedSearches")
-    @Expose
-    private List<RelatedSearch> relatedSearches = null;
+    private Object similarTerms;
 
     public String getType() {
         return type;
@@ -55,14 +55,6 @@ public class BingSearch {
 
     public void setInstrumentation(Instrumentation instrumentation) {
         this.instrumentation = instrumentation;
-    }
-
-    public String getReadLink() {
-        return readLink;
-    }
-
-    public void setReadLink(String readLink) {
-        this.readLink = readLink;
     }
 
     public String getWebSearchUrl() {
@@ -81,14 +73,6 @@ public class BingSearch {
         this.totalEstimatedMatches = totalEstimatedMatches;
     }
 
-    public Integer getNextOffset() {
-        return nextOffset;
-    }
-
-    public void setNextOffset(Integer nextOffset) {
-        this.nextOffset = nextOffset;
-    }
-
     public List<Value> getValue() {
         return value;
     }
@@ -105,6 +89,14 @@ public class BingSearch {
         this.queryExpansions = queryExpansions;
     }
 
+    public Integer getNextOffsetAddCount() {
+        return nextOffsetAddCount;
+    }
+
+    public void setNextOffsetAddCount(Integer nextOffsetAddCount) {
+        this.nextOffsetAddCount = nextOffsetAddCount;
+    }
+
     public List<PivotSuggestion> getPivotSuggestions() {
         return pivotSuggestions;
     }
@@ -113,20 +105,28 @@ public class BingSearch {
         this.pivotSuggestions = pivotSuggestions;
     }
 
-    public List<SimilarTerm> getSimilarTerms() {
+    public Boolean getDisplayShoppingSourcesBadges() {
+        return displayShoppingSourcesBadges;
+    }
+
+    public void setDisplayShoppingSourcesBadges(Boolean displayShoppingSourcesBadges) {
+        this.displayShoppingSourcesBadges = displayShoppingSourcesBadges;
+    }
+
+    public Boolean getDisplayRecipeSourcesBadges() {
+        return displayRecipeSourcesBadges;
+    }
+
+    public void setDisplayRecipeSourcesBadges(Boolean displayRecipeSourcesBadges) {
+        this.displayRecipeSourcesBadges = displayRecipeSourcesBadges;
+    }
+
+    public Object getSimilarTerms() {
         return similarTerms;
     }
 
-    public void setSimilarTerms(List<SimilarTerm> similarTerms) {
+    public void setSimilarTerms(Object similarTerms) {
         this.similarTerms = similarTerms;
-    }
-
-    public List<RelatedSearch> getRelatedSearches() {
-        return relatedSearches;
-    }
-
-    public void setRelatedSearches(List<RelatedSearch> relatedSearches) {
-        this.relatedSearches = relatedSearches;
     }
 
 }

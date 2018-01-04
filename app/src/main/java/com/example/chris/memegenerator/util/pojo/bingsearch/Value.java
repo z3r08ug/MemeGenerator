@@ -6,30 +6,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class Value {
 
-    @SerializedName("webSearchUrl")
-    @Expose
-    private String webSearchUrl;
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("thumbnailUrl")
-    @Expose
-    private String thumbnailUrl;
     @SerializedName("datePublished")
     @Expose
     private String datePublished;
-    @SerializedName("contentUrl")
+    @SerializedName("homePageUrl")
     @Expose
-    private String contentUrl;
-    @SerializedName("hostPageUrl")
-    @Expose
-    private String hostPageUrl;
+    private Object homePageUrl;
     @SerializedName("contentSize")
     @Expose
     private String contentSize;
-    @SerializedName("encodingFormat")
-    @Expose
-    private String encodingFormat;
     @SerializedName("hostPageDisplayUrl")
     @Expose
     private String hostPageDisplayUrl;
@@ -45,23 +33,27 @@ public class Value {
     @SerializedName("imageInsightsToken")
     @Expose
     private String imageInsightsToken;
-    @SerializedName("insightsMetadata")
+    @SerializedName("insightsSourcesSummary")
     @Expose
-    private InsightsMetadata insightsMetadata;
+    private Object insightsSourcesSummary;
     @SerializedName("imageId")
     @Expose
     private String imageId;
     @SerializedName("accentColor")
     @Expose
     private String accentColor;
-
-    public String getWebSearchUrl() {
-        return webSearchUrl;
-    }
-
-    public void setWebSearchUrl(String webSearchUrl) {
-        this.webSearchUrl = webSearchUrl;
-    }
+    @SerializedName("webSearchUrl")
+    @Expose
+    private String webSearchUrl;
+    @SerializedName("thumbnailUrl")
+    @Expose
+    private String thumbnailUrl;
+    @SerializedName("encodingFormat")
+    @Expose
+    private String encodingFormat;
+    @SerializedName("contentUrl")
+    @Expose
+    private String contentUrl;
 
     public String getName() {
         return name;
@@ -69,14 +61,6 @@ public class Value {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
-    }
-
-    public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
     }
 
     public String getDatePublished() {
@@ -87,20 +71,12 @@ public class Value {
         this.datePublished = datePublished;
     }
 
-    public String getContentUrl() {
-        return contentUrl;
+    public Object getHomePageUrl() {
+        return homePageUrl;
     }
 
-    public void setContentUrl(String contentUrl) {
-        this.contentUrl = contentUrl;
-    }
-
-    public String getHostPageUrl() {
-        return hostPageUrl;
-    }
-
-    public void setHostPageUrl(String hostPageUrl) {
-        this.hostPageUrl = hostPageUrl;
+    public void setHomePageUrl(Object homePageUrl) {
+        this.homePageUrl = homePageUrl;
     }
 
     public String getContentSize() {
@@ -109,14 +85,6 @@ public class Value {
 
     public void setContentSize(String contentSize) {
         this.contentSize = contentSize;
-    }
-
-    public String getEncodingFormat() {
-        return encodingFormat;
-    }
-
-    public void setEncodingFormat(String encodingFormat) {
-        this.encodingFormat = encodingFormat;
     }
 
     public String getHostPageDisplayUrl() {
@@ -159,12 +127,12 @@ public class Value {
         this.imageInsightsToken = imageInsightsToken;
     }
 
-    public InsightsMetadata getInsightsMetadata() {
-        return insightsMetadata;
+    public Object getInsightsSourcesSummary() {
+        return insightsSourcesSummary;
     }
 
-    public void setInsightsMetadata(InsightsMetadata insightsMetadata) {
-        this.insightsMetadata = insightsMetadata;
+    public void setInsightsSourcesSummary(Object insightsSourcesSummary) {
+        this.insightsSourcesSummary = insightsSourcesSummary;
     }
 
     public String getImageId() {
@@ -181,6 +149,38 @@ public class Value {
 
     public void setAccentColor(String accentColor) {
         this.accentColor = accentColor;
+    }
+
+    public String getWebSearchUrl() {
+        return webSearchUrl;
+    }
+
+    public void setWebSearchUrl(String webSearchUrl) {
+        this.webSearchUrl = webSearchUrl;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public String getEncodingFormat() {
+        return encodingFormat;
+    }
+
+    public void setEncodingFormat(String encodingFormat) {
+        this.encodingFormat = encodingFormat;
+    }
+
+    public String getContentUrl() {
+        return contentUrl;
+    }
+
+    public void setContentUrl(String contentUrl) {
+        this.contentUrl = contentUrl;
     }
 
 }
