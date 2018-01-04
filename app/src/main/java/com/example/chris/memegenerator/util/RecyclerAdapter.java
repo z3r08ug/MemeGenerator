@@ -14,8 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.R;
-import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
-import com.example.chris.memegenerator.view.main.MemeHomeActivity;
+
 
 import java.util.ArrayList;
 import java.util.List;

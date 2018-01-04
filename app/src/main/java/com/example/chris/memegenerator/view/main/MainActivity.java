@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                                         item = response.body().getValue();
                                         Log.d(TAG, "onResponse: Response size is " + item.size());
                                         for (int i = 0; i <item.size() ; i++) {
-                                           memesurl.add(item.get(i).getThumbnailUrl());
+                                            memesurl.add(item.get(i).getThumbnailUrl());
                                         }
                                         Message message = mhandler.obtainMessage();
                                         message.what = 1;
@@ -338,19 +338,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                                     GoogleSerachCall(search,null,null);
                                 }
                             }
+
                             @Override
                             public void onFailure(Call<BingSearch> call, Throwable t) {
 
                             }
-                            }
                         });
+
             }
         }).start();
     }
-    public void newActivity(View view) {
-        Intent intent = new Intent(this, MemeHomeActivity.class);
-        startActivity(intent);
-    }
+
     public void trendingBingSearch (final String search){
         Constants.whichCall(Constants.trending);
         new Thread(new Runnable() {
