@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
            loadTopTrending();
         else
            loadInterestTrending();
-        BingSerach("memes");
+       
     }
 
     @Override
