@@ -30,7 +30,7 @@ public class InstagramHandler {
         share.putExtra(Intent.EXTRA_STREAM, uri);
 
         // Broadcast the Intent.
-        startActivity(context,share,null);
+        startActivity(context,Intent.createChooser(share,"Share to"),null);
     }
 
 }
