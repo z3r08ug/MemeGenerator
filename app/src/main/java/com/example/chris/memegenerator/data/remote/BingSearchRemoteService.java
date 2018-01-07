@@ -9,8 +9,8 @@ import retrofit2.http.Query;
  * Created by Ady on 1/3/2018.
  */
 public interface BingSearchRemoteService {
-    @Headers("Ocp-Apim-Subscription-Key: 55ddbb8f99874102a42437acebb79565")
-    @GET("bing/v7.0/images/search?mkt=en")
+    @Headers("Ocp-Apim-Subscription-Key: e11ef51076b144108b8dc500cc118fab")
+    @GET("bing/v7.0/images/search")
     Call<BingSearch> BingResponse(@Query("q") String mysearch);
     //Call<BingSearch> BingResponse();
 }

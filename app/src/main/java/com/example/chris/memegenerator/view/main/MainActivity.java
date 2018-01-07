@@ -27,6 +27,7 @@ import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.util.FacebookHandler;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.util.Constants;
+import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
 import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
 import com.example.chris.memegenerator.util.pojo.bingsearch.Value;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private List<String> memes;
     private List<Item> result;
     Runnable mrunnable;
+    List<Image> imageUrl;
     Handler mhandler = new Handler()
     {
         @Override
@@ -61,7 +63,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 List<String> memesurl = (List<String>) msg.obj;
                 for (int i = 0; i <memesurl.size() ; i++) {
                     memes.add(memesurl.get(i));
+                   // Log.d(TAG, "handleMessage: memesurl "+memes.get(i));
+                   // imageUrl.get(i).setImageUrl(memesurl.get(i));
                 }
+                displayRecycleView();
             }
         }
     };
@@ -75,9 +80,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         Log.d("TAG", "onCreate: ");
         MemeApplication.get(this).getMainComponent().inject(this);
         result = new ArrayList<>();
+        imageUrl = new ArrayList<>();
         recyclerView = findViewById(R.id.rvMemeThumbnails);
         btnInterestTrend = findViewById(R.id.btnTrendingInterests);
         btnTopTrend = findViewById(R.id.btnTopTrending);
+        Constants.setallFALSE();
         //Register Facebook Login Button
         fbLoginButton = findViewById(R.id.facebook_login_button);
         FacebookHandler.getInstance().registerLoginButton(fbLoginButton);
@@ -92,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
            loadTopTrending();
         else
            loadInterestTrending();
-       
+
     }
 
     @Override
@@ -136,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void setInterestTrending()
     {
-//        recyclerAdapter = new RecyclerAdapter(interestMemes);
+//       recyclerAdapter = new RecyclerAdapter(interestMemes);
         recyclerView.setAdapter(recyclerAdapter);
     }
     @Override
@@ -170,17 +177,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 break;
         }
     }
-    private void loadInterestTrending()
-    {
+    //private void loadInterestTrending()
+   // {
 //        memes.clear();
 //        for (int i = 0; i < 10; i++)
 //            memes.add("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png");
 //
 //        recyclerAdapter = new RecyclerAdapter(memes);
 //        recyclerView.setAdapter(recyclerAdapter);
-    }
+   // }
 
-    private void loadTopTrending()
+    private void loadInterestTrending()
     {
 //        memes.clear();
 //        for (int i = 0; i < 10; i++)
@@ -218,21 +225,34 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
           //  GoogleSerachCall("popular memes",null,i);
         //}
         BingSerach("popular memes");
-        recyclerAdapter = new RecyclerAdapter(memes);
-        recyclerView.setAdapter(recyclerAdapter);
+        //recyclerAdapter = new RecyclerAdapter(memes);
+
     }
 /*    private void loadTopTrending()
     {
         memes.clear();
        // for (int i = 0; i < 10; i++)
          //   memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
+       // recyclerAdapter = new RecyclerAdapter(memes);
+       // recyclerView.setAdapter(recyclerAdapter);
         //for (int i = 1; i <50 ; i=i+10) {
           //  GoogleSerachCall("memes","d30",i);
         //}
-        trendingBingSearch("memes");
+        //trendingBingSearch("memes");
+        BingSerach("memes");
+    }
+
+    private void displayRecycleView() {
+        Log.d(TAG, "displayRecycleView: memes list Size " +memes.size());
+        for (int i = 0; i <memes.size() ; i++) {
+            Log.d(TAG, "displayRecycleView: "+ i+ " meme Url " + memes.get(i));
+
+        }
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     } */
+    }
+
     public void GoogleSerachCall(final String KeyWordsToSearch, final String date, final Integer page ){
         final List<String> memesUrl = new ArrayList<>();
         Constants.whichCall(Constants.google);
@@ -264,6 +284,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                                     message.what = 1;
                                     message.obj = memesUrl;
                                     mhandler.sendMessage(message);
+
                                 }else
                                     Log.d(TAG, "onResponse: response.bosy() is empty ");
                             }
@@ -287,19 +308,24 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     .enqueue(new Callback<Keywords>() {
                         @Override
                         public void onResponse(Call<Keywords> call, Response<Keywords> response) {
-                            for (int i = 0; i < response.body().getText().size(); i++) {
-                                Log.d(TAG, "onResponse: this is i: " + i);
-                                for (int j = 0; j < response.body().getText().get(i).size(); j++) {
-                                    Log.d(TAG, "onResponse: this is j: " + j);
-                                    for (int k = 0; k < response.body().getText().get(i).get(j).size(); k++) {
-                                        Log.d(TAG, "onResponse: this is k: " + k);
-                                        Log.d(TAG, "onResponse: word "
-                                                + response.body().getText().get(i).get(j).get(k).getWord() +
-                                                " tag " + response.body().getText().get(i).get(j).get(k).getTag());
-                                        Toast.makeText(MainActivity.this, " word: " +
-                                                        response.body().getText().get(i).get(j).get(k).getWord()
-                                                        + "\ntag: " + response.body().getText().get(i).get(j).get(k).getTag()
-                                                , Toast.LENGTH_LONG).show();
+                            if (response.body() != null) {
+                                String tag = "";
+                                for (int i = 0; i < response.body().getText().size(); i++) {
+                                    Log.d(TAG, "onResponse: this is i: " + i);
+                                    for (int j = 0; j < response.body().getText().get(i).size(); j++) {
+                                        Log.d(TAG, "onResponse: this is j: " + j);
+                                        for (int k = 0; k < response.body().getText().get(i).get(j).size(); k++) {
+                                            Log.d(TAG, "onResponse: this is k: " + k);
+                                            Log.d(TAG, "onResponse: word "
+                                                    + response.body().getText().get(i).get(j).get(k).getWord() +
+                                                    " tag " + response.body().getText().get(i).get(j).get(k).getTag());
+                                           Toast.makeText(MainActivity.this, " word: " +
+                                                           response.body().getText().get(i).get(j).get(k).getWord()
+                                                            + "\ntag: " + response.body().getText().get(i).get(j).get(k).getTag()
+                                                    , Toast.LENGTH_LONG).show();
+                                            tag = response.body().getText().get(i).get(j).get(k).getTag();
+                                            Log.d(TAG, "onResponse: get tag " + tag );
+                                        }
                                     }
                                 }
                             }
@@ -309,7 +335,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         }
                     });
     }
-    public void BingSerach(final String search){
+    public void BingSerach(final String search) {
         Constants.whichCall(Constants.bing);
         new Thread(new Runnable() {
             @Override
@@ -324,23 +350,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                                     List<Value> item = new ArrayList<>();
                                     if (response.body().getValue() != null){
                                         item = response.body().getValue();
-                                        Log.d(TAG, "onResponse: Response size is " + item.size());
+                                        Log.d(TAG, "onResponse: Bing Response size is " + item.size());
                                         for (int i = 0; i <item.size() ; i++) {
-                                           memesurl.add(item.get(i).getThumbnailUrl());
+                                            memesurl.add(item.get(i).getThumbnailUrl());
                                         }
                                         Message message = mhandler.obtainMessage();
                                         message.what = 1;
                                         message.obj = memesurl;
                                         mhandler.sendMessage(message);
+
+
                                     }
                                 }
-                                else{
-                                    Log.d(TAG, "onResponse: bing is empty calling the google api");
-                                    GoogleSerachCall(search,null,null);
-                                }
+
                             }
+
                             @Override
                             public void onFailure(Call<BingSearch> call, Throwable t) {
+                                Log.d(TAG, "onResponse:  bing is empty calling the google api");
+                                GoogleSerachCall(search ,null,null);
 
 //    public void newActivity(View view) {
 //        Intent intent = new Intent(this, MemeHomeActivity.class);
@@ -348,9 +376,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 //    }
 }
                             });
+                            }
+                        });
             }
         }).start();
+
     }
+
     public void trendingBingSearch (final String search){
         Constants.whichCall(Constants.trending);
         new Thread(new Runnable() {
