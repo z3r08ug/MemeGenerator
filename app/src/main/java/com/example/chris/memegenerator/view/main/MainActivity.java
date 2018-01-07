@@ -142,9 +142,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
     
     @Override
-    public void setTopTrending(BingSearch search)
+    public void setBingSearch(List<String> memes)
     {
-    
+        this.memes = memes;
     }
     
     @Override
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             case R.id.btnTopTrending:
                 btnTopTrend.setChecked(true);
                 btnInterestTrend.setChecked(false);
-                presenter.getTopTrending("memes");
+                presenter.getBingSearch("memes");
                 loadTopTrending();
                 break;
             case R.id.btnTrendingInterests:
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             //}
             //trendingBingSearch("memes");
             BingSerach("memes");
-            presenter.getTopTrending("memes");
+            presenter.getBingSearch("memes");
         }
 /*
 

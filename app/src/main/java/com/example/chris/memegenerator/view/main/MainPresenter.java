@@ -52,7 +52,7 @@ public class MainPresenter implements MainContract.Presenter
     
     
     @Override
-    public void getTopTrending(final String search)
+    public void getBingSearch(final String search)
     {
         RemoteDataSource.getBingResponse(search)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -80,7 +80,6 @@ public class MainPresenter implements MainContract.Presenter
                     @Override
                     public void onComplete()
                     {
-                        view.setTopTrending(bing);
                         view.showProgress("Downloaded Memes");
                         for (int i = 0; i < bing.getValue().size(); i ++)
                         {
@@ -89,6 +88,7 @@ public class MainPresenter implements MainContract.Presenter
                                 memes.add(bing.getValue().get(i).getThumbnailUrl());
                             }
                         }
+                        view.setBingSearch(memes);
                     }
                 });
     }
