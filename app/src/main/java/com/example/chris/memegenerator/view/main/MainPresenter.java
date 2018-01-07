@@ -1,11 +1,15 @@
 package com.example.chris.memegenerator.view.main;
 
+import android.app.ListActivity;
 import android.util.Log;
 
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.util.FacebookHandler;
 import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
 import com.facebook.login.widget.LoginButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,6 +28,7 @@ public class MainPresenter implements MainContract.Presenter
     MainContract.View view;
     public static final String TAG = MainPresenter.class.getSimpleName() + "_TAG";
     BingSearch bing = null;
+    List<String> memes = new ArrayList<>();
     
     //    private TopTrendingResponse topTrendingResponse;
 //    private InterestTrendingResponse interestTrendingResponse;
@@ -64,7 +69,6 @@ public class MainPresenter implements MainContract.Presenter
                     public void onNext(BingSearch bingSearch)
                     {
                         bing = bingSearch;
-                        Log.d(TAG, "onNext: RXBing"+bing);
                     }
                     
                     @Override
@@ -78,6 +82,13 @@ public class MainPresenter implements MainContract.Presenter
                     {
                         view.setTopTrending(bing);
                         view.showProgress("Downloaded Memes");
+                        for (int i = 0; i < bing.getValue().size(); i ++)
+                        {
+                            if (bing.getValue().get(i) != null)
+                            {
+                                memes.add(bing.getValue().get(i).getThumbnailUrl());
+                            }
+                        }
                     }
                 });
     }
