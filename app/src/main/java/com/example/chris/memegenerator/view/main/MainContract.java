@@ -3,6 +3,7 @@ package com.example.chris.memegenerator.view.main;
 
 import com.example.chris.memegenerator.util.BasePresenter;
 import com.example.chris.memegenerator.util.BaseView;
+import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
 import com.facebook.login.widget.LoginButton;
 
 /**
@@ -14,6 +15,7 @@ public interface MainContract
     //methods for main activity
     interface View extends BaseView
     {
+        void setTopTrending(BingSearch search);
         void setTopTrending();
         void setInterestTrending();
 //        void setTopTrending(TopTrendingResponse topTrending);
@@ -23,7 +25,7 @@ public interface MainContract
 
     interface Presenter extends BasePresenter<View>
     {
-        void getTopTrending();
+        void getTopTrending(String search);
         void getInterestTrending();
         void initializeFacebookLogin(LoginButton fbLoginButton);
     }

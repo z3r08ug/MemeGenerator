@@ -7,6 +7,7 @@ import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
 import com.example.chris.memegenerator.util.pojo.googleserach.GoogleResponse;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -88,6 +89,13 @@ public class RemoteDataSource
         Retrofit retrofit = create();
         BingSearchRemoteService service = retrofit.create(BingSearchRemoteService.class);
         return service.BingResponse(search);
+    }
+    
+    public static Observable<BingSearch> getBingResponse(String search)
+    {
+        Retrofit retrofit = create();
+        BingSearchRemoteService remoteService = retrofit.create(BingSearchRemoteService.class);
+        return remoteService.getBingResponse(search);
     }
 
 /* Todo refrofit causing error

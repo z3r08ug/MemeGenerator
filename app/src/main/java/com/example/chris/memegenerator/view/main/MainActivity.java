@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                    // Log.d(TAG, "handleMessage: memesurl "+memes.get(i));
                    // imageUrl.get(i).setImageUrl(memesurl.get(i));
                 }
-                displayRecycleView();
+//                displayRecycleView();
             }
         }
     };
@@ -140,6 +140,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 //        recyclerAdapter = new RecyclerAdapter(topMemes);
         recyclerView.setAdapter(recyclerAdapter);
     }
+    
+    @Override
+    public void setTopTrending(BingSearch search)
+    {
+    
+    }
+    
     @Override
     public void setInterestTrending()
     {
@@ -163,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             case R.id.btnTopTrending:
                 btnTopTrend.setChecked(true);
                 btnInterestTrend.setChecked(false);
-                presenter.getTopTrending();
+                presenter.getTopTrending("memes");
                 loadTopTrending();
                 break;
             case R.id.btnTrendingInterests:
@@ -219,28 +226,29 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     }
                 });
                 */
-       // for (int i = 0; i < 10; i++)
-         //   memes.add("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png");
+        // for (int i = 0; i < 10; i++)
+        //   memes.add("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png");
         //for (int i = 1; i <50 ; i=i+10) {
-          //  GoogleSerachCall("popular memes",null,i);
+        //  GoogleSerachCall("popular memes",null,i);
         //}
         BingSerach("popular memes");
         //recyclerAdapter = new RecyclerAdapter(memes);
-
     }
-/*    private void loadTopTrending()
-    {
-        memes.clear();
-       // for (int i = 0; i < 10; i++)
-         //   memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
-       // recyclerAdapter = new RecyclerAdapter(memes);
-       // recyclerView.setAdapter(recyclerAdapter);
-        //for (int i = 1; i <50 ; i=i+10) {
-          //  GoogleSerachCall("memes","d30",i);
-        //}
-        //trendingBingSearch("memes");
-        BingSerach("memes");
-    }
+        private void loadTopTrending()
+        {
+            memes.clear();
+            // for (int i = 0; i < 10; i++)
+            //   memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
+            // recyclerAdapter = new RecyclerAdapter(memes);
+            // recyclerView.setAdapter(recyclerAdapter);
+            //for (int i = 1; i <50 ; i=i+10) {
+            //  GoogleSerachCall("memes","d30",i);
+            //}
+            //trendingBingSearch("memes");
+            BingSerach("memes");
+            presenter.getTopTrending("memes");
+        }
+/*
 
     private void displayRecycleView() {
         Log.d(TAG, "displayRecycleView: memes list Size " +memes.size());
@@ -251,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     } */
-    }
 
     public void GoogleSerachCall(final String KeyWordsToSearch, final String date, final Integer page ){
         final List<String> memesUrl = new ArrayList<>();
@@ -335,11 +342,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         }
                     });
     }
-    public void BingSerach(final String search) {
+    public void BingSerach(final String search)
+    {
         Constants.whichCall(Constants.bing);
-        new Thread(new Runnable() {
+        new Thread(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 final List<String> memesurl = new ArrayList<>();
                 RemoteDataSource.BingResponse(search)
                         .enqueue(new Callback<BingSearch>() {
@@ -364,6 +374,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                                 }
 
                             }
+                            
 
                             @Override
                             public void onFailure(Call<BingSearch> call, Throwable t) {
@@ -377,8 +388,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 }
                             });
                             }
-                        });
-            }
         }).start();
 
     }
