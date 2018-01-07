@@ -6,8 +6,6 @@ import android.net.Uri;
 
 import java.io.File;
 
-import static android.support.v4.content.ContextCompat.startActivity;
-
 /**
  * Created by Nabeel on 1/7/2018.
  */
@@ -30,7 +28,7 @@ public class InstagramHandler {
         share.putExtra(Intent.EXTRA_STREAM, uri);
 
         // Broadcast the Intent.
-        startActivity(context,share,null);
+        context.getApplicationContext().startActivity(Intent.createChooser(share,"Share To"));
     }
 
 }

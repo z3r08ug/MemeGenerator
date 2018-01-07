@@ -29,6 +29,5 @@ public interface MainContract
     {
         void getBingSearch(String search);
         void getInterestTrending();
-        void initializeFacebookLogin(LoginButton fbLoginButton);
     }
 }
