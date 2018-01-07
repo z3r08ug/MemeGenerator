@@ -39,7 +39,6 @@ public class FacebookHandler {
     private static FacebookHandler handler=null;
 
     private FacebookHandler() {
-
     }
 
     public static synchronized FacebookHandler getInstance() {
@@ -148,6 +147,10 @@ public class FacebookHandler {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public boolean isLoggedIn() {
+        return (getAccessToken()!=null);
     }
 
     //Any Class that wants to get back the facebook name must implement this interface
