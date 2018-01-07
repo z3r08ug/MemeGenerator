@@ -48,7 +48,7 @@ public class FacebookHandler {
     }
 
     //Call in onCreate stage to register facebook login button
-    public void registerLoginButton(LoginButton fbLoginButton) {
+    public void registerLoginButton(LoginButton fbLoginButton, final FacebookLoginListener facebookLoginListener) {
         callbackManager = CallbackManager.Factory.create();
         //Ask for email and user_likes permissions
         //We will ask for publish to wall permission later on when user is ready to post
@@ -59,6 +59,7 @@ public class FacebookHandler {
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(TAG, "facebook:onSuccess: "+loginResult);
                         handleFacebookAccessToken(loginResult.getAccessToken());
+                        facebookLoginListener.onSuccess();
                     }
 
                     @Override
@@ -157,5 +158,10 @@ public class FacebookHandler {
     //Result of a getName() request will be return to the interface
     public interface FacebookListener {
         void receiveFacebookName(String name);
+    }
+
+    //Any Class that wants to listen to facebook login events can implement this method
+    public interface FacebookLoginListener {
+        void onSuccess();
     }
 }
