@@ -9,6 +9,8 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -16,6 +18,9 @@ import com.facebook.share.model.ShareContent;
 import com.facebook.share.model.ShareMediaContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.widget.ShareDialog;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -107,7 +112,47 @@ public class FacebookHandler {
         shareDialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
     }
 
+    public void getName(final FacebookListener facebookListener) {
+        if(accessToken==null)
+            if(AccessToken.getCurrentAccessToken()!=null)
+                accessToken=AccessToken.getCurrentAccessToken();
+        if(accessToken!=null) {
+            GraphRequest request = GraphRequest.newMeRequest(accessToken,
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            Log.e(TAG, object.toString());
+                            Log.e(TAG, response.toString());
+
+                            try {
+                                String userID = object.getString("id");
+                                String name = "";
+                                if(object.has("name"))
+                                    name = object.getString("name");
+                                Log.d(TAG, "onCompleted: id "+userID);
+                                Log.d(TAG, "onCompleted: name "+name);
+                                //Return first name only
+                                int index = name.indexOf(" ");
+                                if(index!=-1)name = name.substring(0,index);
+                                facebookListener.receiveFacebookName(name);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+
+            request.executeAsync();
+        }
+    }
+
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    //Any Class that wants to get back the facebook name must implement this interface
+    //Result of a getName() request will be return to the interface
+    public interface FacebookListener {
+        void receiveFacebookName(String name);
     }
 }
