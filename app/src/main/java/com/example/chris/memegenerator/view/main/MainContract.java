@@ -25,6 +25,5 @@ public interface MainContract
     {
         void getTopTrending();
         void getInterestTrending();
-        void initializeFacebookLogin(LoginButton fbLoginButton);
     }
 }

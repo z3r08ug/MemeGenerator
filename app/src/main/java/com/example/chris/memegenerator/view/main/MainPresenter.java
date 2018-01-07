@@ -48,8 +48,4 @@ public class MainPresenter implements MainContract.Presenter
     
     }
 
-    @Override
-    public void initializeFacebookLogin(LoginButton fbLoginButton) {
-        FacebookHandler.getInstance().registerLoginButton(fbLoginButton);
-    }
 }
