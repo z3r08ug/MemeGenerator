@@ -98,8 +98,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         
 
         //Register Facebook Login Button
-  //      fbLoginButton = findViewById(R.id.facebook_login_button);
-//        presenter.initializeFacebookLogin(fbLoginButton);
+        fbLoginButton = findViewById(R.id.facebook_login_button);
+        FacebookHandler.getInstance().registerLoginButton(fbLoginButton);
         
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
 
