@@ -81,9 +81,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         //Register Facebook Login Button
         fbLoginButton = findViewById(R.id.facebook_login_button);
         FacebookHandler.getInstance().registerLoginButton(fbLoginButton);
-        
-  //      fbLoginButton = findViewById(R.id.facebook_login_button);
-//        presenter.initializeFacebookLogin(fbLoginButton);
+
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
         recyclerView.setLayoutManager(layoutManager);
@@ -223,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
     }
-    private void loadTopTrending()
+/*    private void loadTopTrending()
     {
         memes.clear();
        // for (int i = 0; i < 10; i++)
@@ -234,7 +232,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         trendingBingSearch("memes");
         recyclerAdapter = new RecyclerAdapter(memes);
         recyclerView.setAdapter(recyclerAdapter);
-    }
+    } */
     public void GoogleSerachCall(final String KeyWordsToSearch, final String date, final Integer page ){
         final List<String> memesUrl = new ArrayList<>();
         Constants.whichCall(Constants.google);
@@ -349,8 +347,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 //        startActivity(intent);
 //    }
 }
-                            }
-                        });
+                            });
             }
         }).start();
     }
