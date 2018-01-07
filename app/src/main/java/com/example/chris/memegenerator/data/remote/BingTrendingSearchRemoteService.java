@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  */
 
 public interface BingTrendingSearchRemoteService {
-    @Headers("Ocp-Apim-Subscription-Key: 55ddbb8f99874102a42437acebb79565")
-    @GET("bing/v7.0/images/search/trending?mkt=en")
+    @Headers("Ocp-Apim-Subscription-Key: 1a4b30846ee04b22942cb96ae7f52250")
+    @GET("bing/v7.0/images/search/trending")
     Call<BingSearch> BingTrendingResponse(@Query("q") String mysearch);
 }

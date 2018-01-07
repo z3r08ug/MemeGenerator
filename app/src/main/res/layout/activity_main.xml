@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:textAlignment="viewStart"
+                android:text="Is this the reason why the good residents Lowell in the 18th Middlesex District should be losing in millions of dollars in property tax revenues so that out of state students can have their tuition sub..."
                 />
 
             <android.support.design.widget.FloatingActionButton
