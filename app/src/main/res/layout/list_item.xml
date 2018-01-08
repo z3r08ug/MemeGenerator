@@ -25,6 +25,7 @@
         android:layout_height="200dp"
         android:padding="5dp"
         android:scaleType="fitXY"
+        android:src="@drawable/ic_search"
         android:layout_gravity="center_horizontal"/>
         <TextView
             android:id="@+id/tvImageCount"

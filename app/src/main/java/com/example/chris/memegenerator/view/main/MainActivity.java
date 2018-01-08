@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("TAG", "onCreate: ");
-        MemeApplication.get(this).getMainComponent().inject(this);
+        //MemeApplication.get(this).getMainComponent().inject(this);
         result = new ArrayList<>();
         imageUrl = new ArrayList<>();
         recyclerView = findViewById(R.id.rvMemeThumbnails);
@@ -394,10 +394,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 //                            @Override
 //                            public void onFailure(Call<BingSearch> call, Throwable t) {
 //
-////    public void newActivity(View view) {
-////        Intent intent = new Intent(this, MemeHomeActivity.class);
-////        startActivity(intent);
-////    }
+//    public void newActivity(View view) {
+//        Intent intent = new Intent(this, MemeHomeActivity.class);
+//        startActivity(intent);
+//    }
 //}
 //                            }
 //                        });

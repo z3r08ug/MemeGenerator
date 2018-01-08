@@ -62,30 +62,19 @@ onMemeClickListner memeClickListner;
     public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, final int position)
     {
        // Glide.with(context).load(imageList.get(position).getImageUrl()).into(holder.ivMeme);
-        Log.d(TAG, "onBindViewHolder: memes "+ memes.get(position));
-        Glide.with(context).load(memes.get(position)).into(holder.ivMeme);
+        Log.d(TAG, "onBindViewHolder: memes "+ imageList.get(position).getImageUrl());
+        Glide.with(context).load(imageList.get(position).getImageUrl()).into(holder.ivMeme);
         final String postionSiting = Integer.toString(position+1);
 
         holder.tvMemePostion.setText(postionSiting);
-//holder.bind(imageList.get(position), memeClickListner);
-//        holder.ivMeme.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                MemeSliderFragment searchMemeFragment = MemeSliderFragment.newInstance(memes);
-//////                FragmentManager fragmentManager = ((Activity)context).getFragmentManager();
-//////                fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,searchMemeFragment).commit();
-////       FragmentTransaction fragmentTransaction = ((MemeHomeActivity)context).getSupportFragmentManager().beginTransaction();;
-//////                FragmentTransaction       fragmentTransaction =
-////                fragmentTransaction.replace(R.id.searchFragmentFrame, searchMemeFragment).commit();
-//            }
-//        });
+
 
     }
 
     @Override
     public int getItemCount()
     {
-        return memes.size();
+        return imageList.size();
     }
     
     public class ViewHolder extends RecyclerView.ViewHolder

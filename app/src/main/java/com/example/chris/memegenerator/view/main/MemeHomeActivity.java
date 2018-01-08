@@ -14,12 +14,20 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragment;
+import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
 import com.example.chris.memegenerator.util.MainPagerViewAdapter;
 
-public class MemeHomeActivity extends AppCompatActivity {
+import java.util.List;
+
+import javax.inject.Inject;
+
+public class MemeHomeActivity extends AppCompatActivity implements MainContract.View{
+    @Inject
+    MainPresenter presenter;
     MainPagerViewAdapter mainViewPagerAdapter;
     TabLayout mainTabLayout;
     ViewPager viewPager;
@@ -31,13 +39,15 @@ public class MemeHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_meme_activity
         );
+        MemeApplication.get(this).getMainComponent().inject(this);
         homeToolbar = findViewById(R.id.home_toolbar);
         homeToolbar.setBackgroundColor(Color.parseColor("#19B5FE"));
         viewPager = findViewById(R.id.app_main_pager);
         mainTabLayout = findViewById(R.id.app_main_tabs);
         mainTabLayout.setBackgroundColor(Color.parseColor("#1E8BC3"));
         mainViewPagerAdapter = new MainPagerViewAdapter(getSupportFragmentManager());
-
+presenter.attachView(this);
+presenter.getBingSearch("memes");
         viewPager.setAdapter(mainViewPagerAdapter);
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
@@ -57,6 +67,33 @@ public void btnRemoveFrag(View view){
         MenuInflater menuInflater =new MenuInflater(this);
 menuInflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void showError(String error) {
+
+    }
+
+    @Override
+    public void setBingSearch(List<String> memes) {
+        Log.d("Set", "setBingSearch: "+memes.size());
+            TrendingFragment trendingFragment = TrendingFragment.newInstance(memes);
+
+    }
+
+    @Override
+    public void setTopTrending() {
+
+    }
+
+    @Override
+    public void setInterestTrending() {
+
+    }
+
+    @Override
+    public void showProgress(String progress) {
+
     }
 
 //    public void openSearchFragment(View view) {
