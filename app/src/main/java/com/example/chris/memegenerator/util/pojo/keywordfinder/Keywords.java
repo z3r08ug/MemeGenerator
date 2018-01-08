@@ -1,7 +1,9 @@
 
-package com.example;
+package com.example.chris.memegenerator.util.pojo.keywordfinder;
 
 import java.util.List;
+
+import com.example.Text;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

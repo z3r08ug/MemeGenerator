@@ -24,15 +24,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.FacebookHandler;
 import com.example.chris.memegenerator.util.InstagramHandler;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
-public class CreateMemeActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback
+import javax.inject.Inject;
+
+public class CreateMemeActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback, CreateMemeContract.View
 {
     public static final int PICK_PHOTO_FOR_MEME = 8;
     private static final String TAG = CreateMemeActivity.class.getSimpleName() + "_TAG";
@@ -42,12 +47,16 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
     private Bitmap meme;
     private FacebookHandler facebookHandler;
     private Bitmap combined;
+    @Inject
+    CreateMemePresenter presenter;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_meme);
+        MemeApplication.get(this).getCreateComponent().inject(this);
+        presenter.attachView(this);
     }
     
     private void bindViews()
@@ -76,20 +85,6 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
         }
         if (requestCode == PICK_PHOTO_FOR_MEME)
         {
-//            final Bundle extras = data.getExtras();
-//            if (extras != null)
-//            {
-//                //Get image
-//                meme = extras.getParcelable("data");
-//                meme = getResizedBitmap(meme, 1080, 1080);
-//                Log.d(TAG, "onActivityResult: width" + meme.getWidth());
-//                Log.d(TAG, "onActivityResult: height"+ meme.getHeight());
-//
-//                ivMeme.setImageBitmap(meme);
-//
-//
-//            }
-            
             Uri uri = data.getData();
             
             try
@@ -215,18 +210,18 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG,"Permission is granted");
+                Log.d(TAG,"Permission is granted");
                 saveMeme();
                 return true;
             } else {
                 
-                Log.v(TAG,"Permission is revoked");
+                Log.d(TAG,"Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 return false;
             }
         }
         else { //permission is automatically granted on sdk<23 upon installation
-            Log.v(TAG,"Permission is granted");
+            Log.d(TAG,"Permission is granted");
             saveMeme();
             return true;
         }
@@ -238,7 +233,7 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if(grantResults[0]== PackageManager.PERMISSION_GRANTED)
         {
-            Log.v(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
+            Log.d(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
             //resume tasks needing this permission
             saveMeme();
         }
@@ -265,7 +260,7 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
                     {
                         String keyword = input.getText().toString();
                         
-                        //perform search
+                        presenter.getBingSearch(keyword, Constants.bing);
                     }
                 });
         
@@ -285,5 +280,26 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
         bindViews();
         
         pickImage();
+    }
+    
+    @Override
+    public void showError(String error)
+    {
+    
+    }
+    
+    @Override
+    public void setBingSearch(List<String> memes)
+    {
+        for (String meme : memes)
+        {
+            Log.d(TAG, "setBingSearch: Creat MEME " + meme);
+        }
+    }
+    
+    @Override
+    public void showProgress(String progress)
+    {
+    
     }
 }

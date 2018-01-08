@@ -6,6 +6,8 @@ import android.content.Context;
 import com.example.chris.memegenerator.di.app.AppComponent;
 import com.example.chris.memegenerator.di.app.AppModule;
 import com.example.chris.memegenerator.di.app.DaggerAppComponent;
+import com.example.chris.memegenerator.di.createMeme.CreateMemeComponent;
+import com.example.chris.memegenerator.di.createMeme.CreateMemeModule;
 import com.example.chris.memegenerator.di.main.MainComponent;
 import com.example.chris.memegenerator.di.main.MainModule;
 
@@ -26,6 +28,7 @@ public class MemeApplication extends Application
     private static final String BingSearchBaseUrl = "https://api.cognitive.microsoft.com/";
     private AppComponent appComponent;
     private MainComponent mainComponent;
+    private CreateMemeComponent createComponent;
     
     @Override
     public void onCreate()
@@ -54,5 +57,14 @@ public class MemeApplication extends Application
     public void clearMainComponent()
     {
         mainComponent = null;
+    }
+    public CreateMemeComponent getCreateComponent()
+    {
+        createComponent = appComponent.add(new CreateMemeModule());
+        return createComponent;
+    }
+    public void clearCreateMemeComponent()
+    {
+        createComponent = null;
     }
 }

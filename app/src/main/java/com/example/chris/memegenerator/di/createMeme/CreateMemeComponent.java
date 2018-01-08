@@ -1,4 +1,4 @@
-package com.example.chris.memegenerator.di.main;
+package com.example.chris.memegenerator.di.createMeme;
 
 import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
 import com.example.chris.memegenerator.view.main.MainActivity;
@@ -9,9 +9,8 @@ import dagger.Subcomponent;
  * Created by Admin on 11/29/2017.
  */
 
-@Subcomponent(modules = MainModule.class)
-public interface MainComponent
+@Subcomponent(modules = CreateMemeModule.class)
+public interface CreateMemeComponent
 {
-    void inject(MainActivity memeHomeActivity);
     void inject(CreateMemeActivity createMemeActivity);
 }

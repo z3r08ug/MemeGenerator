@@ -3,7 +3,7 @@ package com.example.chris.memegenerator.data.remote;
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.Keywords;
+import com.example.chris.memegenerator.util.pojo.keywordfinder.Keywords;
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
 import com.example.chris.memegenerator.util.pojo.googleserach.GoogleResponse;
