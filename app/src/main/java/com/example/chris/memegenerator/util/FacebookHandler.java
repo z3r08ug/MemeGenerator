@@ -154,13 +154,17 @@ public class FacebookHandler {
         return (getAccessToken()!=null);
     }
 
+    public void logout() {
+        AccessToken.setCurrentAccessToken(null);
+    }
+
     //Any Class that wants to get back the facebook name must implement this interface
     //Result of a getName() request will be return to the interface
     public interface FacebookListener {
         void receiveFacebookName(String name);
     }
 
-    //Any Class that wants to listen to facebook login events can implement this method
+    //Any Class that wants to listen to facebook login events can implement this interface
     public interface FacebookLoginListener {
         void onSuccess();
     }
