@@ -38,7 +38,11 @@ public class MainPresenter implements MainContract.Presenter
     {
         this.remoteDataSource = remoteDataSource;
     }
-    
+
+    public MainPresenter()
+    {
+    }
+
     @Override
     public void attachView(MainContract.View view)
     {
@@ -75,7 +79,7 @@ public class MainPresenter implements MainContract.Presenter
                     @Override
                     public void onError(Throwable e)
                     {
-                    
+
                     }
                     
                     @Override
@@ -90,7 +94,7 @@ public class MainPresenter implements MainContract.Presenter
                             }
                         }
                         view.setBingSearch(memes);
-                        TrendingFragment trendingFragment= TrendingFragment.newInstance(memes);
+
                     }
                 });
     }

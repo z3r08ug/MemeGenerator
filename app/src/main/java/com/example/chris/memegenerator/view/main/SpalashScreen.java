@@ -37,6 +37,6 @@ public class SpalashScreen extends AppCompatActivity {
                 }
 //                 activity.finish();
             }
-        }, 1000);
+        }, 3000);
     }
 }

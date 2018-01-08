@@ -42,11 +42,11 @@ onMemeClickListner memeClickListner;
     Context context;
     private SharedPreferences sharedPreferences;
 
-    public RecyclerAdapter(List<String> memes)
-    {
-        this.memes = memes;
-        
-    }
+//    public RecyclerAdapter(List<String> memes)
+//    {
+//        this.memes = memes;
+//
+//    }
     
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)

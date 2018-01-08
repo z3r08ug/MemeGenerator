@@ -14,7 +14,7 @@ public class LoginActivity extends AppCompatActivity implements FacebookHandler.
 
     private LoginButton loginButton;
     private FacebookHandler facebookHandler;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,15 +22,13 @@ public class LoginActivity extends AppCompatActivity implements FacebookHandler.
         loginButton = findViewById(R.id.login_button);
         facebookHandler = FacebookHandler.getInstance();
         facebookHandler.registerLoginButton(loginButton,this);
-
-
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        facebookHandler.onActivityResult(requestCode, resultCode, data);
+
+        FacebookHandler.getInstance().onActivityResult(requestCode, resultCode, data);
 //        if (facebookHandler.getAccessToken()!=null){
 //            Intent intent = new Intent(this, MemeCatergorySelec.class);
 //            startActivity(intent);
