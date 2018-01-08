@@ -23,6 +23,8 @@ public class LoginActivity extends AppCompatActivity implements FacebookHandler.
         loginButton = findViewById(R.id.login_button);
         facebookHandler1 = FacebookHandler.getInstance();
         facebookHandler1.registerLoginButton(loginButton,this);
+        facebookHandler = FacebookHandler.getInstance();
+        facebookHandler.registerLoginButton(loginButton,this);
 
 
 
