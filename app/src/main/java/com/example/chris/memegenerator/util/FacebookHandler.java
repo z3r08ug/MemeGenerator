@@ -38,11 +38,10 @@ public class FacebookHandler {
     private CallbackManager callbackManager;
     private static FacebookHandler handler=null;
 
-    public FacebookHandler() {
-
-    private FacebookHandler() {
+    public FacebookHandler()
+    {
+    
     }
-
     public static synchronized FacebookHandler getInstance() {
         if(handler==null)
             handler = new FacebookHandler();
