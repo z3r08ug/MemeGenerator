@@ -16,9 +16,11 @@ import android.widget.Button;
 
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.fragments.interestfragment.TrendingInterestFragment;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragment;
 import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
+import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.MainPagerViewAdapter;
 
 import java.util.List;
@@ -46,12 +48,15 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         mainTabLayout = findViewById(R.id.app_main_tabs);
         mainTabLayout.setBackgroundColor(Color.parseColor("#1E8BC3"));
         mainViewPagerAdapter = new MainPagerViewAdapter(getSupportFragmentManager());
-presenter.attachView(this);
-presenter.getBingSearch("memes");
+        presenter.attachView(this);
+        presenter.getBingSearch("memes",Constants.topTrending);
+        presenter.getBingSearch("food",Constants.interestTrending);
+        presenter.getBingSearch("soccer",Constants.interestTrending);
         viewPager.setAdapter(mainViewPagerAdapter);
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
         mainViewPagerAdapter.notifyDataSetChanged();
+        Constants.setallFALSE();
 
     }
 
@@ -79,6 +84,11 @@ menuInflater.inflate(R.menu.main_menu, menu);
         Log.d("Set", "setBingSearch: "+memes.size());
             TrendingFragment trendingFragment = TrendingFragment.newInstance(memes);
 
+    }
+
+    @Override
+    public void setInterestBingSearch(List<String> memes) {
+        TrendingInterestFragment trendingInterestFragment = TrendingInterestFragment.newInstance(memes);
     }
 
     @Override
