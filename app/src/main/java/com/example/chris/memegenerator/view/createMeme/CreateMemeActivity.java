@@ -6,10 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,11 +22,13 @@ import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.util.FacebookHandler;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class CreateMemeActivity extends AppCompatActivity
 {
     public static final int PICK_PHOTO_FOR_MEME = 8;
+    private static final String TAG = CreateMemeActivity.class.getSimpleName() + "_TAG";
     private ImageView ivMeme;
     private EditText etBottom;
     private EditText etTop;
@@ -49,16 +54,9 @@ public class CreateMemeActivity extends AppCompatActivity
     
     public void pickImage()
     {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("scale", true);
-        intent.putExtra("outputX", 256);
-        intent.putExtra("outputY", 256);
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("return-data", true);
         startActivityForResult(intent, PICK_PHOTO_FOR_MEME);
     }
     
@@ -71,17 +69,47 @@ public class CreateMemeActivity extends AppCompatActivity
         }
         if (requestCode == PICK_PHOTO_FOR_MEME)
         {
-            final Bundle extras = data.getExtras();
-            if (extras != null)
-            {
-                //Get image
-                meme = extras.getParcelable("data");
-                
-                ivMeme.setImageBitmap(meme);
+//            final Bundle extras = data.getExtras();
+//            if (extras != null)
+//            {
+//                //Get image
+//                meme = extras.getParcelable("data");
+//                meme = getResizedBitmap(meme, 1080, 1080);
+//                Log.d(TAG, "onActivityResult: width" + meme.getWidth());
+//                Log.d(TAG, "onActivityResult: height"+ meme.getHeight());
+//
+//                ivMeme.setImageBitmap(meme);
+//
+//
+//            }
     
-                
+            Uri uri = data.getData();
+            
+            try
+            {
+                meme = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                ivMeme.setImageBitmap(meme);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
             }
         }
+    }
+    
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth)
+    {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight);
+        // recreate the new Bitmap
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        return resizedBitmap;
     }
     
     private void saveMeme(Bitmap meme)
@@ -96,6 +124,8 @@ public class CreateMemeActivity extends AppCompatActivity
         bmp = Bitmap.createBitmap(etBottom.getDrawingCache());
         combined = combineImages(combined, bmp, false);
         ivMeme.setImageBitmap(combined);
+        ivMeme.setMaxWidth(600);
+        ivMeme.setMaxHeight(600);
         etTop.setVisibility(View.INVISIBLE);
         etBottom.setVisibility(View.INVISIBLE);
     }
