@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.chris.memegenerator.catergory.MemeInterestActivity;
+import com.example.chris.memegenerator.category.MemeInterestActivity;
 import com.example.chris.memegenerator.util.FacebookHandler;
 import com.facebook.login.widget.LoginButton;
 
