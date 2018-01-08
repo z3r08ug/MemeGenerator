@@ -39,7 +39,8 @@ public class MainPresenter implements MainContract.Presenter
         this.remoteDataSource = remoteDataSource;
     }
 
-    public MainPresenter() {
+    public MainPresenter()
+    {
     }
 
     @Override
