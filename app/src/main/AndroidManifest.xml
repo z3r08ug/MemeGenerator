@@ -14,11 +14,11 @@
         android:theme="@style/AppTheme.NoActionBar">
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.main.SpalashScreen"
+            android:name=".view.main.SplashScreen"
             android:screenOrientation="portrait">
 
         </activity>
-        <activity android:name=".catergory.MemeInterestActivity" />
+        <activity android:name=".category.MemeInterestActivity" />
         <!--<activity android:name=".view.main.MemeHomeActivity" />-->
         <activity android:name=".view.main.MainActivity">
             <intent-filter>

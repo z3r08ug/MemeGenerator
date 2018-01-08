@@ -1,6 +1,7 @@
 package com.example.chris.memegenerator.view.createMeme;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.util.FacebookHandler;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -26,6 +28,8 @@ public class CreateMemeActivity extends AppCompatActivity
     private EditText etBottom;
     private EditText etTop;
     private Bitmap meme;
+    private FacebookHandler facebookHandler;
+    private Bitmap combined;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,6 +43,8 @@ public class CreateMemeActivity extends AppCompatActivity
         ivMeme = findViewById(R.id.ivCreateMeme);
         etTop = findViewById(R.id.etTop);
         etBottom = findViewById(R.id.etBottom);
+        
+        facebookHandler = FacebookHandler.getInstance();
     }
     
     public void pickImage()
@@ -84,12 +90,11 @@ public class CreateMemeActivity extends AppCompatActivity
         etBottom.setDrawingCacheEnabled(true);
         
         Bitmap bmp = Bitmap.createBitmap(etTop.getDrawingCache());
-        
-        Bitmap combined = combineImages(meme,bmp, true);
+    
+        combined = combineImages(meme,bmp, true);
         etTop.setText("");
         bmp = Bitmap.createBitmap(etBottom.getDrawingCache());
         combined = combineImages(combined, bmp, false);
-//        ivMeme.setScaleType(ImageView.ScaleType.CENTER);
         ivMeme.setImageBitmap(combined);
         etTop.setVisibility(View.INVISIBLE);
         etBottom.setVisibility(View.INVISIBLE);
@@ -128,7 +133,7 @@ public class CreateMemeActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                //share on fb or ig
+                facebookHandler.shareDialog(combined, CreateMemeActivity.this);
             }
         });
         builder.setNegativeButton("Save to Device", new DialogInterface.OnClickListener()
@@ -157,7 +162,8 @@ public class CreateMemeActivity extends AppCompatActivity
         alertDialog.setView(input);
     
         alertDialog.setPositiveButton("Search",
-                new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener()
+                {
                     public void onClick(DialogInterface dialog, int which)
                     {
                         String keyword = input.getText().toString();

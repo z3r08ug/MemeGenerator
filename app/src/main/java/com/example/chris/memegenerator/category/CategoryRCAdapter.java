@@ -1,4 +1,4 @@
-package com.example.chris.memegenerator.catergory;
+package com.example.chris.memegenerator.category;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,7 +9,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 
 import java.util.ArrayList;

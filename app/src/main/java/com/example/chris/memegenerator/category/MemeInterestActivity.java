@@ -1,4 +1,4 @@
-package com.example.chris.memegenerator.catergory;
+package com.example.chris.memegenerator.category;
 
 import android.content.Context;
 import android.content.Intent;

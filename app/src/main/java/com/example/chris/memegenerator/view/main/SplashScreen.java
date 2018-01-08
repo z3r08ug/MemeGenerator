@@ -7,10 +7,10 @@ import android.os.Bundle;
 
 import com.example.chris.memegenerator.LoginActivity;
 import com.example.chris.memegenerator.R;
-import com.example.chris.memegenerator.catergory.MemeInterestActivity;
+import com.example.chris.memegenerator.category.MemeInterestActivity;
 import com.example.chris.memegenerator.util.FacebookHandler;
 
-public class SpalashScreen extends AppCompatActivity {
+public class SplashScreen extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

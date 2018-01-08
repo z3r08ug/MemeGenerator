@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/btnCreateMeme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onHandleClicks"
+            android:text="Create Meme" />
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -68,11 +75,6 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <Button
-            android:id="@+id/btnCreateMeme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onHandleClicks"
-            android:text="Create Meme" />
+
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -27,9 +27,6 @@ import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.RecyclerAdapter2;
-import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
-import com.example.chris.memegenerator.util.pojo.bingsearch.Value;
-import com.example.chris.memegenerator.util.pojo.googleserach.GoogleResponse;
 import com.example.chris.memegenerator.util.pojo.googleserach.Item;
 import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
 import java.util.ArrayList;
@@ -40,6 +37,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
+
 public class MainActivity extends AppCompatActivity implements MainContract.View, FacebookHandler.FacebookLoginListener
 {
     public static final String TAG = MainActivity.class.getSimpleName() + "_TAG";
@@ -49,25 +47,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private RecyclerAdapter2 recyclerAdapter;
     private ToggleButton btnTopTrend;
     private ToggleButton btnInterestTrend;
-    private List<String> trendingMemes, interestMemes;
-    private List<Item> result;
-    List<Image> imageUrl;
-    Handler mhandler = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg) {
-            if(msg.what == 1){
-                List<String> memesurl = (List<String>) msg.obj;
-                for (int i = 0; i <memesurl.size() ; i++) {
-                    trendingMemes.add(memesurl.get(i));
-                    // Log.d(TAG, "handleMessage: memesurl "+trendingMemes.get(i));
-                    // imageUrl.get(i).setImageUrl(memesurl.get(i));
-                }
-//                displayRecycleView();
-            }
-        }
-    };
-    public LoginButton fbLoginButton;
+    private List<String> trendingMemes, interestMemes, interests;
+    
+    
     private EditText etSerach;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,15 +58,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         setContentView(R.layout.activity_main);
         Log.d("TAG", "onCreate: ");
         MemeApplication.get(this).getMainComponent().inject(this);
-        result = new ArrayList<>();
-        imageUrl = new ArrayList<>();
         recyclerView = findViewById(R.id.rvMemeThumbnails);
         btnInterestTrend = findViewById(R.id.btnTrendingInterests);
         btnTopTrend = findViewById(R.id.btnTopTrending);
         Constants.setallFALSE();
-        //Register Facebook Login Button
-        //fbLoginButton = findViewById(R.id.facebook_login_button);
-//        FacebookHandler.getInstance().registerLoginButton(fbLoginButton,this);
         
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -93,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         presenter.attachView(this);
         trendingMemes = new ArrayList<>();
         interestMemes = new ArrayList<>();
+        interests = new ArrayList<>();
+        
+        
         
         if (btnTopTrend.isChecked())
         {
@@ -204,19 +184,24 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         imm.hideSoftInputFromWindow(etSerach.getWindowToken(), 0);
         KeyWordrestCall(etSerach.getText().toString());
     }
-    public void KeyWordrestCall (final String phrase){
+    public void KeyWordrestCall (final String phrase)
+    {
         Constants.whichCall(Constants.keyword);
         RemoteDataSource.KeyWordResponse(phrase)
                 .enqueue(new Callback<Keywords>() {
                     @Override
-                    public void onResponse(Call<Keywords> call, Response<Keywords> response) {
+                    public void onResponse(Call<Keywords> call, Response<Keywords> response)
+                    {
                         if (response.body() != null) {
                             String tag = "";
-                            for (int i = 0; i < response.body().getText().size(); i++) {
+                            for (int i = 0; i < response.body().getText().size(); i++)
+                            {
                                 Log.d(TAG, "onResponse: this is i: " + i);
-                                for (int j = 0; j < response.body().getText().get(i).size(); j++) {
+                                for (int j = 0; j < response.body().getText().get(i).size(); j++)
+                                {
                                     Log.d(TAG, "onResponse: this is j: " + j);
-                                    for (int k = 0; k < response.body().getText().get(i).get(j).size(); k++) {
+                                    for (int k = 0; k < response.body().getText().get(i).get(j).size(); k++)
+                                    {
                                         Log.d(TAG, "onResponse: this is k: " + k);
                                         Log.d(TAG, "onResponse: word "
                                                 + response.body().getText().get(i).get(j).get(k).getWord() +
@@ -233,7 +218,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         }
                     }
                     @Override
-                    public void onFailure(Call<Keywords> call, Throwable t) {
+                    public void onFailure(Call<Keywords> call, Throwable t)
+                    {
+                    
                     }
                 });
     }
