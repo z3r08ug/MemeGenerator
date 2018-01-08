@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.chris.memegenerator.LoginActivity;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.catergory.MemeCatergorySelec;
 import com.example.chris.memegenerator.util.FacebookHandler;
@@ -27,7 +28,6 @@ public class SpalashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
-               FacebookHandler facebookHandler= FacebookHandler.getInstance();
 //                Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
                 FacebookHandler facebookHandler = FacebookHandler.getInstance();
                 if (facebookHandler.getAccessToken()==null) {
