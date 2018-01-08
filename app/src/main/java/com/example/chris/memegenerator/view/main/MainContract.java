@@ -19,16 +19,11 @@ public interface MainContract
     {
         void setBingSearch(List<String> memes);
         void setInterestBingSearch(List<String> memes);
-        void setTopTrending();
-        void setInterestTrending();
-//        void setTopTrending(TopTrendingResponse topTrending);
-//        void setInterestTrending(InterestTrendingResponse interestTrending);
         void showProgress(String progress);
     }
 
     interface Presenter extends BasePresenter<View>
     {
         void getBingSearch(String search, String whichCall);
-        void getInterestTrending();
     }
 }

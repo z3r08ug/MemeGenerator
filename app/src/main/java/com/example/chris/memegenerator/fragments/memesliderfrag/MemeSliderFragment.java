@@ -87,7 +87,7 @@ public class MemeSliderFragment extends Fragment {
 
     viewPager.setAdapter(memeSliderAdapter);
 
-        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(getContext(), imageList);
+//        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(getContext(), imageList);
         viewPager.setAdapter(memeSliderAdapter);
         
         return view;
