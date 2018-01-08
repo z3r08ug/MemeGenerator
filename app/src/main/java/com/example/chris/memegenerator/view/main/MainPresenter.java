@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.util.Log;
 
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
+import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
 import com.example.chris.memegenerator.util.FacebookHandler;
 import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
 import com.facebook.login.widget.LoginButton;
@@ -89,6 +90,7 @@ public class MainPresenter implements MainContract.Presenter
                             }
                         }
                         view.setBingSearch(memes);
+                        TrendingFragment trendingFragment= TrendingFragment.newInstance(memes);
                     }
                 });
     }
@@ -99,9 +101,5 @@ public class MainPresenter implements MainContract.Presenter
     
     }
     
-    @Override
-    public void initializeFacebookLogin(LoginButton fbLoginButton)
-    {
-        FacebookHandler.getInstance().registerLoginButton(fbLoginButton);
-    }
+
 }

@@ -28,7 +28,7 @@ public class SpalashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
-                FacebookHandler facebookHandler = new FacebookHandler();
+               FacebookHandler facebookHandler= FacebookHandler.getInstance();
                 if (facebookHandler.getAccessToken()==null) {
                     startActivity(loginActivity);
                 }else{
