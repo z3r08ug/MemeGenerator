@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     {
         switch (item.getItemId())
         {
-            case R.id.create:
+            case R.id.itemCreate:
                 startActivity(new Intent(this, CreateMemeActivity.class));
                 break;
         }

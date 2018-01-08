@@ -12,7 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragment;
 import com.example.chris.memegenerator.util.Image;
@@ -81,7 +83,8 @@ static List<Image> imageList;
             Log.d("LEt", "onCreateView: "+imageList.get(i).getImageUrl());
         }
         ViewPager viewPager = view.findViewById(R.id.imageSliderPager);
-        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(getContext(), imageList);
+        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(getContext(), imageList, imageurl);
+
     viewPager.setAdapter(memeSliderAdapter);
 
         return view;

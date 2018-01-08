@@ -67,7 +67,7 @@ onMemeClickListner memeClickListner;
         final String postionSiting = Integer.toString(position+1);
 
         holder.tvMemePostion.setText(postionSiting);
-
+holder.bind(imageList.get(position),memeClickListner);
 
     }
 

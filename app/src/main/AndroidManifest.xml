@@ -30,14 +30,21 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".view.createMeme.CreateMemeActivity" />
-        <activity android:name=".LoginActivity"></activity>
-        <activity android:name=".SpalashScreen"></activity>
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-        <activity android:name=".view.createMeme.CreateMemeActivity"></activity>
-        <provider android:authorities="com.facebook.app.FacebookContentProvider1779381205696405"
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SpalashScreen" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity android:name=".view.createMeme.CreateMemeActivity" />
+
+        <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider1779381205696405"
+            android:exported="true" />
+
+        <activity android:name=".view.FavoriteMemesActivity"></activity>
     </application>
 
 </manifest>
