@@ -1,11 +1,14 @@
 package com.example.chris.memegenerator.catergory;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,5 +36,10 @@ public class MemeCatergorySelec extends AppCompatActivity {
         CategoryRCAdapter categoryRCAdapter = new CategoryRCAdapter(memesCategoryList);
         recyclerView.setAdapter(categoryRCAdapter);
     }
+
+    public void homeActivity(View view) {
+        Intent intent = new Intent(this, MemeHomeActivity.class);
+        startActivity(intent);
     }
+}
 
