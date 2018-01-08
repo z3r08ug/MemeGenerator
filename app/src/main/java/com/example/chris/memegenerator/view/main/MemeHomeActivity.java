@@ -1,6 +1,7 @@
 package com.example.chris.memegenerator.view.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -11,17 +12,21 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.catergory.MemeCatergorySelec;
 import com.example.chris.memegenerator.fragments.interestfragment.TrendingInterestFragment;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragment;
 import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.MainPagerViewAdapter;
+import com.example.chris.memegenerator.view.FavoriteMemesActivity;
+import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -105,6 +110,25 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         return super.onCreateOptionsMenu(menu);
     }
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+    switch (item.getItemId()){
+        case R.id.itemFavorites:
+            Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
+            startActivity(intentFav);
+            break;
+        case R.id.itemSettings:
+            Intent intentSearch = new Intent(this, MemeCatergorySelec.class);
+            startActivity(intentSearch);
+        case R.id.itemCreate:
+            Intent intentCreate = new Intent(this, CreateMemeActivity.class);
+            startActivity(intentCreate);
+    }
+        return super.onOptionsItemSelected(item);
+
+    }
+
     @Override
     public void showError(String error) {
     

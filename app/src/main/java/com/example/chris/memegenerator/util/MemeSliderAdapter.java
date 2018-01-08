@@ -24,10 +24,11 @@ public class MemeSliderAdapter extends PagerAdapter {
     List<Image> imageList=new ArrayList<>();
     LayoutInflater layoutInflater;
     Context context;
-
-    public MemeSliderAdapter(Context context, List<Image> images) {
+String setCurrentImage;
+    public MemeSliderAdapter(Context context, List<Image> images, String imageUrl) {
         this.context = context;
         this.imageList= images;
+        this.setCurrentImage= imageUrl;
     }
 
     @Override
@@ -50,7 +51,9 @@ public class MemeSliderAdapter extends PagerAdapter {
         String imageUrl = imageList.get(position).getImageUrl();
         Log.d("Check", "instantiateItem: "+imageUrl);
        // memeSlider.setImageResource(imageList.get(position).getImageUrl());
+
         Glide.with(context).load(imageUrl).into(memeSlider);
+
         container.addView(view);
         return view;
     }

@@ -3,22 +3,29 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/create"
+        android:id="@+id/itemCreate"
         android:title="Create a Meme"
         android:icon="@drawable/add"
-        app:showAsAction="always"
+        android:showAsAction="always"
+        tools:ignore="AppCompatResource"
         />
     <item
-        android:id="@+id/favorites"
+        android:id="@+id/itemFavorites"
         android:iconTint="@color/colorAccent"
         android:title="Favorites"
         android:icon="@drawable/heart"
         android:showAsAction="always"
         tools:ignore="AppCompatResource" />
     <item
-        android:id="@+id/settings"
+        android:id="@+id/itemSettings"
         android:title="Settings"
         android:icon="@drawable/settings"
-        android:showAsAction="always"
+        app:showAsAction="never"
+        tools:ignore="AppCompatResource" />
+    <item
+        android:id="@+id/itemLogOut"
+        android:title="Log Out"
+        android:icon="@drawable/settings"
+        app:showAsAction="never"
         tools:ignore="AppCompatResource" />
 </menu>

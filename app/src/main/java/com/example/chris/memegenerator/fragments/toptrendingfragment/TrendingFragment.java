@@ -118,6 +118,20 @@ public class TrendingFragment extends Fragment {
                         }
                     }));
                 }
+
+                topTrendingRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
+
+                    @Override
+                    public void onMemeClick(Image image) {
+
+                        Log.d("click", "onMemeClick: ");
+                        Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
+                        MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
+                        FragmentManager fragmentManager = getFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,memeSliderFragment).commit();
+
+                    }
+                }));
             }
         },2000);
         return view;

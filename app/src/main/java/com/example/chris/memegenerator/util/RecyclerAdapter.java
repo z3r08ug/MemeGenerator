@@ -67,8 +67,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         final String postionSiting = Integer.toString(position+1);
         
         holder.tvMemePostion.setText(postionSiting);
-        
-        
+holder.bind(imageList.get(position),memeClickListner);
     }
     
     @Override
