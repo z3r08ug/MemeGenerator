@@ -18,7 +18,7 @@ import android.widget.Button;
 
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
-import com.example.chris.memegenerator.catergory.MemeCatergorySelec;
+import com.example.chris.memegenerator.category.MemesCategory;
 import com.example.chris.memegenerator.fragments.interestfragment.TrendingInterestFragment;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragment;
@@ -119,7 +119,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
             startActivity(intentFav);
             break;
         case R.id.itemSettings:
-            Intent intentSearch = new Intent(this, MemeCatergorySelec.class);
+            Intent intentSearch = new Intent(this, MemesCategory.class);
             startActivity(intentSearch);
         case R.id.itemCreate:
             Intent intentCreate = new Intent(this, CreateMemeActivity.class);
@@ -147,16 +147,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         TrendingInterestFragment trendingInterestFragment = TrendingInterestFragment.newInstance(memes);
     }
     
-    @Override
-    public void setTopTrending() {
-    
-    }
-    
-    @Override
-    public void setInterestTrending()
-    {
-    
-    }
     
     @Override
     public void showProgress(String progress) {

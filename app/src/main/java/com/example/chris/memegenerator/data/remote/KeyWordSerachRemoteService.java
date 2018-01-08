@@ -1,6 +1,6 @@
 package com.example.chris.memegenerator.data.remote;
 
-import com.example.Keywords;
+import com.example.chris.memegenerator.util.pojo.keywordfinder.Keywords;
 import com.example.chris.memegenerator.util.pojo.googleserach.GoogleResponse;
 
 import retrofit2.Call;
