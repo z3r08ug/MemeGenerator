@@ -1,13 +1,10 @@
 package com.example.chris.memegenerator.view.main;
 
-import android.app.ListActivity;
 import android.util.Log;
 
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
-import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
-import com.example.chris.memegenerator.util.FacebookHandler;
+import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
-import com.facebook.login.widget.LoginButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,8 +54,9 @@ public class MainPresenter implements MainContract.Presenter
     
     
     @Override
-    public void getBingSearch(final String search)
+    public void getBingSearch(final String search, final String whichcall)
     {
+        Constants.whichCall(Constants.bing);
         RemoteDataSource.getBingResponse(search)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -93,12 +91,19 @@ public class MainPresenter implements MainContract.Presenter
                                 memes.add(bing.getValue().get(i).getThumbnailUrl());
                             }
                         }
-                        view.setBingSearch(memes);
-
+                        if(whichcall == Constants.topTrending) {
+                            view.setBingSearch(memes);
+                            Log.d(TAG, "onComplete: top");
+                        }
+                        else if(whichcall==Constants.interestTrending) {
+                            view.setInterestBingSearch(memes);
+                            Log.d(TAG, "onComplete: Interest");
+                        }
+                        Log.d(TAG, "onComplete: thisssss size "+ memes.size());
+                        //memes.clear();
                     }
                 });
     }
-    
     @Override
     public void getInterestTrending()
     {

@@ -1,10 +1,7 @@
 package com.example.chris.memegenerator.util;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.R;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +20,9 @@ import java.util.List;
  * Created by chris on 12/6/2017.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder>
+public class RecyclerAdapter2 extends RecyclerView.Adapter<RecyclerAdapter2.ViewHolder>
 {
-    private static final String TAG = RecyclerAdapter.class.getSimpleName() + "_TAG";
+    private static final String TAG = RecyclerAdapter2.class.getSimpleName() + "_TAG";
     List<String> memes = new ArrayList<>();
     List<Image> imageList = new ArrayList<>();
     onMemeClickListner memeClickListner;
@@ -34,9 +30,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         void onMemeClick(Image image);
         
     }
-    public RecyclerAdapter(List<Image> imageList, onMemeClickListner memeClickListner) {
-        this.imageList = imageList;
-        this.memeClickListner = memeClickListner;
+    public RecyclerAdapter2(List<String> memes) {
+        this.memes = memes;
     }
     
     Context context;
@@ -59,11 +54,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
     
     @Override
-    public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, final int position)
+    public void onBindViewHolder(RecyclerAdapter2.ViewHolder holder, final int position)
     {
         // Glide.with(context).load(imageList.get(position).getImageUrl()).into(holder.ivMeme);
-        Log.d(TAG, "onBindViewHolder: memes "+ imageList.get(position).getImageUrl());
-        Glide.with(context).load(imageList.get(position).getImageUrl()).into(holder.ivMeme);
+//        Log.d(TAG, "onBindViewHolder: memes "+ imageList.get(position).getImageUrl());
+        Glide.with(context).load(memes.get(position)).into(holder.ivMeme);
         final String postionSiting = Integer.toString(position+1);
         
         holder.tvMemePostion.setText(postionSiting);
@@ -74,7 +69,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     @Override
     public int getItemCount()
     {
-        return imageList.size();
+        return memes.size();
     }
     
     public class ViewHolder extends RecyclerView.ViewHolder

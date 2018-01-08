@@ -6,7 +6,7 @@ android:layout_width="match_parent"
 android:orientation="vertical"
 android:background="#52B3D9"
 android:layout_height="match_parent"
-tools:context="com.example.chris.memegenerator.catergory.MemeCatergorySelec">
+tools:context="com.example.chris.memegenerator.catergory.MemeInterestActivity">
 <android.support.v7.widget.RecyclerView
     android:id="@+id/rcCategoryView"
     android:layout_width="match_parent"
