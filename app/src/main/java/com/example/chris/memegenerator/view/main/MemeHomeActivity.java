@@ -47,7 +47,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_meme_activity
         );
-        MemeApplication.get(this).getMainComponent().inject(this);
+//        MemeApplication.get(this).getMainComponent().inject(this);
         homeToolbar = findViewById(R.id.home_toolbar);
         homeToolbar.setBackgroundColor(Color.parseColor("#19B5FE"));
         viewPager = findViewById(R.id.app_main_pager);
