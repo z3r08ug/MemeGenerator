@@ -17,6 +17,7 @@ import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
+import com.example.chris.memegenerator.view.main.MainContract;
 
 import java.util.ArrayList;
 import java.util.List;
