@@ -38,7 +38,7 @@ public class FacebookHandler {
     private CallbackManager callbackManager;
     private static FacebookHandler handler=null;
 
-    public FacebookHandler()
+    private FacebookHandler()
     {
     
     }
