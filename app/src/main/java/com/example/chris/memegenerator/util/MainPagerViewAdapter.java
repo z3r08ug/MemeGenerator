@@ -2,21 +2,22 @@ package com.example.chris.memegenerator.util;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 
-import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragment;
-import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
 import com.example.chris.memegenerator.fragments.interestfragment.TrendingInterestFragment;
+import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
+
+import java.util.logging.Handler;
 
 /**
  * Created by  Admin on 12/22/2017.
  */
 
 public class MainPagerViewAdapter extends FragmentStatePagerAdapter {
+
+    private TrendingFragment trendingFragment;
 
     public MainPagerViewAdapter(FragmentManager fm) {
         super(fm);
@@ -26,8 +27,13 @@ public class MainPagerViewAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                TrendingFragment trendingFragment = new TrendingFragment();
+
+                        trendingFragment = new TrendingFragment();
+
+
                 return trendingFragment;
+
+
             case 1:
                 TrendingInterestFragment trendingInterestFragment = new TrendingInterestFragment();
                 return trendingInterestFragment;
