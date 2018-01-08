@@ -112,15 +112,11 @@ public class FacebookHandler {
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(bitmap)
                 .build();
-        ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
-                .putString("Website",APP_URL)
-                .putPhoto("Meme",sharePhoto)
+        ShareContent shareContent = new ShareMediaContent.Builder()
+                .addMedium(sharePhoto)
                 .build();
-        ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
-                .setPreviewPropertyName("meme")
-                .setAction(action)
-                .build();
-        ShareDialog.show(activity,content);
+        ShareDialog shareDialog = new ShareDialog(activity);
+        shareDialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
     }
 
     public void getName(final FacebookListener facebookListener) {
