@@ -30,6 +30,7 @@ import java.util.List;
  */
 public class TrendingFragment extends Fragment {
     static List<String> memesList;
+    String TAG = "Fragment Top Trending";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -55,11 +56,13 @@ public class TrendingFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static TrendingFragment newInstance(List<String> param1) {
+
         TrendingFragment fragment = new TrendingFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, (Serializable) param1);
 //        args.putString(ARG_PARAM2, param2);
         memesList=param1;
+        Log.d("Fragments", "newInstance: "+ memesList.size());
         fragment.setArguments(args);
         return fragment;
     }
@@ -97,11 +100,14 @@ public class TrendingFragment extends Fragment {
 //        for (int i = 0; i < 10; i++)
 //            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
 
+
+               // memesList.clear();
                 for (int i = 0; i < memesList.size(); i++) {
                     imageList.add(new Image(memesList.get(i)));
                     Log.d("Great", "run: "+memesList.get(i));
 
                 }
+                Log.d(TAG, "run:thissssssssssssss sizeee "+ imageList.size());
 //        recyclerAdapter = new RecyclerAdapter(memes);
 //        topTrendingRv.setAdapter(recyclerAdapter);
                 topTrendingRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
@@ -152,11 +158,6 @@ public class TrendingFragment extends Fragment {
 
                     }
                 }));
-
-
-
-
-
     }
 
 }

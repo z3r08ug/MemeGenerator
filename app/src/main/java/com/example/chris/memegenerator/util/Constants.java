@@ -12,10 +12,15 @@ public class Constants
    public static boolean iskeyword ;
    public static boolean istrending ;
    public static boolean isbing ;
+   public static boolean istopTrending ;
+   public static boolean isinterestTrending ;
    public static final String google = "google";
    public static final String keyword = "keyword";
    public static final String bing = "bing";
    public static final String trending = "trending";
+   public static final String topTrending = "topTrending";
+   public static final String interestTrending = "interestTrending";
+
 
    public static void whichCall(String whichcall) {
 
@@ -32,6 +37,12 @@ public class Constants
         case Constants.trending:
            istrending = true;
            break;
+        case Constants.interestTrending:
+           isinterestTrending = true;
+           break;
+        case Constants.topTrending:
+           istopTrending = true;
+           break;
      }
    }
    public static void setallFALSE(){
@@ -39,6 +50,8 @@ public class Constants
       iskeyword = false;
       istrending = false;
       isbing = false;
+      istopTrending = false;
+      isinterestTrending = false;
 
    }
 }
