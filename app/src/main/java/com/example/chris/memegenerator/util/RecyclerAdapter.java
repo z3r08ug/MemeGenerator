@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.R;
-import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
-import com.example.chris.memegenerator.view.main.MemeHomeActivity;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,11 +61,13 @@ onMemeClickListner memeClickListner;
     @Override
     public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, final int position)
     {
-        Glide.with(context).load(imageList.get(position).getImageUrl()).into(holder.ivMeme);
+       // Glide.with(context).load(imageList.get(position).getImageUrl()).into(holder.ivMeme);
+        Log.d(TAG, "onBindViewHolder: memes "+ memes.get(position));
+        Glide.with(context).load(memes.get(position)).into(holder.ivMeme);
         final String postionSiting = Integer.toString(position+1);
 
         holder.tvMemePostion.setText(postionSiting);
-holder.bind(imageList.get(position), memeClickListner);
+//holder.bind(imageList.get(position), memeClickListner);
 //        holder.ivMeme.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -83,7 +85,7 @@ holder.bind(imageList.get(position), memeClickListner);
     @Override
     public int getItemCount()
     {
-        return imageList.size();
+        return memes.size();
     }
     
     public class ViewHolder extends RecyclerView.ViewHolder
