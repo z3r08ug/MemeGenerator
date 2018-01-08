@@ -17,17 +17,17 @@
         <activity
             android:name=".view.main.SplashScreen"
             android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name=".category.MemeInterestActivity" />
-        <!--<activity android:name=".view.main.MemeHomeActivity" />-->
-        <activity android:name=".view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".category.MemeInterestActivity" />
+        <activity android:name=".view.main.MemeHomeActivity" />
+        <!--<activity android:name=".view.main.MainActivity">-->
+
+        <!--</activity>-->
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

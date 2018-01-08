@@ -6,14 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,13 +38,25 @@ public class MemeInterestActivity extends AppCompatActivity
     
         try
         {
-            fos = openFileOutput("interests.txt", Context.MODE_PRIVATE);
-            fos.close();
-            startMemeHomeActivity();
+            InputStream instream = openFileInput("interests.txt");
+            if (instream != null)
+            {
+                InputStreamReader inputreader = new InputStreamReader(instream);
+                BufferedReader buffreader = new BufferedReader(inputreader);
+                String line,line1 = "";
+                try
+                {
+                    while ((line = buffreader.readLine()) != null)
+                        line1+=line;
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
-        catch (IOException e)
+        catch (Exception e)
         {
-            e.printStackTrace();
+            Log.d(TAG, "onCreate: "+e.toString());
         }
     
         recyclerView = findViewById(R.id.rcCategoryView);
