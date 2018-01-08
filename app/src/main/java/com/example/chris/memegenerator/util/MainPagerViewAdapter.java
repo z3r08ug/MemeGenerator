@@ -18,10 +18,6 @@ import com.example.chris.memegenerator.fragments.interestfragment.TrendingIntere
 
 public class MainPagerViewAdapter extends FragmentStatePagerAdapter {
 
-    private SearchMemeFragment searchMemeFcragment;
-    private TrendingInterestFragment trendingInterestFragment;
-    private TrendingFragment trendingFragment;
-
     public MainPagerViewAdapter(FragmentManager fm) {
         super(fm);
     }
@@ -30,13 +26,13 @@ public class MainPagerViewAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                trendingFragment = new TrendingFragment();
+                TrendingFragment trendingFragment = new TrendingFragment();
                 return trendingFragment;
             case 1:
-                trendingInterestFragment = new TrendingInterestFragment();
+                TrendingInterestFragment trendingInterestFragment = new TrendingInterestFragment();
                 return trendingInterestFragment;
            case 2:
-               searchMemeFcragment = new SearchMemeFragment();
+               SearchMemeFragment searchMemeFcragment = new SearchMemeFragment();
 
                 return searchMemeFcragment;
                 default:
