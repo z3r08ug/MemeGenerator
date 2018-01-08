@@ -78,6 +78,9 @@ public class RemoteDataSource
             baseurl = BingSearchBaseurl;
         }
         Log.d(TAG, "create: base url "+ baseurl);
+        Log.d(TAG, "create: google base url"+GoogleSerachBaseUrl);
+        Log.d(TAG, "create: keyword base url"+KeyWordSerachBaseUrl);
+        Log.d(TAG, "create: bing base url "+BingSearchBaseurl);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseurl)
                 //add converter to parse the response
