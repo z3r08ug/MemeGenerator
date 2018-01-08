@@ -28,15 +28,14 @@ public class SpalashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
-//                Intent loginActivity = new Intent(getApplicationContext(),LoginActivity.class);
                 FacebookHandler facebookHandler = FacebookHandler.getInstance();
                 if (facebookHandler.getAccessToken()==null) {
-//                    startActivity(loginActivity);
+                    startActivity(loginActivity);
                 }else{
                     Intent homeActivity = new Intent(getApplicationContext(), MemeCatergorySelec.class);
                     startActivity(homeActivity);
                 }
-                // activity.finish();
+//                 activity.finish();
             }
         }, 1000);
     }

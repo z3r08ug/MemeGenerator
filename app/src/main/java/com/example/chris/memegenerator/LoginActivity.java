@@ -14,13 +14,13 @@ public class LoginActivity extends AppCompatActivity implements FacebookHandler.
 
     private LoginButton loginButton;
     private FacebookHandler facebookHandler;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         loginButton = findViewById(R.id.login_button);
-        FacebookHandler facebookHandler = FacebookHandler.getInstance();
+        facebookHandler = FacebookHandler.getInstance();
         facebookHandler.registerLoginButton(loginButton,this);
 
 
