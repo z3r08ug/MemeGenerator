@@ -17,6 +17,6 @@ public interface TopTrendingContractor {
 
     }
     interface Presenter extends BasePresenter<View>{
-        void getTopTrendingMemes(List<String> memesList);
+        void getTopTrendingMemes(String searchTerm);
     }
 }
