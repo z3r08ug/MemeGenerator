@@ -44,9 +44,10 @@ public class FacebookHandler {
     private CallbackManager callbackManager;
     private static FacebookHandler handler=null;
 
-    private FacebookHandler() {
+    private FacebookHandler()
+    {
+    
     }
-
     public static synchronized FacebookHandler getInstance() {
         if(handler==null)
             handler = new FacebookHandler();
@@ -85,7 +86,7 @@ public class FacebookHandler {
         accessToken = token;
     }
 
-    public AccessToken getAccessToken() {
+    public  AccessToken getAccessToken() {
         //If user is already logged in, set accessToken to current one
         if(accessToken==null)
             if(AccessToken.getCurrentAccessToken()!=null)

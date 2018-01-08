@@ -2,6 +2,7 @@ package com.example.chris.memegenerator.fragments.searchfragment;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.chris.memegenerator.R;
@@ -39,6 +41,7 @@ public class SearchMemeFragment extends Fragment {
     private String mParam2;
     private RecyclerView rvSearchMeme;
     private List<Image> imageList;
+    private FloatingActionButton btnSearch;
 
 
     public SearchMemeFragment() {
@@ -77,6 +80,7 @@ public class SearchMemeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_search_meme, container, false);
+        btnSearch = view.findViewById(R.id.btnSearchMemes);
         memes=new ArrayList<>();
         rvSearchMeme = view.findViewById(R.id.rvSearchMeme);
         rvSearchMeme.setLayoutManager(new GridLayoutManager(this.getActivity(),2));
@@ -85,8 +89,17 @@ public class SearchMemeFragment extends Fragment {
 //        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(this.getActivity());
 //        viewPager.setAdapter(memeSliderAdapter);
         loadInterestTrending();
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         return view;
     }
+
+
     private void loadInterestTrending()
     {
         imageList = new ArrayList<>();
