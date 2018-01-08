@@ -1,12 +1,9 @@
 package com.example.chris.memegenerator.data.remote;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.chris.memegenerator.util.pojo.keywordfinder.Keywords;
-import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.util.Constants;
-import com.example.chris.memegenerator.view.main.MainActivity;
 import com.example.chris.memegenerator.util.Keyword;
 
 import java.util.ArrayList;
