@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.util.FacebookHandler;
+import com.example.chris.memegenerator.util.InstagramHandler;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -185,29 +186,12 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
     
     private void saveMeme()
     {
-//        File root = Environment.getExternalStorageDirectory();
-//        File file = new File(root.getAbsolutePath()+"/DCIM/Camera/meme.jpg");
-//        try
-//        {
-//            file.createNewFile();
-//            FileOutputStream ostream = new FileOutputStream(file);
-//            combined.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-//            ostream.close();
-//            Toast.makeText(this, "Saved Meme", Toast.LENGTH_SHORT).show();
-//        }
-//        catch (Exception e)
-//        {
-//            Log.d(TAG, "saveMeme: "+e.toString());
-//            Toast.makeText(this, "Error Saving Meme", Toast.LENGTH_SHORT).show();
-//        }
-    
-    
         String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()+ "/Camera/Your_Directory_Name";
         File myDir = new File(root);
         myDir.mkdirs();
         String fname = "Meme.png";
         File file = new File(myDir, fname);
-        System.out.println(file.getAbsolutePath());
+        Log.d(TAG, "saveMeme: " + file.getAbsolutePath());
         if (file.exists()) file.delete();
         Log.i("LOAD", root + fname);
         try {
@@ -216,6 +200,9 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
             out.flush();
             out.close();
             Toast.makeText(this, "Saved Meme", Toast.LENGTH_SHORT).show();
+    
+            InstagramHandler instagramHandler = new InstagramHandler();
+            instagramHandler.createInstagramIntent(file.getAbsolutePath(), "Meme", this);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Failed to Save Meme", Toast.LENGTH_SHORT).show();

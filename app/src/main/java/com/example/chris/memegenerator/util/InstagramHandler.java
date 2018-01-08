@@ -10,8 +10,13 @@ import java.io.File;
  * Created by Nabeel on 1/7/2018.
  */
 
-public class InstagramHandler {
-
+public class InstagramHandler
+{
+    
+    public InstagramHandler()
+    {
+    }
+    
     public static void createInstagramIntent(String mediaPath, String title, Context context) {
 
         // Create the new Intent using the 'Send' action.

@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("TAG", "onCreate: ");
-        MemeApplication.get(this).getMainComponent().inject(this);
+//        MemeApplication.get(this).getMainComponent().inject(this);
         recyclerView = findViewById(R.id.rvMemeThumbnails);
         btnInterestTrend = findViewById(R.id.btnTrendingInterests);
         btnTopTrend = findViewById(R.id.btnTopTrending);
