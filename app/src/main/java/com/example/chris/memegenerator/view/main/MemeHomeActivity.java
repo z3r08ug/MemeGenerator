@@ -34,14 +34,13 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     TabLayout mainTabLayout;
     ViewPager viewPager;
     private Toolbar homeToolbar;
-    private Button removeButton;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_meme_activity
         );
-        MemeApplication.get(this).getMainComponent().inject(this);
+//        MemeApplication.get(this).getMainComponent().inject(this);
         homeToolbar = findViewById(R.id.home_toolbar);
         homeToolbar.setBackgroundColor(Color.parseColor("#19B5FE"));
         viewPager = findViewById(R.id.app_main_pager);
@@ -49,61 +48,61 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         mainTabLayout.setBackgroundColor(Color.parseColor("#1E8BC3"));
         mainViewPagerAdapter = new MainPagerViewAdapter(getSupportFragmentManager());
         presenter.attachView(this);
-        presenter.getBingSearch("memes",Constants.topTrending);
-        presenter.getBingSearch("food",Constants.interestTrending);
-        presenter.getBingSearch("soccer",Constants.interestTrending);
+//        presenter.getBingSearch("trendingMemes", Constants.topTrending);
+        presenter.getBingSearch("cat trendingMemes", Constants.interestTrending);
         viewPager.setAdapter(mainViewPagerAdapter);
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
         mainViewPagerAdapter.notifyDataSetChanged();
-        Constants.setallFALSE();
-
+        
     }
-
-public void btnRemoveFrag(View view){
-    Log.d("great", "btnRemoveFrag: ");
-    MemeSliderFragment memeSliderFragment = new MemeSliderFragment();
-     getSupportFragmentManager().beginTransaction().remove(memeSliderFragment).commit();
-    //fragmentManager.beginTransaction().remove(memeSliderFragment).commit();
-}
-
+    
+    public void btnRemoveFrag(View view){
+        Log.d("great", "btnRemoveFrag: ");
+        MemeSliderFragment memeSliderFragment = new MemeSliderFragment();
+        getSupportFragmentManager().beginTransaction().remove(memeSliderFragment).commit();
+        //fragmentManager.beginTransaction().remove(memeSliderFragment).commit();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater =new MenuInflater(this);
-menuInflater.inflate(R.menu.main_menu, menu);
+        menuInflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+    
     @Override
     public void showError(String error) {
-
+    
     }
-
+    
     @Override
     public void setBingSearch(List<String> memes) {
         Log.d("Set", "setBingSearch: "+memes.size());
-            TrendingFragment trendingFragment = TrendingFragment.newInstance(memes);
-
+        TrendingFragment trendingFragment = TrendingFragment.newInstance(memes);
     }
-
+    
     @Override
-    public void setInterestBingSearch(List<String> memes) {
+    public void setInterestBingSearch(List<String> memes)
+    {
+        Log.d("setInterests", "setInterestBingSearch: "+memes.size());
         TrendingInterestFragment trendingInterestFragment = TrendingInterestFragment.newInstance(memes);
     }
-
+    
     @Override
     public void setTopTrending() {
-
+    
     }
-
+    
     @Override
-    public void setInterestTrending() {
-
+    public void setInterestTrending()
+    {
+    
     }
-
+    
     @Override
     public void showProgress(String progress) {
-
+    
     }
 
 //    public void openSearchFragment(View view) {

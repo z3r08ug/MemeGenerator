@@ -26,10 +26,9 @@ public class MainPresenter implements MainContract.Presenter
     MainContract.View view;
     public static final String TAG = MainPresenter.class.getSimpleName() + "_TAG";
     BingSearch bing = null;
-    List<String> memes = new ArrayList<>();
+    List<String> trendingMemes = new ArrayList<>();
+    List<String> interestMemes = new ArrayList<>();
     
-    //    private TopTrendingResponse topTrendingResponse;
-//    private InterestTrendingResponse interestTrendingResponse;
     @Inject
     public MainPresenter(RemoteDataSource remoteDataSource)
     {
@@ -65,7 +64,7 @@ public class MainPresenter implements MainContract.Presenter
                     @Override
                     public void onSubscribe(Disposable d)
                     {
-                        view.showProgress("Downloading memes.....");
+                        view.showProgress("Downloading trendingMemes.....");
                     }
                     
                     @Override
@@ -88,19 +87,19 @@ public class MainPresenter implements MainContract.Presenter
                         {
                             if (bing.getValue().get(i) != null)
                             {
-                                memes.add(bing.getValue().get(i).getThumbnailUrl());
+                                if (whichcall == Constants.topTrending)
+                                    trendingMemes.add(bing.getValue().get(i).getThumbnailUrl());
+                                else
+                                    interestMemes.add(bing.getValue().get(i).getThumbnailUrl());
                             }
                         }
-                        if(whichcall == Constants.topTrending) {
-                            view.setBingSearch(memes);
-                            Log.d(TAG, "onComplete: top");
+                        if(whichcall == Constants.topTrending)
+                        {
+                            view.setBingSearch(trendingMemes);
                         }
                         else if(whichcall==Constants.interestTrending) {
-                            view.setInterestBingSearch(memes);
-                            Log.d(TAG, "onComplete: Interest");
+                            view.setInterestBingSearch(interestMemes);
                         }
-                        Log.d(TAG, "onComplete: thisssss size "+ memes.size());
-                        //memes.clear();
                     }
                 });
     }

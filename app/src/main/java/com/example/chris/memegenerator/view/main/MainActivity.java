@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         
         if (btnTopTrend.isChecked())
         {
-            presenter.getBingSearch("cat trendingMemes", Constants.interestTrending);
-            presenter.getBingSearch("trendingMemes", Constants.topTrending);
+            presenter.getBingSearch("cat memes", Constants.interestTrending);
+            presenter.getBingSearch("memes", Constants.topTrending);
         }
         
     }
