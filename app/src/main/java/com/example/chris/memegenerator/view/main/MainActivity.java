@@ -42,7 +42,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
-public class MainActivity extends AppCompatActivity implements MainContract.View
+public class MainActivity extends AppCompatActivity implements MainContract.View, FacebookHandler.FacebookLoginListener
 {
     public static final String TAG = MainActivity.class.getSimpleName() + "_TAG";
     @Inject
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         Constants.setallFALSE();
         //Register Facebook Login Button
         fbLoginButton = findViewById(R.id.facebook_login_button);
-        FacebookHandler.getInstance().registerLoginButton(fbLoginButton);
+        FacebookHandler.getInstance().registerLoginButton(fbLoginButton,this);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
         RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
@@ -434,5 +434,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     public void newActivity(View view) {
+    }
+
+    //This function will run on successful Facebook login
+    @Override
+    public void onSuccess() {
+        //TODO Do something after the user successfully logs into Facebook!
     }
 }
