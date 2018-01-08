@@ -3,6 +3,7 @@ package com.example.chris.memegenerator.util;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 
 import com.facebook.AccessToken;
@@ -15,7 +16,10 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.facebook.share.model.ShareContent;
+import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.model.ShareMediaContent;
+import com.facebook.share.model.ShareOpenGraphAction;
+import com.facebook.share.model.ShareOpenGraphContent;
 import com.facebook.share.model.SharePhoto;
 import com.facebook.share.widget.ShareDialog;
 
@@ -34,14 +38,16 @@ import java.util.Set;
 public class FacebookHandler {
 
     private static final String TAG = "FacebookHandlerTag";
+    //TODO put our app url here
+    private static final String APP_URL = "http://www.smartmemeapp.com";
     private AccessToken accessToken=null;
     private CallbackManager callbackManager;
     private static FacebookHandler handler=null;
 
-
-    private FacebookHandler() {
+    private FacebookHandler()
+    {
+    
     }
-
     public static synchronized FacebookHandler getInstance() {
         if(handler==null)
             handler = new FacebookHandler();
@@ -106,11 +112,15 @@ public class FacebookHandler {
         SharePhoto sharePhoto = new SharePhoto.Builder()
                 .setBitmap(bitmap)
                 .build();
-        ShareContent shareContent = new ShareMediaContent.Builder()
-                .addMedium(sharePhoto)
+        ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+                .putString("Website",APP_URL)
+                .putPhoto("Meme",sharePhoto)
                 .build();
-        ShareDialog shareDialog = new ShareDialog(activity);
-        shareDialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
+        ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
+                .setPreviewPropertyName("meme")
+                .setAction(action)
+                .build();
+        ShareDialog.show(activity,content);
     }
 
     public void getName(final FacebookListener facebookListener) {
@@ -155,13 +165,17 @@ public class FacebookHandler {
         return (getAccessToken()!=null);
     }
 
+    public void logout() {
+        AccessToken.setCurrentAccessToken(null);
+    }
+
     //Any Class that wants to get back the facebook name must implement this interface
     //Result of a getName() request will be return to the interface
     public interface FacebookListener {
         void receiveFacebookName(String name);
     }
 
-    //Any Class that wants to listen to facebook login events can implement this method
+    //Any Class that wants to listen to facebook login events can implement this interface
     public interface FacebookLoginListener {
         void onSuccess();
     }
