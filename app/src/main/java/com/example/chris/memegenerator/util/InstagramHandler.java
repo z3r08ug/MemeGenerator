@@ -12,13 +12,13 @@ import java.io.File;
 
 public class InstagramHandler {
 
-    public static void createInstagramIntent(String type, String mediaPath, Context context) {
+    public static void createInstagramIntent(String mediaPath, String title, Context context) {
 
         // Create the new Intent using the 'Send' action.
         Intent share = new Intent(Intent.ACTION_SEND);
 
         // Set the MIME type
-        share.setType(type);
+        share.setType("image/*");
 
         // Create the URI from the media
         File media = new File(mediaPath);
@@ -26,6 +26,7 @@ public class InstagramHandler {
 
         // Add the URI to the Intent.
         share.putExtra(Intent.EXTRA_STREAM, uri);
+        share.putExtra(Intent.EXTRA_TITLE, title);
 
         // Broadcast the Intent.
         context.getApplicationContext().startActivity(Intent.createChooser(share,"Share To"));
