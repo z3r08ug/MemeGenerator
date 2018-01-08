@@ -83,22 +83,13 @@ public class TrendingFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_top_trending, container, false);
         topTrendingRv = view.findViewById(R.id.rvTopTrendingMemes);
         topTrendingRv.setLayoutManager(new GridLayoutManager(this.getActivity(),2));
-//        for (int i = 0; i < memesList.size(); i++) {
-//            Log.d("Great", "onCreateView: "+memesList.get(i));
-//        }
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 final List<Image> imageList= new ArrayList<>();
-//        // memes.clear();
-//        for (int i = 0; i < 10; i++) {
-//            //  memes.add("https://loremflickr.com/320/240?random=3");
-//            imageList.add(new Image("https://loremflickr.com/320/240"));
-//        }
-//        memes.clear();
-//        for (int i = 0; i < 10; i++)
-//            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
+
 
 
                // memesList.clear();
@@ -106,7 +97,6 @@ public class TrendingFragment extends Fragment {
                     imageList.add(new Image(memesList.get(i)));
                     Log.d("Great", "run: "+memesList.get(i));
 
-                }
                 Log.d(TAG, "run:thissssssssssssss sizeee "+ imageList.size());
 //        recyclerAdapter = new RecyclerAdapter(memes);
 //        topTrendingRv.setAdapter(recyclerAdapter);
