@@ -80,30 +80,20 @@ public class TrendingFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_top_trending, container, false);
         topTrendingRv = view.findViewById(R.id.rvTopTrendingMemes);
         topTrendingRv.setLayoutManager(new GridLayoutManager(this.getActivity(),2));
-//        for (int i = 0; i < memesList.size(); i++) {
-//            Log.d("Great", "onCreateView: "+memesList.get(i));
-//        }
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
 
                 final List<Image> imageList= new ArrayList<>();
-//        // memes.clear();
-//        for (int i = 0; i < 10; i++) {
-//            //  memes.add("https://loremflickr.com/320/240?random=3");
-//            imageList.add(new Image("https://loremflickr.com/320/240"));
-//        }
-//        memes.clear();
-//        for (int i = 0; i < 10; i++)
-//            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
+
 
                 for (int i = 0; i < memesList.size(); i++) {
                     imageList.add(new Image(memesList.get(i)));
                     Log.d("Great", "run: "+memesList.get(i));
 
                 }
-//        recyclerAdapter = new RecyclerAdapter(memes);
-//        topTrendingRv.setAdapter(recyclerAdapter);
+
                 topTrendingRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
 
                     @Override
@@ -122,41 +112,6 @@ public class TrendingFragment extends Fragment {
         return view;
     }
 
-    private void loadMemes(final RecyclerView paramRv, final List<String> stringList) {
 
-                final List<Image> imageList= new ArrayList<>();
-//        // memes.clear();
-//        for (int i = 0; i < 10; i++) {
-//            //  memes.add("https://loremflickr.com/320/240?random=3");
-//            imageList.add(new Image("https://loremflickr.com/320/240"));
-//        }
-//        memes.clear();
-//        for (int i = 0; i < 10; i++)
-//            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
-
-                for (int i = 0; i < stringList.size(); i++) {
-                    imageList.add(new Image(stringList.get(i)));
-                    Log.d("Great", "run: "+stringList.get(i));
-
-                }
-//        recyclerAdapter = new RecyclerAdapter(memes);
-//        topTrendingRv.setAdapter(recyclerAdapter);
-                paramRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
-                    @Override
-                    public void onMemeClick(Image image) {
-                        Log.d("click", "onMemeClick: ");
-                        Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
-                        MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,memeSliderFragment).addToBackStack("Slider").commit();
-
-                    }
-                }));
-
-
-
-
-
-    }
 
 }
