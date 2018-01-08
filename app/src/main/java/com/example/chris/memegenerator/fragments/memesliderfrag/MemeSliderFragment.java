@@ -30,20 +30,20 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class MemeSliderFragment extends Fragment {
-
+    
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-
+    
+    
     private List<Image> mParam1;
     private String mParam2;
-static String imageurl;
-static List<Image> imageList;
+    static String imageurl;
+    static List<Image> imageList;
     public MemeSliderFragment() {
         // Required empty public constructor
     }
-
+    
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -63,7 +63,7 @@ static List<Image> imageList;
         fragment.setArguments(args);
         return fragment;
     }
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +72,7 @@ static List<Image> imageList;
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,7 +87,10 @@ static List<Image> imageList;
 
     viewPager.setAdapter(memeSliderAdapter);
 
+        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(getContext(), imageList);
+        viewPager.setAdapter(memeSliderAdapter);
+        
         return view;
     }
-
+    
 }

@@ -1,5 +1,7 @@
 package com.example.chris.memegenerator.di.app;
 
+import com.example.chris.memegenerator.di.createMeme.CreateMemeComponent;
+import com.example.chris.memegenerator.di.createMeme.CreateMemeModule;
 import com.example.chris.memegenerator.di.main.MainComponent;
 import com.example.chris.memegenerator.di.main.MainModule;
 
@@ -13,4 +15,5 @@ import dagger.Component;
 public interface AppComponent
 {
     MainComponent add(MainModule mainModule);
+    CreateMemeComponent add(CreateMemeModule createMemeModule);
 }

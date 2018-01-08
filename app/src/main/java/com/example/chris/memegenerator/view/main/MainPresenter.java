@@ -1,5 +1,7 @@
 package com.example.chris.memegenerator.view.main;
 
+import android.util.Log;
+
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
@@ -24,17 +26,17 @@ public class MainPresenter implements MainContract.Presenter
     MainContract.View view;
     public static final String TAG = MainPresenter.class.getSimpleName() + "_TAG";
     BingSearch bing = null;
-    List<String> memes = new ArrayList<>();
+    List<String> trendingMemes = new ArrayList<>();
+    List<String> interestMemes = new ArrayList<>();
     
-    //    private TopTrendingResponse topTrendingResponse;
-//    private InterestTrendingResponse interestTrendingResponse;
     @Inject
     public MainPresenter(RemoteDataSource remoteDataSource)
     {
         this.remoteDataSource = remoteDataSource;
     }
 
-    public MainPresenter() {
+    public MainPresenter()
+    {
     }
 
     @Override
@@ -51,7 +53,7 @@ public class MainPresenter implements MainContract.Presenter
     
     
     @Override
-    public void getBingSearch(final String search)
+    public void getBingSearch(final String search, final String whichcall)
     {
         Constants.whichCall(Constants.bing);
         RemoteDataSource.getBingResponse(search)
@@ -62,7 +64,7 @@ public class MainPresenter implements MainContract.Presenter
                     @Override
                     public void onSubscribe(Disposable d)
                     {
-                        view.showProgress("Downloading memes.....");
+                        view.showProgress("Downloading trendingMemes.....");
                     }
                     
                     @Override
@@ -85,15 +87,22 @@ public class MainPresenter implements MainContract.Presenter
                         {
                             if (bing.getValue().get(i) != null)
                             {
-                                memes.add(bing.getValue().get(i).getThumbnailUrl());
+                                if (whichcall == Constants.topTrending)
+                                    trendingMemes.add(bing.getValue().get(i).getThumbnailUrl());
+                                else
+                                    interestMemes.add(bing.getValue().get(i).getThumbnailUrl());
                             }
                         }
-                        view.setBingSearch(memes);
-
+                        if(whichcall == Constants.topTrending)
+                        {
+                            view.setBingSearch(trendingMemes);
+                        }
+                        else if(whichcall==Constants.interestTrending) {
+                            view.setInterestBingSearch(interestMemes);
+                        }
                     }
                 });
     }
-    
     @Override
     public void getInterestTrending()
     {

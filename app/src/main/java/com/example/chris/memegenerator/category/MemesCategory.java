@@ -1,4 +1,4 @@
-package com.example.chris.memegenerator.catergory;
+package com.example.chris.memegenerator.category;
 
 /**
  * Created by  Admin on 12/22/2017.

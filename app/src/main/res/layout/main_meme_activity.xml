@@ -5,57 +5,57 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<android.support.design.widget.AppBarLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <include layout="@layout/main_tool_bar"/>
-<LinearLayout
-    android:orientation="vertical"
-android:layout_marginBottom="10dp"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <EditText
-        android:background="@android:color/white"
-        android:padding="5dp"
-        android:hint="Post on Facebook"
-        android:layout_width="match_parent"
-        android:layout_height="100dp" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_marginLeft="10dp"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-    <Button
-        android:text="Share on Facebook"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:background="@android:color/holo_blue_light"
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-        <Button
-            android:text="Search Meme"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:padding="10dp"
-            android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/white"
-            android:layout_width="wrap_content"
+
+        <include layout="@layout/main_tool_bar"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:background="@android:color/white"
+                android:padding="5dp"
+                android:hint="Post on Facebook"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:text="Share on Facebook"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    android:background="@android:color/holo_blue_light"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <Button
+                    android:text="Search Meme"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="10dp"
+                    android:background="@android:color/holo_orange_dark"
+                    android:textColor="@android:color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/app_main_tabs"
+            android:elevation="8dp"
+            app:tabBackground="@android:color/holo_blue_light"
+            app:tabTextColor="@android:color/white"
+
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-    </LinearLayout>
 
-</LinearLayout>
-    <android.support.design.widget.TabLayout
-        android:id="@+id/app_main_tabs"
-android:elevation="8dp"
-        app:tabBackground="@android:color/holo_blue_light"
-        app:tabTextColor="@android:color/white"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-</android.support.design.widget.AppBarLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/searchFragmentFrame"

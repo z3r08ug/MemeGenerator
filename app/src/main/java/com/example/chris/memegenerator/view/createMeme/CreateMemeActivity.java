@@ -1,37 +1,62 @@
 package com.example.chris.memegenerator.view.createMeme;
 
-import android.app.Activity;
+import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.util.Constants;
+import com.example.chris.memegenerator.util.FacebookHandler;
+import com.example.chris.memegenerator.util.InstagramHandler;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
 
-public class CreateMemeActivity extends AppCompatActivity
+import javax.inject.Inject;
+
+public class CreateMemeActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback, CreateMemeContract.View
 {
     public static final int PICK_PHOTO_FOR_MEME = 8;
+    private static final String TAG = CreateMemeActivity.class.getSimpleName() + "_TAG";
     private ImageView ivMeme;
     private EditText etBottom;
     private EditText etTop;
     private Bitmap meme;
+    private FacebookHandler facebookHandler;
+    private Bitmap combined;
+    @Inject
+    CreateMemePresenter presenter;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_meme);
+        MemeApplication.get(this).getCreateComponent().inject(this);
+        presenter.attachView(this);
     }
     
     private void bindViews()
@@ -39,20 +64,15 @@ public class CreateMemeActivity extends AppCompatActivity
         ivMeme = findViewById(R.id.ivCreateMeme);
         etTop = findViewById(R.id.etTop);
         etBottom = findViewById(R.id.etBottom);
+        
+        facebookHandler = FacebookHandler.getInstance();
     }
     
     public void pickImage()
     {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_PICK);
         intent.setType("image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("scale", true);
-        intent.putExtra("outputX", 256);
-        intent.putExtra("outputY", 256);
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("return-data", true);
         startActivityForResult(intent, PICK_PHOTO_FOR_MEME);
     }
     
@@ -65,32 +85,49 @@ public class CreateMemeActivity extends AppCompatActivity
         }
         if (requestCode == PICK_PHOTO_FOR_MEME)
         {
-            final Bundle extras = data.getExtras();
-            if (extras != null)
+            Uri uri = data.getData();
+            
+            try
             {
-                //Get image
-                meme = extras.getParcelable("data");
-                
+                meme = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 ivMeme.setImageBitmap(meme);
-    
-                
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
             }
         }
     }
     
-    private void saveMeme(Bitmap meme)
+    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth)
+    {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // create a matrix for the manipulation
+        Matrix matrix = new Matrix();
+        // resize the bit map
+        matrix.postScale(scaleWidth, scaleHeight);
+        // recreate the new Bitmap
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        return resizedBitmap;
+    }
+    
+    private void createMeme(Bitmap meme)
     {
         etTop.setDrawingCacheEnabled(true);
         etBottom.setDrawingCacheEnabled(true);
         
         Bitmap bmp = Bitmap.createBitmap(etTop.getDrawingCache());
         
-        Bitmap combined = combineImages(meme,bmp, true);
+        combined = combineImages(meme,bmp, true);
         etTop.setText("");
         bmp = Bitmap.createBitmap(etBottom.getDrawingCache());
         combined = combineImages(combined, bmp, false);
-//        ivMeme.setScaleType(ImageView.ScaleType.CENTER);
         ivMeme.setImageBitmap(combined);
+        ivMeme.setMaxWidth(600);
+        ivMeme.setMaxHeight(600);
         etTop.setVisibility(View.INVISIBLE);
         etBottom.setVisibility(View.INVISIBLE);
     }
@@ -116,9 +153,9 @@ public class CreateMemeActivity extends AppCompatActivity
         return cs;
     }
     
-    public void onSaveMeme(View view)
+    public void onCreateMeme(View view)
     {
-        saveMeme(meme);
+        createMeme(meme);
         
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Created Meme");
@@ -128,7 +165,7 @@ public class CreateMemeActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                //share on fb or ig
+                facebookHandler.shareDialog(combined, CreateMemeActivity.this);
             }
         });
         builder.setNegativeButton("Save to Device", new DialogInterface.OnClickListener()
@@ -136,10 +173,70 @@ public class CreateMemeActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
-                //save to device
+                isStoragePermissionGranted();
             }
         });
         builder.show();
+    }
+    
+    private void saveMeme()
+    {
+        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()+ "/Camera/Your_Directory_Name";
+        File myDir = new File(root);
+        myDir.mkdirs();
+        String fname = "Meme.png";
+        File file = new File(myDir, fname);
+        Log.d(TAG, "saveMeme: " + file.getAbsolutePath());
+        if (file.exists()) file.delete();
+        Log.i("LOAD", root + fname);
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            combined.compress(Bitmap.CompressFormat.PNG, 90, out);
+            out.flush();
+            out.close();
+            Toast.makeText(this, "Saved Meme", Toast.LENGTH_SHORT).show();
+    
+            InstagramHandler instagramHandler = new InstagramHandler();
+            instagramHandler.createInstagramIntent(file.getAbsolutePath(), "Meme", this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to Save Meme", Toast.LENGTH_SHORT).show();
+        }
+    
+        MediaScannerConnection.scanFile(this, new String[]{file.getPath()}, new String[]{"image/jpeg"}, null);
+    }
+    
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.d(TAG,"Permission is granted");
+                saveMeme();
+                return true;
+            } else {
+                
+                Log.d(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.d(TAG,"Permission is granted");
+            saveMeme();
+            return true;
+        }
+    }
+    
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED)
+        {
+            Log.d(TAG,"Permission: "+permissions[0]+ "was "+grantResults[0]);
+            //resume tasks needing this permission
+            saveMeme();
+        }
     }
     
     public void searchForPicture(View view)
@@ -148,31 +245,32 @@ public class CreateMemeActivity extends AppCompatActivity
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateMemeActivity.this);
         alertDialog.setTitle("Search For Meme");
         alertDialog.setMessage("Meme Keywords:");
-    
+        
         final EditText input = new EditText(CreateMemeActivity.this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         input.setLayoutParams(lp);
         alertDialog.setView(input);
-    
+        
         alertDialog.setPositiveButton("Search",
-                new DialogInterface.OnClickListener() {
+                new DialogInterface.OnClickListener()
+                {
                     public void onClick(DialogInterface dialog, int which)
                     {
                         String keyword = input.getText().toString();
                         
-                        //perform search
+                        presenter.getBingSearch(keyword, Constants.bing);
                     }
                 });
-    
+        
         alertDialog.setNegativeButton("Cancel",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
-    
+        
         alertDialog.show();
     }
     
@@ -180,7 +278,28 @@ public class CreateMemeActivity extends AppCompatActivity
     {
         setContentView(R.layout.activity_create_meme);
         bindViews();
-    
+        
         pickImage();
+    }
+    
+    @Override
+    public void showError(String error)
+    {
+    
+    }
+    
+    @Override
+    public void setBingSearch(List<String> memes)
+    {
+        for (String meme : memes)
+        {
+            Log.d(TAG, "setBingSearch: Creat MEME " + meme);
+        }
+    }
+    
+    @Override
+    public void showProgress(String progress)
+    {
+    
     }
 }

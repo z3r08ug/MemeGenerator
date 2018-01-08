@@ -1,4 +1,4 @@
-package com.example.chris.memegenerator.di.main;
+package com.example.chris.memegenerator.di.createMeme;
 
 
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
@@ -13,14 +13,8 @@ import dagger.Provides;
  */
 
 @Module
-public class MainModule
+public class CreateMemeModule
 {
-    @Provides
-    MainPresenter providerMainPresenter(RemoteDataSource remoteDataSource)
-    {
-        return new MainPresenter(remoteDataSource);
-    }
-    
     @Provides
     CreateMemePresenter providerCreateMemePresenter(RemoteDataSource remoteDataSource)
     {

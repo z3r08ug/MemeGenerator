@@ -18,6 +18,7 @@ public interface MainContract
     interface View extends BaseView
     {
         void setBingSearch(List<String> memes);
+        void setInterestBingSearch(List<String> memes);
         void setTopTrending();
         void setInterestTrending();
 //        void setTopTrending(TopTrendingResponse topTrending);
@@ -27,7 +28,7 @@ public interface MainContract
 
     interface Presenter extends BasePresenter<View>
     {
-        void getBingSearch(String search);
+        void getBingSearch(String search, String whichCall);
         void getInterestTrending();
     }
 }

@@ -16,37 +16,35 @@ import java.util.logging.Handler;
  */
 
 public class MainPagerViewAdapter extends FragmentStatePagerAdapter {
-
+    
     private TrendingFragment trendingFragment;
-
+    
     public MainPagerViewAdapter(FragmentManager fm) {
         super(fm);
     }
-
+    
     @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-
-                        trendingFragment = new TrendingFragment();
-
-
+                
+                trendingFragment = new TrendingFragment();
                 return trendingFragment;
-
-
+            
+            
             case 1:
                 TrendingInterestFragment trendingInterestFragment = new TrendingInterestFragment();
                 return trendingInterestFragment;
-           case 2:
-               SearchMemeFragment searchMemeFcragment = new SearchMemeFragment();
-
+            case 2:
+                SearchMemeFragment searchMemeFcragment = new SearchMemeFragment();
+                
                 return searchMemeFcragment;
-                default:
-                    return null;
+            default:
+                return null;
         }
-
+        
     }
-
+    
     @Override
     public int getCount() {
         return 3;
@@ -59,12 +57,12 @@ public class MainPagerViewAdapter extends FragmentStatePagerAdapter {
                 return "Trending Interest";
             case 2:
                 return "Search";
-
+            
             default:
                 return null;
         }
     }
-
+    
     @Override
     public int getItemPosition(Object object) {
         return PagerAdapter.POSITION_NONE;

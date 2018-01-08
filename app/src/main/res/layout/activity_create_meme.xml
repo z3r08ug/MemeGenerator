@@ -11,6 +11,14 @@
         <include layout="@layout/main_tool_bar"/>
 
     </android.support.design.widget.AppBarLayout>
+    tools:context="com.example.chris.memegenerator.view.createMeme.CreateMemeActivity">
+
+    <ImageView
+        android:id="@+id/ivCreateMeme"
+        android:layout_gravity="center"
+        android:scaleType="fitXY"
+        android:layout_width="600dp"
+        android:layout_height="600dp" />
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -77,7 +85,11 @@
                 android:layout_height="wrap_content"
                 android:onClick="onSaveMeme"
                 android:text="Save Meme" />
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCreateMeme"
+            android:text="Save Meme" />
 
         </android.support.constraint.ConstraintLayout>
 
