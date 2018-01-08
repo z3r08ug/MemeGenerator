@@ -95,6 +95,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerView.setItemAnimator(itemAnimator);
         presenter.attachView(this);
         memes = new ArrayList<>();
+//       if (btnTopTrend.isChecked())
+//           loadTopTrending();
+//        else
+//           loadInterestTrending();
+        //BingSerach("memes");
        if (btnTopTrend.isChecked())
            loadTopTrending();
         else
@@ -163,6 +168,80 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onDestroy();
         presenter.detachView();
     }
+////    public void onHandleClicks(View view)
+////    {
+////        switch (view.getId())
+////        {
+////            case R.id.btnTopTrending:
+////                btnTopTrend.setChecked(true);
+////                btnInterestTrend.setChecked(false);
+////                presenter.getTopTrending();
+////               // loadTopTrending();
+////                break;
+////            case R.id.btnTrendingInterests:
+////                btnTopTrend.setChecked(false);
+////                btnInterestTrend.setChecked(true);
+////                presenter.getInterestTrending();
+////                loadInterestTrending();
+////                break;
+////            case R.id.btnCreateMeme:
+////                startActivity(new Intent(this, CreateMemeActivity.class));
+////                break;
+////        }
+////    }
+////    private void loadInterestTrending()
+////    {
+//////        memes.clear();
+//////        for (int i = 0; i < 10; i++)
+//////            memes.add("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png");
+//////
+//////        recyclerAdapter = new RecyclerAdapter(memes);
+//////        recyclerView.setAdapter(recyclerAdapter);
+////    }
+//
+////    private void loadTopTrending()
+////    {
+////        memes.clear();
+////        for (int i = 0; i < 10; i++)
+////            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
+////
+////        recyclerAdapter = new RecyclerAdapter(memes);
+////        recyclerView.setAdapter(recyclerAdapter);
+////        memes.clear();
+//////        /*todo rxjava causinhg an error
+////        RemoteDataSource.googleresult("TrendingMemes")
+////                .subscribeOn(Schedulers.io())
+////                .subscribeOn(AndroidSchedulers.mainThread())
+////                .subscribe(new Observer<List<GoogleResponse>>() {
+////                    @Override
+////                    public void onSubscribe(Disposable d) {
+////                    }
+////                    @Override
+////                    public void onNext(List<GoogleResponse> googleResponses) {
+////                        Log.d(TAG, "onNext: Im here here");
+////                        memes.add(googleResponses.get(0).getItems().get(0).getPagemap().getCseImage().get(0).getSrc());
+////                        Log.d(TAG, "onNext: The link is "+ googleResponses.get(0).getItems().get(0).getPagemap().getCseImage().get(0).getSrc());
+////                    }
+////                    @Override
+////                    public void onError(Throwable e) {
+////                        Log.d(TAG, "onError: "+ e.getMessage().toString());
+////                    }
+////                    @Override
+////                    public void onComplete() {
+////                    }
+////                });
+//              //  */
+//       // for (int i = 0; i < 10; i++)
+//         //   memes.add("http://icons.iconarchive.com/icons/graphicloads/100-flat/256/home-icon.png");
+//        //for (int i = 1; i <50 ; i=i+10) {
+//          //  GoogleSerachCall("popular memes",null,i);
+//        //}
+////        BingSerach("popular memes");
+////        recyclerAdapter = new RecyclerAdapter(memes);
+////        recyclerView.setAdapter(recyclerAdapter);
+////    }
+//    private void loadTopTrending()
+//    {
     public void onHandleClicks(View view)
     {
         switch (view.getId())
@@ -197,11 +276,175 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private void loadInterestTrending()
     {
 //        memes.clear();
-//        for (int i = 0; i < 10; i++)
-//            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
-//
+//       // for (int i = 0; i < 10; i++)
+//         //   memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
+//        //for (int i = 1; i <50 ; i=i+10) {
+//          //  GoogleSerachCall("memes","d30",i);
+//        //}
+//        trendingBingSearch("memes");
 //        recyclerAdapter = new RecyclerAdapter(memes);
 //        recyclerView.setAdapter(recyclerAdapter);
+//    }
+//    public void GoogleSerachCall(final String KeyWordsToSearch, final String date, final Integer page ){
+//        final List<String> memesUrl = new ArrayList<>();
+//        Constants.whichCall(Constants.google);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                RemoteDataSource.GoogleResponse(KeyWordsToSearch,date,page)
+//                        .enqueue(new Callback<GoogleResponse>() {
+//                            @Override
+//                            public void onResponse(Call<GoogleResponse> call, Response<GoogleResponse> response) {
+//                                if (response.body() != null) {
+//                                result = response.body().getItems();
+//                                    Log.d(TAG, "onResponse: " + result.get(0));
+//                                    for (int i = 0; i < result.size(); i++) {
+//                                        Log.d(TAG, "onResponse: " + result.size());
+//                                        if (result.get(i).getPagemap() != null) {
+//                                            if (result.get(i).getPagemap().getCseImage() != null) {
+//                                                Timber.d("onResponse: " + i + " PageMap "
+//                                                        + result.get(i).getPagemap().getCseImage().get(0).getSrc());
+//                                                Timber.d("onResponse: " + i + " CseImage Size "
+//                                                        + result.get(i).getPagemap().getCseImage().size());
+//                                                memesUrl.add(result.get(i).getPagemap().getCseImage().get(0).getSrc());
+//                                            } else {
+//                                                Log.d(TAG, "onResponse: PageMap is empty");
+//                                            }
+//                                        }
+//                                    }
+//                                    Message message = mhandler.obtainMessage();
+//                                    message.what = 1;
+//                                    message.obj = memesUrl;
+//                                    mhandler.sendMessage(message);
+//                                }else
+//                                    Log.d(TAG, "onResponse: response.bosy() is empty ");
+//                            }
+//                            @Override
+//                            public void onFailure(Call<GoogleResponse> call, Throwable t) {
+//                                Log.d(TAG, "onFailure: "+ t.getMessage());
+//                            }
+//                        });
+//            }
+//        }).start();
+//    }
+//    public void searchForMemes(View view) {
+//        etSerach = findViewById(R.id.etSearch);
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.hideSoftInputFromWindow(etSerach.getWindowToken(), 0);
+//        KeyWordrestCall(etSerach.getText().toString());
+//    }
+//    public void KeyWordrestCall (final String phrase){
+//        Constants.whichCall(Constants.keyword);
+//            RemoteDataSource.KeyWordResponse(phrase)
+//                    .enqueue(new Callback<Keywords>() {
+//                        @Override
+//                        public void onResponse(Call<Keywords> call, Response<Keywords> response) {
+//                            for (int i = 0; i < response.body().getText().size(); i++) {
+//                                Log.d(TAG, "onResponse: this is i: " + i);
+//                                for (int j = 0; j < response.body().getText().get(i).size(); j++) {
+//                                    Log.d(TAG, "onResponse: this is j: " + j);
+//                                    for (int k = 0; k < response.body().getText().get(i).get(j).size(); k++) {
+//                                        Log.d(TAG, "onResponse: this is k: " + k);
+//                                        Log.d(TAG, "onResponse: word "
+//                                                + response.body().getText().get(i).get(j).get(k).getWord() +
+//                                                " tag " + response.body().getText().get(i).get(j).get(k).getTag());
+//                                        Toast.makeText(MainActivity.this, " word: " +
+//                                                        response.body().getText().get(i).get(j).get(k).getWord()
+//                                                        + "\ntag: " + response.body().getText().get(i).get(j).get(k).getTag()
+//                                                , Toast.LENGTH_LONG).show();
+//                                    }
+//                                }
+//                            }
+//                        }
+//                        @Override
+//                        public void onFailure(Call<Keywords> call, Throwable t) {
+//                        }
+//                    });
+//    }
+//    public void BingSerach(final String search){
+//        Constants.whichCall(Constants.bing);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                final List<String> memesurl = new ArrayList<>();
+//                RemoteDataSource.BingResponse(search)
+//                        .enqueue(new Callback<BingSearch>() {
+//                            @Override
+//                            public void onResponse(Call<BingSearch> call, Response<BingSearch> response) {
+//                                if (response.body() != null){
+//
+//                                    List<Value> item = new ArrayList<>();
+//                                    if (response.body().getValue() != null){
+//                                        item = response.body().getValue();
+//                                        Log.d(TAG, "onResponse: Response size is " + item.size());
+//                                        for (int i = 0; i <item.size() ; i++) {
+//                                           memesurl.add(item.get(i).getThumbnailUrl());
+//                                        }
+//                                        Message message = mhandler.obtainMessage();
+//                                        message.what = 1;
+//                                        message.obj = memesurl;
+//                                        mhandler.sendMessage(message);
+//                                    }
+//                                }
+//                                else{
+//                                    Log.d(TAG, "onResponse: bing is empty calling the google api");
+//                                    GoogleSerachCall(search,null,null);
+//                                }
+//                            }
+//                            @Override
+//                            public void onFailure(Call<BingSearch> call, Throwable t) {
+//
+////    public void newActivity(View view) {
+////        Intent intent = new Intent(this, MemeHomeActivity.class);
+////        startActivity(intent);
+////    }
+//}
+//                            }
+//                        });
+//            }
+//        }).start();
+//    }
+//    public void trendingBingSearch (final String search){
+//        Constants.whichCall(Constants.trending);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                final List<String> memesurl = new ArrayList<>();
+//                RemoteDataSource.BingTrendingResponse(search)
+//                        .enqueue(new Callback<BingSearch>() {
+//                            @Override
+//                            public void onResponse(Call<BingSearch> call, Response<BingSearch> response) {
+//                                if (response.body() != null){
+//
+//                                    List<Value> item = new ArrayList<>();
+//                                    if (response.body().getValue() != null){
+//                                        item = response.body().getValue();
+//                                        Log.d(TAG, "onResponse: Trending Response size is " + item.size());
+//                                        for (int i = 0; i <item.size() ; i++) {
+//                                            memesurl.add(item.get(i).getThumbnailUrl());
+//                                        }
+//                                        Message message = mhandler.obtainMessage();
+//                                        message.what = 1;
+//                                        message.obj = memesurl;
+//                                        mhandler.sendMessage(message);
+//                                    }
+//                                }
+//                                else{
+//                                    Log.d(TAG, "onResponse:  Trending bing is empty calling the google api");
+//                                    GoogleSerachCall(search +"trending",null,null);
+//                                }
+//
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<BingSearch> call, Throwable t) {
+//
+//                            }
+//                        });
+//            }
+//        }).start();
+//    }
+//
         memes.clear();
         /*todo rxjava causinhg an error
         RemoteDataSource.googleresult("TrendingMemes")
@@ -382,8 +625,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                                 GoogleSerachCall(search ,null,null);
 
 //    public void newActivity(View view) {
-//        Intent intent = new Intent(this, MemeHomeActivity.class);
-//        startActivity(intent);
 //    }
 }
                             });
