@@ -55,6 +55,7 @@ public class TrendingInterestFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static TrendingInterestFragment newInstance(List<String> param1) {
+        Log.d("Interest_TAG", "newInstance: ");
         TrendingInterestFragment fragment = new TrendingInterestFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, (Serializable) param1);
@@ -67,6 +68,7 @@ public class TrendingInterestFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: interest");
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
 //            mParam2 = getArguments().getString(ARG_PARAM2);
@@ -98,14 +100,19 @@ public class TrendingInterestFragment extends Fragment {
 //            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
 
                // memesList.clear();
-
-                for (int i = 0; i < memesList.size(); i++) {
-                    imageList.add(new Image(memesList.get(i)));
-                    Log.d("Great", "run: "+memesList.get(i));
-
+                Log.d(TAG, "run: interest");
+                if (memesList != null)
+                {
+                    Log.d(TAG, "run: interests" + memesList);
+    
+                    for (int i = 0; i < memesList.size(); i++)
+                    {
+                        imageList.add(new Image(memesList.get(i)));
+                        Log.d("Great", "run: interests" + memesList.get(i));
+                    }
+                    Log.d(TAG, "run:thissssssssssssss sizeee interests" + imageList.size());
                 }
-                Log.d(TAG, "run:thissssssssssssss sizeee "+ imageList.size());
-//        recyclerAdapter = new RecyclerAdapter(memes);
+                //        recyclerAdapter = new RecyclerAdapter(memes);
 //        interestRv.setAdapter(recyclerAdapter);
                 interestRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
 

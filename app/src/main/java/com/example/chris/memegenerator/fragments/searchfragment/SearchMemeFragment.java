@@ -4,6 +4,7 @@ package com.example.chris.memegenerator.fragments.searchfragment;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.util.Image;
@@ -29,7 +31,8 @@ import java.util.List;
  * Use the {@link SearchMemeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class SearchMemeFragment extends Fragment {
+public class SearchMemeFragment extends Fragment
+{
     private List<String> memes;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

@@ -7,65 +7,54 @@
     tools:context="com.example.chris.memegenerator.view.main.MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-<Button
-    android:onClick="newActivity"
-    android:text="New"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <EditText
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:textAlignment="viewStart"
                 android:text="Is this the reason why the good residents Lowell in the 18th Middlesex District should be losing in millions of dollars in property tax revenues so that out of state students can have their tuition sub..."
-                />
+                android:textAlignment="viewStart" />
 
             <android.support.design.widget.FloatingActionButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="150dp"
-                android:src="@drawable/ic_search"
-                app:fabSize="normal"
-                android:elevation="7dp"
                 android:layout_gravity="right"
+                android:layout_marginTop="150dp"
+                android:elevation="7dp"
                 android:onClick="searchForMemes"
-                />
+                android:src="@drawable/ic_search"
+                app:fabSize="normal" />
         </FrameLayout>
 
-        <com.facebook.login.widget.LoginButton
-            android:layout_gravity="center"
-            android:id="@+id/facebook_login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Login with Facebook"/>
-
         <LinearLayout
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
             <ToggleButton
-                android:onClick="onHandleClicks"
                 android:id="@+id/btnTopTrending"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="true"
+                android:onClick="onHandleClicks"
                 android:text="Top Trending"
                 android:textOff="Top Trending"
                 android:textOn="Top Trending" />
 
             <ToggleButton
-                android:onClick="onHandleClicks"
                 android:id="@+id/btnTrendingInterests"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:checked="false"
+                android:onClick="onHandleClicks"
                 android:text="Trending Interests"
                 android:textOff="Trending Interests"
                 android:textOn="Trending Interests" />
@@ -73,9 +62,9 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvMemeThumbnails"
-            android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
         </android.support.v7.widget.RecyclerView>
 
@@ -84,6 +73,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onHandleClicks"
-            android:text="Create Meme"/>
+            android:text="Create Meme" />
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

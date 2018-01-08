@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.example.chris.memegenerator.LoginActivity;
 import com.example.chris.memegenerator.R;
-import com.example.chris.memegenerator.catergory.MemeCatergorySelec;
+import com.example.chris.memegenerator.catergory.MemeInterestActivity;
 import com.example.chris.memegenerator.util.FacebookHandler;
 
 public class SpalashScreen extends AppCompatActivity {
@@ -32,7 +32,7 @@ public class SpalashScreen extends AppCompatActivity {
                 if (facebookHandler.getAccessToken()==null) {
                     startActivity(loginActivity);
                 }else{
-                    Intent homeActivity = new Intent(getApplicationContext(), MemeCatergorySelec.class);
+                    Intent homeActivity = new Intent(getApplicationContext(), MemeInterestActivity.class);
                     startActivity(homeActivity);
                 }
 //                 activity.finish();

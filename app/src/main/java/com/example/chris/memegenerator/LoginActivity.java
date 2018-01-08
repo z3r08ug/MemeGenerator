@@ -3,11 +3,9 @@ package com.example.chris.memegenerator;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.example.chris.memegenerator.catergory.MemeCatergorySelec;
+import com.example.chris.memegenerator.catergory.MemeInterestActivity;
 import com.example.chris.memegenerator.util.FacebookHandler;
-import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 import com.facebook.login.widget.LoginButton;
 
 public class LoginActivity extends AppCompatActivity implements FacebookHandler.FacebookLoginListener{
@@ -29,17 +27,16 @@ public class LoginActivity extends AppCompatActivity implements FacebookHandler.
         super.onActivityResult(requestCode, resultCode, data);
 
         FacebookHandler.getInstance().onActivityResult(requestCode, resultCode, data);
-//        if (facebookHandler.getAccessToken()!=null){
-//            Intent intent = new Intent(this, MemeCatergorySelec.class);
-//            startActivity(intent);
-//        }
-      //  Log.d("Facebook", "onActivityResult: "+requestCode);
+        if (facebookHandler.getAccessToken()!=null){
+            Intent intent = new Intent(this, MemeInterestActivity.class);
+            startActivity(intent);
+        }
     }
 
 
     @Override
     public void onSuccess() {
-        Intent intent = new Intent(this, MemeCatergorySelec.class);
+        Intent intent = new Intent(this, MemeInterestActivity.class);
             startActivity(intent);
     }
 }
