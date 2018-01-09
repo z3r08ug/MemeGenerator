@@ -20,6 +20,7 @@ public class Constants
    public static final String trending = "trending";
    public static final String topTrending = "topTrending";
    public static final String interestTrending = "interestTrending";
+   public static final String Searchmeme = "Searchmeme";
 
 
    public static void whichCall(String whichcall) {

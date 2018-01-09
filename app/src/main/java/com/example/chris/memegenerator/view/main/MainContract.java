@@ -19,6 +19,7 @@ public interface MainContract
     {
         void setBingSearch(List<String> memes);
         void setInterestBingSearch(List<String> memes);
+        void setSearchmeme(List<String> memes);
         void showProgress(String progress);
     }
 

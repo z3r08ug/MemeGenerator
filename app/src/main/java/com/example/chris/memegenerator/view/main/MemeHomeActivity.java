@@ -18,6 +18,7 @@ import android.widget.Button;
 
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.category.MemeInterestActivity;
 import com.example.chris.memegenerator.category.MemesCategory;
 import com.example.chris.memegenerator.fragments.interestfragment.TrendingInterestFragment;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
@@ -52,7 +53,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_meme_activity
         );
-//        MemeApplication.get(this).getMainComponent().inject(this);
+        MemeApplication.get(this).getMainComponent().inject(this);
         homeToolbar = findViewById(R.id.home_toolbar);
         homeToolbar.setBackgroundColor(Color.parseColor("#19B5FE"));
         viewPager = findViewById(R.id.app_main_pager);
@@ -60,8 +61,8 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         mainTabLayout.setBackgroundColor(Color.parseColor("#1E8BC3"));
         mainViewPagerAdapter = new MainPagerViewAdapter(getSupportFragmentManager());
         presenter.attachView(this);
-//        presenter.getBingSearch("trendingMemes", Constants.topTrending);
-        presenter.getBingSearch("cat trendingMemes", Constants.interestTrending);
+        presenter.getBingSearch("trendingMemes", Constants.topTrending);
+        
         viewPager.setAdapter(mainViewPagerAdapter);
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
@@ -69,7 +70,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         
         interests = new ArrayList<>();
         interestsMemes = new ArrayList<>();
-    
+        
         try
         {
             InputStream instream = openFileInput("interests.txt");
@@ -82,6 +83,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
                 {
                     while ((line = buffreader.readLine()) != null)
                         line1+=line;
+                    presenter.getBingSearch(line1, Constants.interestTrending);
                     Log.d(TAG, "onCreate: "+line1);
                 }catch (Exception e)
                 {
@@ -112,23 +114,27 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-    switch (item.getItemId()){
-        case R.id.itemFavorites:
-            Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
-            startActivity(intentFav);
-            break;
-        case R.id.itemSettings:
-            Intent intentSearch = new Intent(this, MemesCategory.class);
-            startActivity(intentSearch);
-        case R.id.itemCreate:
-            Intent intentCreate = new Intent(this, CreateMemeActivity.class);
-            startActivity(intentCreate);
-    }
+        
+        switch (item.getItemId()){
+            case R.id.itemFavorites:
+                Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
+                startActivity(intentFav);
+                break;
+            case R.id.itemSettings:
+                Intent intentSearch = new Intent(this, MemeInterestActivity.class);
+                startActivity(intentSearch);
+                break;
+            case R.id.itemCreate:
+                Intent intentCreate = new Intent(this, CreateMemeActivity.class);
+                startActivity(intentCreate);
+                break;
+            case  R.id.itemLogOut:
+                break;
+        }
         return super.onOptionsItemSelected(item);
-
+        
     }
-
+    
     @Override
     public void showError(String error) {
     
@@ -145,6 +151,12 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     {
         Log.d("setInterests", "setInterestBingSearch: "+memes.size());
         TrendingInterestFragment trendingInterestFragment = TrendingInterestFragment.newInstance(memes);
+    }
+    
+    @Override
+    public void setSearchmeme(List<String> memes)
+    {
+    
     }
     
     
