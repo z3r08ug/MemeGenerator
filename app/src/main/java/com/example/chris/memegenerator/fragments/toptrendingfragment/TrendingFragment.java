@@ -110,8 +110,8 @@ public class TrendingFragment extends Fragment {
                         {
                             Log.d("click", "onMemeClick: Trending");
                             Log.d(TAG, "onMemeClick: "+position);
-                            Toast.makeText(getContext(), "Item Clicked" + image.getImageUrl(), Toast.LENGTH_LONG).show();
-                            MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
+                          //  Toast.makeText(getContext(), "Item Clicked" + image.getImageUrl(), Toast.LENGTH_LONG).show();
+                            MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, position);
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame, memeSliderFragment).addToBackStack("Slider").commit();
                             

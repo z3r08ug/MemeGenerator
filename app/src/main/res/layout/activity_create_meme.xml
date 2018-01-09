@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,12 +14,12 @@
     </android.support.design.widget.AppBarLayout>
     tools:context="com.example.chris.memegenerator.view.createMeme.CreateMemeActivity">
 
-    <ImageView
-        android:id="@+id/ivCreateMeme"
-        android:layout_gravity="center"
-        android:scaleType="fitXY"
-        android:layout_width="600dp"
-        android:layout_height="600dp" />
+    <!--<ImageView-->
+        <!--android:id="@+id/ivCreateMeme"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_width="600dp"-->
+        <!--android:layout_height="600dp" />-->
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -27,15 +28,22 @@
         android:layout_height="match_parent"
         tools:context="com.example.chris.memegenerator.view.createMeme.CreateMemeActivity">
 
-        <ImageView
-            android:id="@+id/ivCreateMeme"
-            android:contentDescription="@string/app_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivCreateMeme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/funnymemes1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout_editor_absoluteY="16dp" />
 
             <EditText
                 android:id="@+id/etTop"
@@ -51,12 +59,12 @@
                 android:textColorHint="@android:color/white"
                 android:textSize="42sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/ivCreateMeme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.354" />
+                app:layout_constraintTop_toTopOf="@+id/ivCreateMeme"
+                app:layout_constraintVertical_bias="0.094" />
 
             <EditText
                 android:id="@+id/etBottom"
@@ -73,23 +81,35 @@
                 android:textColorHint="@android:color/white"
                 android:textSize="42sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/ivCreateMeme"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.714" />
+                app:layout_constraintTop_toTopOf="@+id/ivCreateMeme"
+                app:layout_constraintVertical_bias="1.0" />
 
             <Button
+                android:id="@+id/button4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
                 android:onClick="onSaveMeme"
-                android:text="Save Meme" />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onCreateMeme"
-            android:text="Save Meme" />
+                android:text="Save Meme"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button5"
+                app:layout_constraintVertical_bias="0.83"
+                tools:layout_editor_absoluteX="0dp" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="204dp"
+                android:onClick="onCreateMeme"
+                android:text="Save Meme"
+                app:layout_constraintTop_toBottomOf="@+id/ivCreateMeme"
+                tools:layout_editor_absoluteX="0dp" />
 
         </android.support.constraint.ConstraintLayout>
 

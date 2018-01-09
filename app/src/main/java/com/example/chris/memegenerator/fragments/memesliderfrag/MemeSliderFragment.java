@@ -38,7 +38,7 @@ public class MemeSliderFragment extends Fragment {
     
     private List<Image> mParam1;
     private String mParam2;
-    static String imageurl;
+    static int imageurl;
     static List<Image> imageList;
     public MemeSliderFragment() {
         // Required empty public constructor
@@ -53,11 +53,11 @@ public class MemeSliderFragment extends Fragment {
      * @return A new instance of fragment MemeSliderFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MemeSliderFragment newInstance(List<Image> param1, String param2) {
+    public static MemeSliderFragment newInstance(List<Image> param1, int param2) {
         MemeSliderFragment fragment = new MemeSliderFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, (Serializable) param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM2, String.valueOf(param2));
         imageList= param1;
         imageurl=param2;
         fragment.setArguments(args);
@@ -78,17 +78,19 @@ public class MemeSliderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_meme_slider, container, false);
+
         Log.d("LEt", "onCreateView: "+imageList.size());
         for (int i = 0; i < imageList.size(); i++) {
             Log.d("LEt", "onCreateView: "+imageList.get(i).getImageUrl());
         }
         ViewPager viewPager = view.findViewById(R.id.imageSliderPager);
         MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(getContext(), imageList, imageurl);
-
+        Log.d("Rizwan", "onCreateView: "+imageurl);
     viewPager.setAdapter(memeSliderAdapter);
+    viewPager.setCurrentItem(imageurl);
 
 //        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(getContext(), imageList);
-        viewPager.setAdapter(memeSliderAdapter);
+       // viewPager.setAdapter(memeSliderAdapter);
         
         return view;
     }

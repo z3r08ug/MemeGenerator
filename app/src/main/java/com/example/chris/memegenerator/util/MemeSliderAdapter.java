@@ -1,16 +1,26 @@
 package com.example.chris.memegenerator.util;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.FaceDetector;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.services.DownloadService;
+import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
+import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +34,8 @@ public class MemeSliderAdapter extends PagerAdapter {
     List<Image> imageList=new ArrayList<>();
     LayoutInflater layoutInflater;
     Context context;
-String setCurrentImage;
-    public MemeSliderAdapter(Context context, List<Image> images, String imageUrl) {
+int setCurrentImage;
+    public MemeSliderAdapter(Context context, List<Image> images, int imageUrl) {
         this.context = context;
         this.imageList= images;
         this.setCurrentImage= imageUrl;
@@ -38,7 +48,7 @@ String setCurrentImage;
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == (LinearLayout)object;
+        return view == object;
     }
 
     @Override
@@ -48,12 +58,36 @@ String setCurrentImage;
 
         View view = layoutInflater.inflate(R.layout.memeslider, container, false);
         ImageView memeSlider=view.findViewById(R.id.ivMemeSlider);
-        String imageUrl = imageList.get(position).getImageUrl();
+        Button shareOnFacebook = view.findViewById(R.id.shareOnFacebook);
+        final String imageUrl = imageList.get(position).getImageUrl();
         Log.d("Check", "instantiateItem: "+imageUrl);
        // memeSlider.setImageResource(imageList.get(position).getImageUrl());
 
         Glide.with(context).load(imageUrl).into(memeSlider);
+shareOnFacebook.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
 
+        Handler handler = new Handler(new Handler.Callback() {
+            public static final String TAG="Thisis";
+            @Override
+            public boolean handleMessage(Message message) {
+
+                Log.d(TAG, "handleMessage: "+message);
+                Log.d(TAG, "handleMessage: "+message.getData().getParcelable("bitmap"));
+                Log.d(TAG, "handleMessage: "+(message.getData().getParcelable("bitmap")==null));
+                Log.d(TAG, "handleMessage: "+(message.getData().getParcelable("bitmap") instanceof Bitmap));
+
+                Bitmap savedBitmap = message.getData().getParcelable("bitmap");
+                FacebookHandler facebookHandler = FacebookHandler.getInstance();
+                facebookHandler.shareDialog(savedBitmap,(MemeHomeActivity) context);
+                return true;
+            }
+        });
+        DownloadService downloadService = new DownloadService(handler, imageUrl);
+        downloadService.start();
+    }
+});
         container.addView(view);
         return view;
     }

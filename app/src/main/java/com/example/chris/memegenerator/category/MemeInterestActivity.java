@@ -29,13 +29,15 @@ public class MemeInterestActivity extends AppCompatActivity
     private List<MemesCategory> memesCategoryList;
     private FileOutputStream fos;
     private CategoryRCAdapter categoryRCAdapter;
-    
+    RecyclerView rcSearchImages;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meme_catergory_selec);
-    
+
+
+
         try
         {
             InputStream instream = openFileInput("interests.txt");

@@ -47,7 +47,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     private Toolbar homeToolbar;
     List<String> interests;
     List<List<String>> interestsMemes;
-    private FloatingActionButton btnsearch;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +89,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
                     while ((line = buffreader.readLine()) != null)
                         line1+=line;
                     Log.d("Chris", "onCreate: "+line1);
+
                     presenter.getBingSearch(line1,Constants.interestTrending);
 
                 }catch (Exception e)
