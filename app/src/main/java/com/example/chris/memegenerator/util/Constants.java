@@ -21,6 +21,8 @@ public class Constants
    public static final String topTrending = "topTrending";
    public static final String interestTrending = "interestTrending";
    public static final String Searchmeme = "Searchmeme";
+   public static final String ACTION_DOWNLOAD = "download";
+   public static final String IMG_DOWNLOAD = "download_image";
 
 
    public static void whichCall(String whichcall) {
