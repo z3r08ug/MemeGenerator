@@ -17,6 +17,7 @@
             android:layout_height="wrap_content">
             <EditText
                 android:background="@android:color/white"
+                android:id="@+id/etpost"
                 android:padding="5dp"
                 android:hint="Post on Facebook"
                 android:layout_width="match_parent"
@@ -26,14 +27,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <Button
-                    android:text="Share on Facebook"
-                    android:layout_marginTop="10dp"
-                    android:padding="10dp"
-                    android:background="@android:color/holo_blue_light"
-                    android:textColor="@android:color/white"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+
                 <Button
                     android:text="Search Meme"
                     android:layout_marginTop="10dp"
@@ -42,7 +36,9 @@
                     android:background="@android:color/holo_orange_dark"
                     android:textColor="@android:color/white"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:onClick="searchkeyword"
+                    />
             </LinearLayout>
 
         </LinearLayout>

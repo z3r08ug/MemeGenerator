@@ -20,4 +20,11 @@ public interface BingSearchRemoteService
     @Headers("Ocp-Apim-Subscription-Key: e11ef51076b144108b8dc500cc118fab")
     @GET("bing/v7.0/images/search")
     io.reactivex.Observable<BingSearch> getBingResponse(@Query("q") String mysearch);
+    
+    @Headers("Ocp-Apim-Subscription-Key: e11ef51076b144108b8dc500cc118fab")
+    @GET("bing/v7.0/images/search")
+    io.reactivex.Observable<BingSearch> getBingkeywordResponse(@Query("q") String mysearch,
+                                                        @Query("count") Integer num);
+    
+    
 }
