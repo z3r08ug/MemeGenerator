@@ -19,7 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.Keywords;
+import com.example.chris.memegenerator.util.pojo.keywordfinder.Keywords;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.util.FacebookHandler;
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("TAG", "onCreate: ");
-        MemeApplication.get(this).getMainComponent().inject(this);
+        //MemeApplication.get(this).getMainComponent().inject(this);
         recyclerView = findViewById(R.id.rvMemeThumbnails);
         btnInterestTrend = findViewById(R.id.btnTrendingInterests);
         btnTopTrend = findViewById(R.id.btnTopTrending);
@@ -114,12 +114,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void showError(String error)
     {
     }
-    @Override
-    public void setTopTrending()
-    {
-//        recyclerAdapter = new RecyclerAdapter(topMemes);
-        recyclerView.setAdapter(recyclerAdapter);
-    }
+//    @Override
+//    public void setTopTrending()
+//    {
+////        recyclerAdapter = new RecyclerAdapter(topMemes);
+//        recyclerView.setAdapter(recyclerAdapter);
+//    }
     
     @Override
     public void setBingSearch(List<String> memes)
@@ -135,14 +135,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         recyclerAdapter = new RecyclerAdapter2(interestMemes);
         recyclerView.setAdapter(recyclerAdapter);
     }
-    
-    
+
     @Override
-    public void setInterestTrending()
-    {
-//       recyclerAdapter = new RecyclerAdapter(interestMemes);
-        recyclerView.setAdapter(recyclerAdapter);
+    public void setSearchmeme(List<String> memes) {
+
     }
+
+
+    //    @Override
+//    public void setInterestTrending()
+//    {
+////       recyclerAdapter = new RecyclerAdapter(interestMemes);
+//        recyclerView.setAdapter(recyclerAdapter);
+//    }
     @Override
     public void showProgress(String progress)
     {
@@ -220,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                     @Override
                     public void onFailure(Call<Keywords> call, Throwable t)
                     {
-                    
+
                     }
                 });
     }

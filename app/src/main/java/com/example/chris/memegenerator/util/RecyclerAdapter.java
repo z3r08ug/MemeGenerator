@@ -31,7 +31,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     List<Image> imageList = new ArrayList<>();
     onMemeClickListner memeClickListner;
     public interface onMemeClickListner{
-        void onMemeClick(Image image);
+        void onMemeClick(Image image, int position);
         
     }
     public RecyclerAdapter(List<Image> imageList, onMemeClickListner memeClickListner) {
@@ -67,7 +67,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         final String postionSiting = Integer.toString(position+1);
         
         holder.tvMemePostion.setText(postionSiting);
-holder.bind(imageList.get(position),memeClickListner);
+holder.bind(imageList.get(position),memeClickListner, position);
     }
     
     @Override
@@ -87,11 +87,11 @@ holder.bind(imageList.get(position),memeClickListner);
             ivMeme = itemView.findViewById(R.id.ivMeme);
             tvMemePostion = itemView.findViewById(R.id.tvImageCount);
         }
-        public void bind(final Image memeImage, final onMemeClickListner listener) {
+        public void bind(final Image memeImage, final onMemeClickListner listener, final int position) {
             
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    listener.onMemeClick(memeImage);
+                    listener.onMemeClick(memeImage, position);
                 }
             });
         }

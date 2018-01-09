@@ -81,7 +81,7 @@ public class MemeInterestActivity extends AppCompatActivity
             fos = openFileOutput("interests.txt", Context.MODE_PRIVATE);
             for (String interest : interests)
             {
-                interest += "\n";
+                interest += " memes,";
                 fos.write(interest.getBytes());
             }
             fos.close();
@@ -100,5 +100,7 @@ public class MemeInterestActivity extends AppCompatActivity
         Intent intent = new Intent(this, MemeHomeActivity.class);
         startActivity(intent);
     }
+
+
 }
 
