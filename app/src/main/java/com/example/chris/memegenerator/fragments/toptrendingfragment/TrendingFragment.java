@@ -94,12 +94,11 @@ public class TrendingFragment extends Fragment {
                 final List<Image> imageList = new ArrayList<>();
                 
                 
-                // memesList.clear();
-                for (int i = 0; i < memesList.size(); i++)
-                {
+//                // memesList.clear();
+                for (int i = 0; i < memesList.size(); i++) {
                     imageList.add(new Image(memesList.get(i)));
                     Log.d("Great", "run Trending: " + memesList.get(i));
-                    
+                }
                     Log.d(TAG, "run:thissssssssssssss sizeee Trending" + imageList.size());
 //        recyclerAdapter = new RecyclerAdapter(memes);
 //        topTrendingRv.setAdapter(recyclerAdapter);
@@ -107,9 +106,10 @@ public class TrendingFragment extends Fragment {
                     {
                         
                         @Override
-                        public void onMemeClick(Image image)
+                        public void onMemeClick(Image image, int position)
                         {
                             Log.d("click", "onMemeClick: Trending");
+                            Log.d(TAG, "onMemeClick: "+position);
                             Toast.makeText(getContext(), "Item Clicked" + image.getImageUrl(), Toast.LENGTH_LONG).show();
                             MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
                             FragmentManager fragmentManager = getFragmentManager();
@@ -117,56 +117,56 @@ public class TrendingFragment extends Fragment {
                             
                         }
                     }));
-                }
 
-                topTrendingRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
 
-                    @Override
-                    public void onMemeClick(Image image) {
-
-                        Log.d("click", "onMemeClick: ");
-                        Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
-                        MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
-                        FragmentManager fragmentManager = getFragmentManager();
-                        fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,memeSliderFragment).commit();
-
-                    }
-                }));
+//                topTrendingRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
+//
+//                    @Override
+//                    public void onMemeClick(Image image) {
+//
+//                        Log.d("click", "onMemeClick: ");
+//                        Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
+//                        MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
+//                        FragmentManager fragmentManager = getFragmentManager();
+//                        fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,memeSliderFragment).commit();
+//
+//                    }
+//                }));
             }
         },2000);
         return view;
     }
     
-    private void loadMemes(final RecyclerView paramRv, final List<String> stringList) {
-        
-        final List<Image> imageList= new ArrayList<>();
-//        // memes.clear();
-//        for (int i = 0; i < 10; i++) {
-//            //  memes.add("https://loremflickr.com/320/240?random=3");
-//            imageList.add(new Image("https://loremflickr.com/320/240"));
+//    private void loadMemes(final RecyclerView paramRv, final List<String> stringList) {
+//
+//        final List<Image> imageList= new ArrayList<>();
+////        // memes.clear();
+////        for (int i = 0; i < 10; i++) {
+////            //  memes.add("https://loremflickr.com/320/240?random=3");
+////            imageList.add(new Image("https://loremflickr.com/320/240"));
+////        }
+////        memes.clear();
+////        for (int i = 0; i < 10; i++)
+////            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
+//
+//        for (int i = 0; i < stringList.size(); i++) {
+//            imageList.add(new Image(stringList.get(i)));
+//            Log.d("Great", "run: "+stringList.get(i));
+//
 //        }
-//        memes.clear();
-//        for (int i = 0; i < 10; i++)
-//            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
-        
-        for (int i = 0; i < stringList.size(); i++) {
-            imageList.add(new Image(stringList.get(i)));
-            Log.d("Great", "run: "+stringList.get(i));
-            
-        }
-//        recyclerAdapter = new RecyclerAdapter(memes);
-//        topTrendingRv.setAdapter(recyclerAdapter);
-        paramRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
-            @Override
-            public void onMemeClick(Image image) {
-                Log.d("click", "onMemeClick: ");
-                Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
-                MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,memeSliderFragment).addToBackStack("Slider").commit();
-                
-            }
-        }));
-    }
+////        recyclerAdapter = new RecyclerAdapter(memes);
+////        topTrendingRv.setAdapter(recyclerAdapter);
+//        paramRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
+//            @Override
+//            public void onMemeClick(Image image) {
+//                Log.d("click", "onMemeClick: ");
+//                Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
+//                MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
+//                FragmentManager fragmentManager = getFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,memeSliderFragment).addToBackStack("Slider").commit();
+//
+//            }
+//        }));
+//    }
     
 }

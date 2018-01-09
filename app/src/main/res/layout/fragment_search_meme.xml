@@ -17,16 +17,25 @@
         android:layout_weight="1"
         android:paddingStart="5dp"
         android:layout_width="0dp"
+        android:id="@+id/evSearch"
         android:layout_height="wrap_content" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-      android:id="@+id/btnSearchMemes"
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+      <!--android:id="@+id/btnSearchMemes"-->
+        <!--android:background="@color/colorAccent"-->
+        <!--android:src="@drawable/ic_search"-->
+        <!--android:tint="@android:color/white"-->
+
+        <!--app:fabSize="normal" />-->
+    <Button
+        android:id="@+id/btnSearchMemes"
+        android:textColor="@android:color/white"
+        android:text="Search"
         android:background="@color/colorAccent"
-        android:src="@drawable/ic_search"
-        android:tint="@android:color/white"
-        app:fabSize="normal" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </LinearLayout>
 <android.support.v7.widget.RecyclerView
     android:id="@+id/rvSearchMeme"

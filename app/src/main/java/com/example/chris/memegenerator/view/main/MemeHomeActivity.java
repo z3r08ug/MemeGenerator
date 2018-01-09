@@ -3,6 +3,7 @@ package com.example.chris.memegenerator.view.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
@@ -46,14 +47,16 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     private Toolbar homeToolbar;
     List<String> interests;
     List<List<String>> interestsMemes;
-    
+    private FloatingActionButton btnsearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_meme_activity
         );
-//        MemeApplication.get(this).getMainComponent().inject(this);
+       MemeApplication.get(this).getMainComponent().inject(this);
         homeToolbar = findViewById(R.id.home_toolbar);
+
         homeToolbar.setBackgroundColor(Color.parseColor("#19B5FE"));
         viewPager = findViewById(R.id.app_main_pager);
         mainTabLayout = findViewById(R.id.app_main_tabs);
@@ -61,12 +64,15 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         mainViewPagerAdapter = new MainPagerViewAdapter(getSupportFragmentManager());
         presenter.attachView(this);
 //        presenter.getBingSearch("trendingMemes", Constants.topTrending);
-        presenter.getBingSearch("cat trendingMemes", Constants.interestTrending);
+        presenter.getBingSearch("top memes", Constants.topTrending);
+
+
         viewPager.setAdapter(mainViewPagerAdapter);
+
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
         mainViewPagerAdapter.notifyDataSetChanged();
-        
+
         interests = new ArrayList<>();
         interestsMemes = new ArrayList<>();
     
@@ -82,7 +88,9 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
                 {
                     while ((line = buffreader.readLine()) != null)
                         line1+=line;
-                    Log.d(TAG, "onCreate: "+line1);
+                    Log.d("Chris", "onCreate: "+line1);
+                    presenter.getBingSearch(line1,Constants.interestTrending);
+
                 }catch (Exception e)
                 {
                     e.printStackTrace();
@@ -93,15 +101,16 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         {
             Log.d(TAG, "onCreate: "+e.toString());
         }
+
         
     }
     
-    public void btnRemoveFrag(View view){
-        Log.d("great", "btnRemoveFrag: ");
-        MemeSliderFragment memeSliderFragment = new MemeSliderFragment();
-        getSupportFragmentManager().beginTransaction().remove(memeSliderFragment).commit();
-        //fragmentManager.beginTransaction().remove(memeSliderFragment).commit();
-    }
+//    public void btnRemoveFrag(View view){
+//        Log.d("great", "btnRemoveFrag: ");
+//        MemeSliderFragment memeSliderFragment = new MemeSliderFragment();
+//        getSupportFragmentManager().beginTransaction().remove(memeSliderFragment).commit();
+//        //fragmentManager.beginTransaction().remove(memeSliderFragment).commit();
+//    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,12 +155,19 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         Log.d("setInterests", "setInterestBingSearch: "+memes.size());
         TrendingInterestFragment trendingInterestFragment = TrendingInterestFragment.newInstance(memes);
     }
-    
-    
+
+    @Override
+    public void setSearchmeme(List<String> memes) {
+        SearchMemeFragment searchMemeFragment = SearchMemeFragment.newInstance(memes,"great");
+    }
+
+
     @Override
     public void showProgress(String progress) {
     
     }
+
+
 
 //    public void openSearchFragment(View view) {
 //        Log.d("FAb", "openSearchFragment: ");
