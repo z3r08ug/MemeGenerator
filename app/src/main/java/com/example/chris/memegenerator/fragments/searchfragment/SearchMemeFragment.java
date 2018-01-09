@@ -138,8 +138,8 @@ public class SearchMemeFragment extends Fragment
             @Override
             public void onMemeClick(Image image, int position) {
                 Log.d("great", "onMemeClick: "+position);
-                Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
-                MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(memeUrlList, image.getImageUrl());
+              //  Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
+                MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(memeUrlList, position);
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,memeSliderFragment, "Slider").addToBackStack("Slider").commit();
 

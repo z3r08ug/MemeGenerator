@@ -47,7 +47,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     private Toolbar homeToolbar;
     List<String> interests;
     List<List<String>> interestsMemes;
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +82,9 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
                 {
                     while ((line = buffreader.readLine()) != null)
                         line1+=line;
+
+                    presenter.getBingSearch(line1,Constants.interestTrending);
+
                     presenter.getBingSearch(line1, Constants.interestTrending);
                     Log.d(TAG, "onCreate: "+line1);
                 }catch (Exception e)
