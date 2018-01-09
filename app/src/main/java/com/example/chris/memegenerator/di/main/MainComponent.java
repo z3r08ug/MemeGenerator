@@ -4,8 +4,6 @@ import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
 import com.example.chris.memegenerator.view.main.MainActivity;
 import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 
-import java.lang.reflect.Member;
-
 import dagger.Subcomponent;
 
 /**

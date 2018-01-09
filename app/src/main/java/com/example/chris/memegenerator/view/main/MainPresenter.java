@@ -100,15 +100,7 @@ public class MainPresenter implements MainContract.Presenter
                         else if(whichcall==Constants.interestTrending) {
                             view.setInterestBingSearch(interestMemes);
                         }
-                        else if(whichcall == Constants.Searchmeme){
-                            view.setSearchmeme(interestMemes);
-                        }
                     }
                 });
     }
-//    @Override
-//    public void getInterestTrending()
-//    {
-//
-//    }
 }

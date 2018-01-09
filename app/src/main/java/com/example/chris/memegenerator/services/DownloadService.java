@@ -61,5 +61,4 @@ public class DownloadService extends Thread{
         message.setData(bundle);
         handler.sendMessage(message);
     }
-
 }

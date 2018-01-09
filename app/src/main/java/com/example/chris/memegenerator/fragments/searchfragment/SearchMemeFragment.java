@@ -109,7 +109,7 @@ public class SearchMemeFragment extends Fragment
             @Override
             public void onClick(View view) {
                 Log.d("FAB", "onClick: " );
-                String getSearch =etSearch.getText().toString();
+                String getSearch =etSearch.getText().toString() + " memes";
                 Log.d("Great", "onClick: "+getSearch);
                 loadInterestTrending(getSearch);
             }
