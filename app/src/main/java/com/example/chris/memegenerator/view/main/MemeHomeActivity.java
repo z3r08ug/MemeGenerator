@@ -195,10 +195,6 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         TrendingInterestFragment trendingInterestFragment = TrendingInterestFragment.newInstance(memes);
     }
 
-    @Override
-    public void setSearchmeme(List<String> memes) {
-        SearchMemeFragment searchMemeFragment = SearchMemeFragment.newInstance(memes,"great");
-    }
 
 
     public void setSearchmeme(List<String> memes)
