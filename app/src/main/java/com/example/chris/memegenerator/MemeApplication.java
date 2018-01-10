@@ -71,7 +71,7 @@ public class MemeApplication extends Application
 
     @Override
     public void onTerminate() {
-        FavoritesHandler.commit();
+        FavoritesHandler.commit(this);
         super.onTerminate();
     }
 }
