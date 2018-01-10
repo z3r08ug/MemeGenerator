@@ -98,7 +98,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
         mainViewPagerAdapter.notifyDataSetChanged();
-        FacebookMemeSearch.KeyWordrestCall("kobe dunked the ball");
+//        FacebookMemeSearch.KeyWordrestCall("kobe dunked the ball");
         interests = new ArrayList<>();
         interestsMemes = new ArrayList<>();
         
@@ -203,7 +203,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     }
     public void makingbingcall(List<String> key){
         ArrayList<String> Thekey = new ArrayList<>();
-        Thekey.add("https://www.google.com/imgres?imgurl=https%3A%2F%2Ffm.cnbc.com%2Fapplications%2Fcnbc.com%2Fresources%2Fimg%2Feditorial%2F2016%2F08%2F22%2F103884430-GettyImages-139369178.1910x1000.jpg&imgrefurl=https%3A%2F%2Fwww.cnbc.com%2F2017%2F04%2F24%2Fkobe-bryant-on-what-it-really-takes-to-succeed.html&docid=jzPdTHU95PXCtM&tbnid=bn2koAavuRB0YM%3A&vet=10ahUKEwiUx_D3lsvYAhUMY98KHbfaDuAQMwiDAigBMAE..i&w=1910&h=1000&bih=607&biw=1228&q=kobe&ved=0ahUKEwiUx_D3lsvYAhUMY98KHbfaDuAQMwiDAigBMAE&iact=mrc&uact=8");
+//        Thekey.add("https://www.google.com/imgres?imgurl=https%3A%2F%2Ffm.cnbc.com%2Fapplications%2Fcnbc.com%2Fresources%2Fimg%2Feditorial%2F2016%2F08%2F22%2F103884430-GettyImages-139369178.1910x1000.jpg&imgrefurl=https%3A%2F%2Fwww.cnbc.com%2F2017%2F04%2F24%2Fkobe-bryant-on-what-it-really-takes-to-succeed.html&docid=jzPdTHU95PXCtM&tbnid=bn2koAavuRB0YM%3A&vet=10ahUKEwiUx_D3lsvYAhUMY98KHbfaDuAQMwiDAigBMAE..i&w=1910&h=1000&bih=607&biw=1228&q=kobe&ved=0ahUKEwiUx_D3lsvYAhUMY98KHbfaDuAQMwiDAigBMAE&iact=mrc&uact=8");
         
         for (int i = 0; i <key.size() ; i++)
         {

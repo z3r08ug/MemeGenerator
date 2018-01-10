@@ -7,19 +7,47 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:layout_margin="10dp"
     android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:layout_height="wrap_content">
     <ImageView
         android:id="@+id/ivMemeSlider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    </android.support.v7.widget.CardView>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+
+        android:layout_height="wrap_content">
     <Button
         android:text="Share"
+
        android:id="@+id/shareOnFacebook"
-        android:layout_marginTop="15dp"
+
         android:layout_gravity="center"
         android:textColor="@android:color/white"
         android:background="@color/colorAccent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="100dp"
+        android:layout_height="50dp" />
+     <ImageButton
+         android:layout_marginLeft="10dp"
+
+         android:padding="10dp"
+android:id="@+id/btnFavMeme"
+android:elevation="5dp"
+android:textColor="@android:color/white"
+         android:background="@drawable/red_border"
+         android:src="@drawable/ic_favorite_border_black_24dp"
+         android:layout_width="100dp"
+
+         android:layout_height="50dp" />
+    </LinearLayout>
 </LinearLayout>
 </ScrollView>

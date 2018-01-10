@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragments.searchfragment.SearchMemeFragment">
+
 <LinearLayout
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
@@ -17,6 +18,7 @@
         android:layout_weight="1"
         android:paddingStart="5dp"
         android:layout_width="0dp"
+        android:hint="@string/search_memes"
         android:id="@+id/evSearch"
         android:layout_height="wrap_content" />
 
