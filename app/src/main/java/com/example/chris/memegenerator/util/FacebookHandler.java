@@ -197,7 +197,7 @@ public class FacebookHandler {
     }
 
     public void logout() {
-        AccessToken.setCurrentAccessToken(null);
+        LoginManager.getInstance().logOut();
     }
 
     //Any Class that wants to get back the facebook name must implement this interface
