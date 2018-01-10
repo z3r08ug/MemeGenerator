@@ -3,7 +3,7 @@
     package="com.example.chris.memegenerator">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MemeApplication"
@@ -25,9 +25,7 @@
         </activity>
         <activity android:name=".category.MemeInterestActivity" />
         <activity android:name=".view.main.MemeHomeActivity" />
-        <activity android:name=".view.main.MainActivity">
-
-        </activity>
+        <activity android:name=".view.main.MainActivity"></activity>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -39,14 +37,17 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-        <provider android:name="com.facebook.FacebookContentProvider"
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1779381205696405"
             android:exported="true" />
 
-        <activity android:name=".view.FavoriteMemesActivity"></activity>
+        <activity android:name=".view.FavoriteMemesActivity" />
+        <activity android:name=".view.Main2Activity"></activity>
     </application>
 
 </manifest>

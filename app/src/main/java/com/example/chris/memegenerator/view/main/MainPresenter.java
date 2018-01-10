@@ -28,6 +28,7 @@ public class MainPresenter implements MainContract.Presenter
     BingSearch bing = null;
     List<String> trendingMemes = new ArrayList<>();
     List<String> interestMemes = new ArrayList<>();
+    List<String> keywords = new ArrayList<>();
     
     @Inject
     public MainPresenter(RemoteDataSource remoteDataSource)
@@ -100,6 +101,52 @@ public class MainPresenter implements MainContract.Presenter
                         else if(whichcall==Constants.interestTrending) {
                             view.setInterestBingSearch(interestMemes);
                         }
+                        else if (whichcall == "nothing"){
+                            view.setSearchmeme(interestMemes);
+                            Log.d(TAG, "onComplete: THISSSSS "+interestMemes.size());
+                        }
+                    }
+                });
+    }
+    
+    @Override
+    public void getBingKeywordSearh(final String search, final String whichCall, final Integer num)
+    {
+        Constants.whichCall(Constants.bing);
+        RemoteDataSource.getkeywordResponse(search,num)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Observer<BingSearch>()
+                {
+                    @Override
+                    public void onSubscribe(Disposable d)
+                    {
+                        view.showProgress("Downloading trendingMemes.....");
+                    }
+    
+                    @Override
+                    public void onNext(BingSearch bingSearch)
+                    {
+                        bing = bingSearch;
+                    }
+    
+                    @Override
+                    public void onError(Throwable e)
+                    {
+                    }
+                    @Override
+                    public void onComplete()
+                    {
+                        view.showProgress("Downloaded Memes");
+                        for (int i = 0; i < bing.getValue().size(); i ++)
+                        {
+                            if (bing.getValue().get(i) != null)
+                            {
+                                keywords.add(bing.getValue().get(i).getThumbnailUrl());
+                            }
+                        }
+                        view.setSearchmeme(keywords);
+                       
                     }
                 });
     }

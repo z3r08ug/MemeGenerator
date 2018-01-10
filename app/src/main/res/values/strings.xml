@@ -6,4 +6,6 @@
     <string name="facebook_app_id">1779381205696405</string>
     <string name="fb_login_protocol_scheme">fb1779381205696405</string>
     <string name="next">Next</string>
+    <string name="search_for_picture">Search for Picture</string>
+    <string name="choose_from_gallery">Choose From Gallery</string>
 </resources>

@@ -127,9 +127,9 @@ public class TrendingInterestFragment extends Fragment {
                 interestRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
                     @Override
                     public void onMemeClick(Image image, int position) {
-                        Toast.makeText(getContext(), "Item Clicked" + image.getImageUrl(), Toast.LENGTH_LONG).show();
+                     //   Toast.makeText(getContext(), "Item Clicked" + image.getImageUrl(), Toast.LENGTH_LONG).show();
                         Log.d(TAG, "onMemeClick: "+position);
-                        MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
+                        MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, position);
                         FragmentManager fragmentManager = getFragmentManager();
                         fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,memeSliderFragment).addToBackStack("Slider").commit();
                     }

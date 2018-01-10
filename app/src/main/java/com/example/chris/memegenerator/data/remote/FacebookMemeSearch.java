@@ -7,6 +7,7 @@ import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.Keyword;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -18,7 +19,12 @@ import retrofit2.Response;
 
 public class FacebookMemeSearch {
     public static final String TAG = "FacebookMemeSearch";
-    public static ArrayList<String> keywords = new ArrayList<String>();
+    public static List<String> keywords = new ArrayList<String>();
+    
+    public FacebookMemeSearch()
+    {
+    }
+    
     public static void KeyWordrestCall (final String phrase){
 
         Constants.whichCall(Constants.keyword);
@@ -38,6 +44,10 @@ public class FacebookMemeSearch {
                                         tag = response.body().getText().get(i).get(j).get(k).getTag();
                                         if (tag.equals("NOUN") || tag.equals("VERB"))
                                         {
+                                            Log.d("MYOWNTAG", "onResponse: word "+
+                                                    response.body().getText().get(i).get(j).get(k).getWord()
+                                            + "\ntag is: " + tag);
+                                            
                                             if (tag.equals("NOUN") && word != null && word.length() >0 && Character.isUpperCase(word.charAt(0))
                                                     && Character.isUpperCase(response.body().getText().get(i).get(j).get(k).getWord().charAt(0)))
                                             {
@@ -78,7 +88,7 @@ public class FacebookMemeSearch {
                 });
 
     }
-    public ArrayList<String> generateKeywords(ArrayList<Keyword> keywords)
+    public List<String> generateKeywords(ArrayList<Keyword> keywords)
     {
         ArrayList<String> keys = new ArrayList<String>();
         //let's search for proper names and make sure that's passed as a single string
