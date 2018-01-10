@@ -27,6 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -95,15 +96,40 @@ public class FacebookHandler {
         return accessToken;
     }
 
-    public void getPublishPermission(Activity activity) {
+    public void getPublishPermission(Activity activity, final FacebookPermissionListener facebookPermissionListener) {
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "onSuccess: getPublishPermission: onSuccess");
+                facebookPermissionListener.onPermissionSuccess();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "onSuccess: getPublishPermission: onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "onSuccess: getPublishPermission: onError");
+            }
+        });
         LoginManager.getInstance().logInWithPublishPermissions(activity, Arrays.asList("publish_actions"));
     }
 
     public Set<String> getCurrentPermissions() {
+        if(accessToken==null)
+            return new HashSet<>();
+        if(accessToken.getCurrentAccessToken()==null)
+            return new HashSet<>();
         return accessToken.getCurrentAccessToken().getPermissions();
     }
 
     public Set<String> getDeclinedPermissions() {
+        if(accessToken==null)
+            return new HashSet<>();
+        if(accessToken.getCurrentAccessToken()==null)
+            return new HashSet<>();
         return accessToken.getCurrentAccessToken().getDeclinedPermissions();
     }
 
@@ -117,6 +143,15 @@ public class FacebookHandler {
                 .build();
         ShareDialog shareDialog = new ShareDialog(activity);
         shareDialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
+    }
+
+    //Make Link post to Facebook
+    public void shareDialog(String url, Activity activity) {
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(url))
+                .build();
+        ShareDialog shareDialog = new ShareDialog(activity);
+        shareDialog.show(content, ShareDialog.Mode.AUTOMATIC);
     }
 
     public void getName(final FacebookListener facebookListener) {
@@ -175,4 +210,10 @@ public class FacebookHandler {
     public interface FacebookLoginListener {
         void onSuccess();
     }
+
+    //Any Class that wants to listen to facebook permission request can implement this method
+    public interface FacebookPermissionListener {
+        void onPermissionSuccess();
+    }
+
 }

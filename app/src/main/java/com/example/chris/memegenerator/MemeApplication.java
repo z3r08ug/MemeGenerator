@@ -23,7 +23,7 @@ public class MemeApplication extends Application
     //private static final String API_KEY = "AIzaSyBgFi0vAWqYPVS7VvKxV5ZzPiDYcunr7Fo"; // TODO not used
 
     private static final String GoogleSerachBaseUrl = "https://www.googleapis.com/customsearch/";
-    private static final String API_KEY = "AIzaSyBgFi0vAWqYPVS7VvKxV5ZzPiDYcunr7Fo";
+    private static final String API_KEY = "69830c4d38b6259d7c9bd14adc09d2a1";
     private static final String KeyWordBaseUrl = "https://api.textgain.com/1/";
     private static final String BingSearchBaseUrl = "https://api.cognitive.microsoft.com/";
     private AppComponent appComponent;

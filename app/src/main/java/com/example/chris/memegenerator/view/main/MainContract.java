@@ -26,5 +26,6 @@ public interface MainContract
     interface Presenter extends BasePresenter<View>
     {
         void getBingSearch(String search, String whichCall);
+        void getBingKeywordSearh ( String search, String whichCall, Integer num);
     }
 }

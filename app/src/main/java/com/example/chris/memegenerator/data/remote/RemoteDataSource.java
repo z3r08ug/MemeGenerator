@@ -121,6 +121,12 @@ public class RemoteDataSource
         BingSearchRemoteService remoteService = retrofit.create(BingSearchRemoteService.class);
         return remoteService.getBingResponse(search);
     }
+    public static Observable<BingSearch> getkeywordResponse(String search, Integer num)
+    {
+        Retrofit retrofit = create();
+        BingSearchRemoteService remoteService = retrofit.create(BingSearchRemoteService.class);
+        return remoteService.getBingkeywordResponse(search, num);
+    }
 
 /* Todo refrofit causing error
        public static Observable<List<GoogleResponse>> googleresult(String mysearch)
