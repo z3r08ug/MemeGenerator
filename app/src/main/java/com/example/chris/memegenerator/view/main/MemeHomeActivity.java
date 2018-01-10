@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
@@ -56,6 +57,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     TabLayout mainTabLayout;
     ViewPager viewPager;
     private Toolbar homeToolbar;
+    FrameLayout frameLayout;
     List<String> interests;
     List<List<String>> interestsMemes;
     List<String> parsingKeywods = new ArrayList<>();
@@ -94,6 +96,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
         mainViewPagerAdapter.notifyDataSetChanged();
+        frameLayout = findViewById(R.id.searchFragmentFrame);
 //        FacebookMemeSearch.KeyWordrestCall("kobe dunked the ball");
         interests = new ArrayList<>();
         interestsMemes = new ArrayList<>();
@@ -143,17 +146,25 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         switch (item.getItemId()){
             case R.id.itemFavorites:
                 Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
+                if (frameLayout.getVisibility() == View.VISIBLE)
+                    onBackPressed();
                 startActivity(intentFav);
                 break;
             case R.id.itemSettings:
                 Intent intentSearch = new Intent(this, MemeInterestActivity.class);
+                if (frameLayout.getVisibility() == View.VISIBLE)
+                    onBackPressed();
                 startActivity(intentSearch);
                 break;
             case R.id.itemCreate:
                 Intent intentCreate = new Intent(this, CreateMemeActivity.class);
+                if (frameLayout.getVisibility() == View.VISIBLE)
+                    onBackPressed();
                 startActivity(intentCreate);
                 break;
             case  R.id.itemLogOut:
+                if (frameLayout.getVisibility() == View.VISIBLE)
+                    onBackPressed();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -204,6 +215,8 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         }
         Intent intent = new Intent(this, Main2Activity.class);
         intent.putStringArrayListExtra("magic",Thekey);
+        if (frameLayout.getVisibility() == View.VISIBLE)
+            onBackPressed();
         startActivity(intent);
         
         
