@@ -26,8 +26,10 @@ public class FavoritesHandler {
     }
 
     public static void commit() {
-        if(!first)
+        if(!first) {
+            editor.putStringSet("favorites",favorites);
             editor.commit();
+        }
     }
 
     public static Set<String> getFavorites(Context context) {
