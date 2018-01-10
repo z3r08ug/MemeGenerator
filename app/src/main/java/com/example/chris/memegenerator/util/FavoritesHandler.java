@@ -12,46 +12,48 @@ import java.util.Set;
 
 public class FavoritesHandler {
 
+    private static boolean first = true;
+    private static SharedPreferences sharedPreferences;
+    private static SharedPreferences.Editor editor;
+    private static Set<String> favorites;
+
+    private static void initialize(Context context) {
+        sharedPreferences = context.getApplicationContext().getSharedPreferences("MyPref",Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        favorites = sharedPreferences.getStringSet("favorites",null);
+        first = false;
+    }
+
+    public static void commit(Context) {
+        if(!first)
+            editor.commit();
+    }
+
     public static Set<String> getFavorites(Context context) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences("MyPref",Context.MODE_PRIVATE);
-        Set<String> favorites = sharedPreferences.getStringSet("favorites",null);
+        if(first)initialize(context);
         return favorites;
     }
 
     public static void addFavorite(String url, Context context) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences("MyPref",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set<String> favorites = sharedPreferences.getStringSet("favorites",null);
-        if(favorites!=null)
-            favorites.add(url);
-        else {
+        if(first)initialize(context);
+        if(favorites==null)
             favorites = new HashSet<>();
-            favorites.add(url);
-        }
-        editor.putStringSet("favorites",favorites);
-        editor.commit();
+        favorites.add(url);
     }
 
     public static void removeFavorite(String url, Context context) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences("MyPref",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set<String> favorites = sharedPreferences.getStringSet("favorites",null);
+        if(first)initialize(context);
         if(favorites!=null) {
             if (favorites.contains(url))
                 favorites.remove(url);
         }
         else
             favorites = new HashSet<>();
-        editor.putStringSet("favorites",favorites);
-        editor.commit();
     }
 
     public static void removeAllFavorite(Context context) {
-        SharedPreferences sharedPreferences = context.getApplicationContext().getSharedPreferences("MyPref",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Set<String> favorites = new HashSet<>();
-        editor.putStringSet("favorites",favorites);
-        editor.commit();
+        if(first)initialize(context);
+        favorites = new HashSet<>();
     }
 
 }
