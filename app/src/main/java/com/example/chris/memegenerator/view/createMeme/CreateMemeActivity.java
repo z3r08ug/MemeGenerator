@@ -132,7 +132,9 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
     {
         etTop.setDrawingCacheEnabled(true);
         etBottom.setDrawingCacheEnabled(true);
-
+        etBottom.setTextColor(this.getResources().getColor(R.color.whiteBYRIZ));
+        etTop.setTextColor(this.getResources().getColor(R.color.whiteBYRIZ));
+        
         Bitmap bmp = Bitmap.createBitmap(etTop.getDrawingCache());
 
         combined = combineImages(meme,bmp, true);
@@ -140,8 +142,8 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
         bmp = Bitmap.createBitmap(etBottom.getDrawingCache());
         combined = combineImages(combined, bmp, false);
         ivMeme.setImageBitmap(combined);
-        ivMeme.setMaxWidth(600);
-        ivMeme.setMaxHeight(600);
+        ivMeme.setMaxWidth(100);
+        ivMeme.setMaxHeight(100);
         etTop.setVisibility(View.INVISIBLE);
         etBottom.setVisibility(View.INVISIBLE);
     }
@@ -160,7 +162,7 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
         background = Bitmap.createScaledBitmap(background, width, height, true);
         comboImage.drawBitmap(background, 0, 0, null);
         if (top)
-            comboImage.drawBitmap(foreground, 0,400, null);
+            comboImage.drawBitmap(foreground, 0,300, null);
         else
             comboImage.drawBitmap(foreground, 0, 1500, null);
 

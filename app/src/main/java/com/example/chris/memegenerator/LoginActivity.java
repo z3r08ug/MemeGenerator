@@ -37,6 +37,6 @@ public class LoginActivity extends AppCompatActivity implements FacebookHandler.
     @Override
     public void onSuccess() {
         Intent intent = new Intent(this, MemeInterestActivity.class);
-            startActivity(intent);
+        startActivity(intent);
     }
 }
