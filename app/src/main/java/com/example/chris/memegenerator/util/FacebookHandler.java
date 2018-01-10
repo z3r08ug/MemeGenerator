@@ -145,6 +145,15 @@ public class FacebookHandler {
         shareDialog.show(shareContent, ShareDialog.Mode.AUTOMATIC);
     }
 
+    //Make Link post to Facebook
+    public void shareDialog(String url, Activity activity) {
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse(url))
+                .build();
+        ShareDialog shareDialog = new ShareDialog(activity);
+        shareDialog.show(content, ShareDialog.Mode.AUTOMATIC);
+    }
+
     public void getName(final FacebookListener facebookListener) {
         if(accessToken==null)
             if(AccessToken.getCurrentAccessToken()!=null)
