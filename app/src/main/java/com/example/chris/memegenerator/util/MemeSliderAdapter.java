@@ -60,7 +60,7 @@ int setCurrentImage;
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(final ViewGroup container, int position) {
 
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -71,13 +71,29 @@ int setCurrentImage;
         Log.d("Check", "instantiateItem: "+imageUrl);
        // memeSlider.setImageResource(imageList.get(position).getImageUrl());
 
+
         Glide.with(context).load(imageUrl).into(memeSlider);
         final ImageButton btnFavMeme= view.findViewById(R.id.btnFavMeme);
+        final Animation myAnim = AnimationUtils.loadAnimation(context, R.anim.button_animation);
+        if (FavoritesHandler.getFavorites(context).contains(imageUrl)){
+            btnFavMeme.startAnimation(myAnim);
+        }
         btnFavMeme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Animation myAnim = AnimationUtils.loadAnimation(context, R.anim.button_animation);
-                btnFavMeme.startAnimation(myAnim);
+                if (FavoritesHandler.getFavorites(context).contains(imageUrl)){
+                    Toast.makeText(context,"Removed ",Toast.LENGTH_LONG).show();
+                    btnFavMeme.clearAnimation();
+
+                }
+                else {
+                    FavoritesHandler.addFavorite(imageUrl, context);
+                    Toast.makeText(context,"Added",Toast.LENGTH_LONG).show();
+                    final Animation myAnim = AnimationUtils.loadAnimation(context, R.anim.button_animation);
+                    btnFavMeme.startAnimation(myAnim);
+
+
+                }
             }
         });
 shareOnFacebook.setOnClickListener(new View.OnClickListener() {

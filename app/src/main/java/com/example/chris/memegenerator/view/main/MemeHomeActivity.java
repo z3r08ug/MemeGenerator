@@ -73,10 +73,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
                     parsingKeywods.add(keywords.get(i));
                 }
                 makingbingcall(parsingKeywods);
-                
-                
-                
-                
             }
             
         }
@@ -129,8 +125,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         {
             Log.d(TAG, "onCreate: "+e.toString());
         }
-        
-        
     }
     
     public void btnRemoveFrag(View view){
@@ -146,7 +140,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         menuInflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         
@@ -206,7 +199,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         {
             Thekey.add(memes.get(i));
             Log.d(TAG, "setSearchmeme: thissss" + memes.get(i));
-            
         }
         
         
