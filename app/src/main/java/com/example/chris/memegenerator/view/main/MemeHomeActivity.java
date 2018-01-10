@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import com.example.chris.memegenerator.LoginActivity;
 import com.example.chris.memegenerator.MemeApplication;
@@ -63,6 +64,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     TabLayout mainTabLayout;
     ViewPager viewPager;
     private Toolbar homeToolbar;
+    FrameLayout frameLayout;
     List<String> interests;
     EditText etpost;
     List<List<String>> interestsMemes;
@@ -79,10 +81,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
                     parsingKeywods.add(keywords.get(i));
                 }
                 makingbingcall(parsingKeywods);
-                
-                
-                
-                
             }
             
         }
@@ -115,6 +113,8 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         mainViewPagerAdapter.notifyDataSetChanged();
 viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         FacebookMemeSearch.KeyWordrestCall("kobe dunked the ball");
+        frameLayout = findViewById(R.id.searchFragmentFrame);
+//        FacebookMemeSearch.KeyWordrestCall("kobe dunked the ball");
         interests = new ArrayList<>();
         interestsMemes = new ArrayList<>();
     
@@ -146,9 +146,6 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         {
             Log.d(TAG, "onCreate: "+e.toString());
         }
-
-        
-        
     }
     
 //    public void btnRemoveFrag(View view){
@@ -164,7 +161,6 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         menuInflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -187,6 +183,31 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
             startActivity(intent);
             break;
     }
+        
+        switch (item.getItemId()){
+            case R.id.itemFavorites:
+                Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
+                if (frameLayout.getVisibility() == View.VISIBLE)
+                    onBackPressed();
+                startActivity(intentFav);
+                break;
+            case R.id.itemSettings:
+                Intent intentSearch = new Intent(this, MemeInterestActivity.class);
+                if (frameLayout.getVisibility() == View.VISIBLE)
+                    onBackPressed();
+                startActivity(intentSearch);
+                break;
+            case R.id.itemCreate:
+                Intent intentCreate = new Intent(this, CreateMemeActivity.class);
+                if (frameLayout.getVisibility() == View.VISIBLE)
+                    onBackPressed();
+                startActivity(intentCreate);
+                break;
+            case  R.id.itemLogOut:
+                if (frameLayout.getVisibility() == View.VISIBLE)
+                    onBackPressed();
+                break;
+        }
         return super.onOptionsItemSelected(item);
 
     }
@@ -220,7 +241,6 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         {
             Thekey.add(memes.get(i));
             Log.d(TAG, "setSearchmeme: thissss" + memes.get(i));
-            
         }
         
         
@@ -237,6 +257,8 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         }
         Intent intent = new Intent(this, Main2Activity.class);
         intent.putStringArrayListExtra("magic",Thekey);
+        if (frameLayout.getVisibility() == View.VISIBLE)
+            onBackPressed();
         startActivity(intent);
         
         
