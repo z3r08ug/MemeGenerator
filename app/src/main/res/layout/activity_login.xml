@@ -33,11 +33,7 @@
                 android:textSize="52sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Some Introductory Text" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp">
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.chris.memegenerator.view.createMeme.CreateMemeActivity">
+
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -12,106 +22,85 @@
         <include layout="@layout/main_tool_bar"/>
 
     </android.support.design.widget.AppBarLayout>
-    tools:context="com.example.chris.memegenerator.view.createMeme.CreateMemeActivity">
 
-    <!--<ImageView-->
-        <!--android:id="@+id/ivCreateMeme"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:layout_width="600dp"-->
-        <!--android:layout_height="600dp" />-->
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.example.chris.memegenerator.view.createMeme.CreateMemeActivity">
+        android:layout_height="match_parent">
 
-
-        <android.support.constraint.ConstraintLayout
+        <ImageView
+            android:id="@+id/ivCreateMeme"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="300dp"
 
-            <ImageView
-                android:id="@+id/ivCreateMeme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/funnymemes1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="16dp" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="92dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/funnymemes1"
+            app:layout_constraintBottom_toTopOf="@+id/button4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/etTop"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:hint="Enter Meme Text"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/ivCreateMeme"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ivCreateMeme"
-                app:layout_constraintVertical_bias="0.094" />
+        <EditText
+            android:id="@+id/etTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-            <EditText
-                android:id="@+id/etBottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@android:color/transparent"
-                android:gravity="center_horizontal"
-                android:hint="Enter Meme Text"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/ivCreateMeme"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/ivCreateMeme"
-                app:layout_constraintVertical_bias="1.0" />
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
+            android:hint="Enter Meme Text"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/ivCreateMeme"
+            app:layout_constraintStart_toStartOf="@+id/ivCreateMeme"
+            app:layout_constraintTop_toTopOf="@+id/ivCreateMeme" />
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:onClick="onSaveMeme"
-                android:text="Save Meme"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button5"
-                app:layout_constraintVertical_bias="0.83"
-                tools:layout_editor_absoluteX="0dp" />
+        <EditText
+            android:id="@+id/etBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="204dp"
-                android:onClick="onCreateMeme"
-                android:text="Save Meme"
-                app:layout_constraintTop_toBottomOf="@+id/ivCreateMeme"
-                tools:layout_editor_absoluteX="0dp" />
+            android:layout_marginBottom="28dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
+            android:hint="Enter Meme Text"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivCreateMeme"
+            app:layout_constraintEnd_toEndOf="@+id/ivCreateMeme"
+            app:layout_constraintHorizontal_bias="0.504"
+            app:layout_constraintStart_toStartOf="@+id/ivCreateMeme" />
 
-        </android.support.constraint.ConstraintLayout>
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:padding="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:onClick="onCreateMeme"
+            android:text="Save Meme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent" />
 
-    </FrameLayout>
-</LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
+
+</FrameLayout>
+</ScrollView>
