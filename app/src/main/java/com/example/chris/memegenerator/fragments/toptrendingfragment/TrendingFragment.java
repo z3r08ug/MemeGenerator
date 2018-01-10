@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
+import com.example.chris.memegenerator.util.GridSpacingItemDecoration;
 import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
 
@@ -84,7 +85,10 @@ public class TrendingFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_top_trending, container, false);
         topTrendingRv = view.findViewById(R.id.rvTopTrendingMemes);
         topTrendingRv.setLayoutManager(new GridLayoutManager(this.getActivity(),2));
-        
+        int spanCount = 2; // 3 columns
+        int spacing = 50; // 50px
+        boolean includeEdge = false;
+        topTrendingRv.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         new Handler().postDelayed(new Runnable()
         {
             @Override

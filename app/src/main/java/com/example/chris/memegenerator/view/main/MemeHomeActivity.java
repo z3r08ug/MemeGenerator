@@ -3,6 +3,7 @@ package com.example.chris.memegenerator.view.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
@@ -21,7 +22,6 @@ import android.widget.EditText;
 
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
-import com.example.chris.memegenerator.category.MemeInterestActivity;
 import com.example.chris.memegenerator.category.MemesCategory;
 import com.example.chris.memegenerator.data.remote.FacebookMemeSearch;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
@@ -31,6 +31,7 @@ import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragme
 import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.MainPagerViewAdapter;
+import com.example.chris.memegenerator.util.ZoomOutPageTransformer;
 import com.example.chris.memegenerator.util.pojo.keywordfinder.Keywords;
 import com.example.chris.memegenerator.view.FavoriteMemesActivity;
 import com.example.chris.memegenerator.view.Main2Activity;
@@ -85,23 +86,30 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_meme_activity
         );
-        MemeApplication.get(this).getMainComponent().inject(this);
+       MemeApplication.get(this).getMainComponent().inject(this);
         homeToolbar = findViewById(R.id.home_toolbar);
+
         homeToolbar.setBackgroundColor(Color.parseColor("#19B5FE"));
         viewPager = findViewById(R.id.app_main_pager);
         mainTabLayout = findViewById(R.id.app_main_tabs);
         mainTabLayout.setBackgroundColor(Color.parseColor("#1E8BC3"));
         mainViewPagerAdapter = new MainPagerViewAdapter(getSupportFragmentManager());
         presenter.attachView(this);
+//        presenter.getBingSearch("trendingMemes", Constants.topTrending);
+        presenter.getBingSearch("top memes", Constants.topTrending);
+
+
         presenter.getBingSearch("trendingMemes", Constants.topTrending);
         viewPager.setAdapter(mainViewPagerAdapter);
+
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
         mainViewPagerAdapter.notifyDataSetChanged();
+viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         FacebookMemeSearch.KeyWordrestCall("kobe dunked the ball");
         interests = new ArrayList<>();
         interestsMemes = new ArrayList<>();
-        
+    
         try
         {
             InputStream instream = openFileInput("interests.txt");
@@ -114,6 +122,10 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
                 {
                     while ((line = buffreader.readLine()) != null)
                         line1+=line;
+                    Log.d("Chris", "onCreate: "+line1);
+
+                    presenter.getBingSearch(line1,Constants.interestTrending);
+
                     presenter.getBingSearch(line1, Constants.interestTrending);
                     Log.d(TAG, "onCreate: "+line1);
                 }catch (Exception e)
@@ -126,16 +138,17 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         {
             Log.d(TAG, "onCreate: "+e.toString());
         }
+
         
         
     }
     
-    public void btnRemoveFrag(View view){
-        Log.d("great", "btnRemoveFrag: ");
-        MemeSliderFragment memeSliderFragment = new MemeSliderFragment();
-        getSupportFragmentManager().beginTransaction().remove(memeSliderFragment).commit();
-        //fragmentManager.beginTransaction().remove(memeSliderFragment).commit();
-    }
+//    public void btnRemoveFrag(View view){
+//        Log.d("great", "btnRemoveFrag: ");
+//        MemeSliderFragment memeSliderFragment = new MemeSliderFragment();
+//        getSupportFragmentManager().beginTransaction().remove(memeSliderFragment).commit();
+//        //fragmentManager.beginTransaction().remove(memeSliderFragment).commit();
+//    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,27 +159,23 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        
-        switch (item.getItemId()){
-            case R.id.itemFavorites:
-                Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
-                startActivity(intentFav);
-                break;
-            case R.id.itemSettings:
-                Intent intentSearch = new Intent(this, MemeInterestActivity.class);
-                startActivity(intentSearch);
-                break;
-            case R.id.itemCreate:
-                Intent intentCreate = new Intent(this, CreateMemeActivity.class);
-                startActivity(intentCreate);
-                break;
-            case  R.id.itemLogOut:
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-        
+
+    switch (item.getItemId()){
+        case R.id.itemFavorites:
+            Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
+            startActivity(intentFav);
+            break;
+        case R.id.itemSettings:
+            Intent intentSearch = new Intent(this, MemesCategory.class);
+            startActivity(intentSearch);
+        case R.id.itemCreate:
+            Intent intentCreate = new Intent(this, CreateMemeActivity.class);
+            startActivity(intentCreate);
     }
-    
+        return super.onOptionsItemSelected(item);
+
+    }
+
     @Override
     public void showError(String error) {
     
@@ -185,8 +194,13 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         Log.d("setInterests", "setInterestBingSearch: "+memes.size());
         TrendingInterestFragment trendingInterestFragment = TrendingInterestFragment.newInstance(memes);
     }
-    
+
     @Override
+    public void setSearchmeme(List<String> memes) {
+        SearchMemeFragment searchMemeFragment = SearchMemeFragment.newInstance(memes,"great");
+    }
+
+
     public void setSearchmeme(List<String> memes)
     {
         ArrayList<String> Thekey = new ArrayList<>();
@@ -302,12 +316,15 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         
     }
 
+
+
 //    public void openSearchFragment(View view) {
 //        Log.d("FAb", "openSearchFragment: ");
 //        SearchMemeFragment searchMemeFragment = new SearchMemeFragment();
 //        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //        fragmentTransaction.replace(R.id.searchFragmentFrame, searchMemeFragment).commit();
 //    }
+
 
 
 }
