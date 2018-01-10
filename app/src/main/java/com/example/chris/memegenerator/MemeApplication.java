@@ -10,6 +10,7 @@ import com.example.chris.memegenerator.di.createMeme.CreateMemeComponent;
 import com.example.chris.memegenerator.di.createMeme.CreateMemeModule;
 import com.example.chris.memegenerator.di.main.MainComponent;
 import com.example.chris.memegenerator.di.main.MainModule;
+import com.example.chris.memegenerator.util.FavoritesHandler;
 
 import timber.log.Timber;
 
@@ -66,5 +67,11 @@ public class MemeApplication extends Application
     public void clearCreateMemeComponent()
     {
         createComponent = null;
+    }
+
+    @Override
+    public void onTerminate() {
+        FavoritesHandler.commit(this);
+        super.onTerminate();
     }
 }
