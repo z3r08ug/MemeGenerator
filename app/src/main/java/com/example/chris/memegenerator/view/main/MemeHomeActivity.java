@@ -1,8 +1,10 @@
 package com.example.chris.memegenerator.view.main;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Color;
+import android.speech.RecognizerIntent;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.chris.memegenerator.LoginActivity;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.category.MemesCategory;
@@ -30,6 +33,7 @@ import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragme
 import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragment;
 import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
 import com.example.chris.memegenerator.util.Constants;
+import com.example.chris.memegenerator.util.FacebookHandler;
 import com.example.chris.memegenerator.util.MainPagerViewAdapter;
 import com.example.chris.memegenerator.util.ZoomOutPageTransformer;
 import com.example.chris.memegenerator.util.pojo.keywordfinder.Keywords;
@@ -42,6 +46,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -50,6 +55,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MemeHomeActivity extends AppCompatActivity implements MainContract.View{
+    private static final int REQ_CODE_SPEECH_INPUT = 100;
     private static final String TAG = MemeHomeActivity.class.getSimpleName() + "_TAG";
     @Inject
     MainPresenter presenter;
@@ -58,6 +64,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
     ViewPager viewPager;
     private Toolbar homeToolbar;
     List<String> interests;
+    EditText etpost;
     List<List<String>> interestsMemes;
     List<String> parsingKeywods = new ArrayList<>();
     Handler handler = new Handler(){
@@ -92,6 +99,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         homeToolbar.setBackgroundColor(Color.parseColor("#19B5FE"));
         viewPager = findViewById(R.id.app_main_pager);
         mainTabLayout = findViewById(R.id.app_main_tabs);
+        etpost = findViewById(R.id.etpost);
         mainTabLayout.setBackgroundColor(Color.parseColor("#1E8BC3"));
         mainViewPagerAdapter = new MainPagerViewAdapter(getSupportFragmentManager());
         presenter.attachView(this);
@@ -171,6 +179,13 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         case R.id.itemCreate:
             Intent intentCreate = new Intent(this, CreateMemeActivity.class);
             startActivity(intentCreate);
+            break;
+        case R.id.itemLogOut:
+            FacebookHandler facebookHandler = FacebookHandler.getInstance();
+            facebookHandler.logout();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            break;
     }
         return super.onOptionsItemSelected(item);
 
@@ -236,7 +251,7 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
     public void searchkeyword(View view)
     {
         final List<String> keywords = new ArrayList<>();
-        final EditText etpost = findViewById(R.id.etpost);
+
         Constants.whichCall(Constants.keyword);
         new Thread(new Runnable()
         {
@@ -312,6 +327,36 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         
     }
 
+    public void textToSpeach(View view) {
+
+    }
+    private void startVoiceInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hello, How can I help you?");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    etpost.setText(result.get(0));
+                }
+                break;
+            }
+
+        }
+    }
 
 
 //    public void openSearchFragment(View view) {
