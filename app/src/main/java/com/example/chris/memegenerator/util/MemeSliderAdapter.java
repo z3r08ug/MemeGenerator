@@ -2,6 +2,7 @@ package com.example.chris.memegenerator.util;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.FaceDetector;
 import android.os.Handler;
@@ -24,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.services.DownloadService;
+import com.example.chris.memegenerator.view.FavoriteMemesActivity;
 import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
 import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 import com.facebook.share.model.SharePhoto;
@@ -83,7 +85,12 @@ int setCurrentImage;
             public void onClick(View view) {
                 if (FavoritesHandler.getFavorites(context).contains(imageUrl)){
                     Toast.makeText(context,"Removed ",Toast.LENGTH_LONG).show();
+                    FavoritesHandler.removeFavorite(imageUrl,context);
                     btnFavMeme.clearAnimation();
+                    //Intent intent = new Intent(context, FavoriteMemesActivity.class);
+                    //context.startActivity(intent);
+
+
 
                 }
                 else {
