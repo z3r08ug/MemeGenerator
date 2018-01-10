@@ -19,6 +19,7 @@ import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragment;
 import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.MemeSliderAdapter;
+import com.example.chris.memegenerator.util.ZoomOutPageTransformer;
 import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 
 import java.io.Serializable;
@@ -84,14 +85,13 @@ public class MemeSliderFragment extends Fragment {
             Log.d("LEt", "onCreateView: "+imageList.get(i).getImageUrl());
         }
         ViewPager viewPager = view.findViewById(R.id.imageSliderPager);
-        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(getContext(), imageList, imageurl);
+        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(this.getActivity(), imageList, imageurl);
         Log.d("Rizwan", "onCreateView: "+imageurl);
     viewPager.setAdapter(memeSliderAdapter);
     viewPager.setCurrentItem(imageurl);
 
-//        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(getContext(), imageList);
-       // viewPager.setAdapter(memeSliderAdapter);
-        
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+
         return view;
     }
     

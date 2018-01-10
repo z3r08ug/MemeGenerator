@@ -21,6 +21,7 @@ import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
+import com.example.chris.memegenerator.util.GridSpacingItemDecoration;
 import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.MemeSliderAdapter;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
@@ -101,7 +102,10 @@ public class SearchMemeFragment extends Fragment
         memes=new ArrayList<>();
         rvSearchMeme = view.findViewById(R.id.rvSearchMeme);
         rvSearchMeme.setLayoutManager(new GridLayoutManager(this.getActivity(),2));
-
+        int spanCount = 2; // 3 columns
+        int spacing = 50; // 50px
+        boolean includeEdge = false;
+        rvSearchMeme.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
 //        ViewPager viewPager = view.findViewById(R.id.imageSliderPager);
 //        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(this.getActivity());
 //        viewPager.setAdapter(memeSliderAdapter);

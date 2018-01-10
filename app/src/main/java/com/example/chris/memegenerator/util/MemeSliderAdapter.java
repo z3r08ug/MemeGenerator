@@ -11,16 +11,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.services.DownloadService;
 import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
 import com.example.chris.memegenerator.view.main.MemeHomeActivity;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +71,16 @@ int setCurrentImage;
        // memeSlider.setImageResource(imageList.get(position).getImageUrl());
 
         Glide.with(context).load(imageUrl).into(memeSlider);
+        final ImageButton btnFavMeme= view.findViewById(R.id.btnFavMeme);
+        btnFavMeme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Animation myAnim = AnimationUtils.loadAnimation(context, R.anim.button_animation);
+                btnFavMeme.startAnimation(myAnim);
+            }
+        });
 shareOnFacebook.setOnClickListener(new View.OnClickListener() {
+
     @Override
     public void onClick(View view) {
 
@@ -80,7 +96,8 @@ shareOnFacebook.setOnClickListener(new View.OnClickListener() {
 
                 Bitmap savedBitmap = message.getData().getParcelable("bitmap");
                 FacebookHandler facebookHandler = FacebookHandler.getInstance();
-                facebookHandler.shareDialog(savedBitmap,(MemeHomeActivity) context);
+               facebookHandler.shareDialog(savedBitmap, (MemeHomeActivity) context);
+//
                 return true;
             }
         });
@@ -94,6 +111,8 @@ shareOnFacebook.setOnClickListener(new View.OnClickListener() {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-       container.removeView((LinearLayout)object);
+       container.removeView((ScrollView)object);
     }
+
+
 }

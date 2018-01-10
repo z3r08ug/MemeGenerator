@@ -26,6 +26,7 @@ import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragme
 import com.example.chris.memegenerator.fragments.toptrendingfragment.TrendingFragment;
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.MainPagerViewAdapter;
+import com.example.chris.memegenerator.util.ZoomOutPageTransformer;
 import com.example.chris.memegenerator.view.FavoriteMemesActivity;
 import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
 
@@ -72,7 +73,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
         mainViewPagerAdapter.notifyDataSetChanged();
-
+viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         interests = new ArrayList<>();
         interestsMemes = new ArrayList<>();
     
@@ -176,6 +177,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
 //        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //        fragmentTransaction.replace(R.id.searchFragmentFrame, searchMemeFragment).commit();
 //    }
+
 
 
 }
