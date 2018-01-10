@@ -25,7 +25,7 @@ public class FavoritesHandler {
         first = false;
     }
 
-    public static void commit(Context context) {
+    public static void commit() {
         if(!first)
             editor.commit();
     }
@@ -40,6 +40,7 @@ public class FavoritesHandler {
     public static void addFavorite(String url, Context context) {
         if(first)initialize(context);
         favorites.add(url);
+        commit();
     }
 
     public static void removeFavorite(String url, Context context) {
@@ -50,11 +51,13 @@ public class FavoritesHandler {
         }
         else
             favorites = new HashSet<>();
+        commit();
     }
 
     public static void removeAllFavorite(Context context) {
         if(first)initialize(context);
         favorites = new HashSet<>();
+        commit();
     }
 
 
