@@ -37,39 +37,39 @@ import java.util.List;
  */
 
 public class MemeSliderAdapter extends PagerAdapter {
-  //  int[] imageIds ={R.drawable.meme1,R.drawable.meme2,R.drawable.meme3,R.drawable.meme4,R.drawable.meme5};
+    //  int[] imageIds ={R.drawable.meme1,R.drawable.meme2,R.drawable.meme3,R.drawable.meme4,R.drawable.meme5};
     List<Image> imageList=new ArrayList<>();
     LayoutInflater layoutInflater;
     Context context;
-int setCurrentImage;
+    int setCurrentImage;
     public MemeSliderAdapter(Context context, List<Image> images, int imageUrl) {
         this.context = context;
         this.imageList= images;
         this.setCurrentImage= imageUrl;
     }
-
+    
     @Override
     public int getCount() {
         return imageList.size();
     }
-
+    
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
     }
-
+    
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-
+        
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+        
         View view = layoutInflater.inflate(R.layout.memeslider, container, false);
         ImageView memeSlider=view.findViewById(R.id.ivMemeSlider);
         Button shareOnFacebook = view.findViewById(R.id.shareOnFacebook);
         final String imageUrl = imageList.get(position).getImageUrl();
         Log.d("Check", "instantiateItem: "+imageUrl);
-       // memeSlider.setImageResource(imageList.get(position).getImageUrl());
-
+        // memeSlider.setImageResource(imageList.get(position).getImageUrl());
+        
         Glide.with(context).load(imageUrl).into(memeSlider);
         final ImageButton btnFavMeme= view.findViewById(R.id.btnFavMeme);
         btnFavMeme.setOnClickListener(new View.OnClickListener() {
@@ -79,40 +79,40 @@ int setCurrentImage;
                 btnFavMeme.startAnimation(myAnim);
             }
         });
-shareOnFacebook.setOnClickListener(new View.OnClickListener() {
-
-    @Override
-    public void onClick(View view) {
-
-        Handler handler = new Handler(new Handler.Callback() {
-            public static final String TAG="Thisis";
+        shareOnFacebook.setOnClickListener(new View.OnClickListener() {
+            
             @Override
-            public boolean handleMessage(Message message) {
-
-                Log.d(TAG, "handleMessage: "+message);
-                Log.d(TAG, "handleMessage: "+message.getData().getParcelable("bitmap"));
-                Log.d(TAG, "handleMessage: "+(message.getData().getParcelable("bitmap")==null));
-                Log.d(TAG, "handleMessage: "+(message.getData().getParcelable("bitmap") instanceof Bitmap));
-
-                Bitmap savedBitmap = message.getData().getParcelable("bitmap");
-                FacebookHandler facebookHandler = FacebookHandler.getInstance();
-               facebookHandler.shareDialog(savedBitmap, (MemeHomeActivity) context);
+            public void onClick(View view) {
+                
+                Handler handler = new Handler(new Handler.Callback() {
+                    public static final String TAG="Thisis";
+                    @Override
+                    public boolean handleMessage(Message message) {
+                        
+                        Log.d(TAG, "handleMessage: "+message);
+                        Log.d(TAG, "handleMessage: "+message.getData().getParcelable("bitmap"));
+                        Log.d(TAG, "handleMessage: "+(message.getData().getParcelable("bitmap")==null));
+                        Log.d(TAG, "handleMessage: "+(message.getData().getParcelable("bitmap") instanceof Bitmap));
+                        
+                        Bitmap savedBitmap = message.getData().getParcelable("bitmap");
+                        FacebookHandler facebookHandler = FacebookHandler.getInstance();
+                        facebookHandler.shareDialog(savedBitmap, (MemeHomeActivity) context);
 //
-                return true;
+                        return true;
+                    }
+                });
+                DownloadService downloadService = new DownloadService(handler, imageUrl);
+                downloadService.start();
             }
         });
-        DownloadService downloadService = new DownloadService(handler, imageUrl);
-        downloadService.start();
-    }
-});
         container.addView(view);
         return view;
     }
-
+    
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-       container.removeView((ScrollView)object);
+        container.removeView((ScrollView)object);
     }
-
-
+    
+    
 }
