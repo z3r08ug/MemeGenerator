@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.R;
@@ -95,8 +96,11 @@ shareOnFacebook.setOnClickListener(new View.OnClickListener() {
                 Log.d(TAG, "handleMessage: "+(message.getData().getParcelable("bitmap") instanceof Bitmap));
 
                 Bitmap savedBitmap = message.getData().getParcelable("bitmap");
-                FacebookHandler facebookHandler = FacebookHandler.getInstance();
-               facebookHandler.shareDialog(savedBitmap, (MemeHomeActivity) context);
+                String filePath = ImageHandler.saveImage(savedBitmap,"meme.jpg",(Activity) context);
+                if(filePath==null)
+                    Toast.makeText(context, "Was unable to share image", Toast.LENGTH_SHORT).show();
+                else
+                    InstagramHandler.createInstagramIntent(filePath,"Meme",context);
 //
                 return true;
             }

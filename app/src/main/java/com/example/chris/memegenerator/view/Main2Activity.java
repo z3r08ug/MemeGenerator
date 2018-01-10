@@ -50,7 +50,7 @@ public class Main2Activity extends AppCompatActivity
         for (int i = 0; i < key.size() ; i++)
         {
             Log.d("TAG_POST", "onCreate: new Activity key "+ key.get(i));
-            
+
             remoteDataSource.BingResponse(key.get(i) + " meme")
                     .enqueue(new Callback<BingSearch>()
                     {
@@ -65,6 +65,8 @@ public class Main2Activity extends AppCompatActivity
                                     Log.d("TAG_POST", "onResponse: ");
                                     posturl.add(new Image(response.body().getValue().get(i).getThumbnailUrl()));
     
+                                    posturl.add(response.body().getValue().get(i).getThumbnailUrl());
+
                                 }
                                 RecyclerView recyclerView = findViewById(R.id.mainlayoutRecycleview);
 //                                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Main2Activity.this, 2, LinearLayoutManager.VERTICAL, false);
@@ -88,18 +90,18 @@ public class Main2Activity extends AppCompatActivity
                                     }
                                 }));
                             }
-                            
+
                             }
-                    
+
                         }
-                
+
                         @Override
                         public void onFailure(Call<BingSearch> call, Throwable t)
                         {
                             Log.d("TAG_POST", "onFailure: Failed to make Bing Call");
                         }
                     });
-            
+
         }
         
         
