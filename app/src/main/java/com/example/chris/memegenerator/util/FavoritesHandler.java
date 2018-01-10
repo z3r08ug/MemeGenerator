@@ -24,7 +24,7 @@ public class FavoritesHandler {
         first = false;
     }
 
-    public static void commit(Context) {
+    public static void commit(Context context) {
         if(!first)
             editor.commit();
     }
