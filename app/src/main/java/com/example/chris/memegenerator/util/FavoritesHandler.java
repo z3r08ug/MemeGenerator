@@ -21,6 +21,7 @@ public class FavoritesHandler {
         sharedPreferences = context.getApplicationContext().getSharedPreferences("MyPref",Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         favorites = sharedPreferences.getStringSet("favorites",null);
+        if(favorites==null)favorites=new HashSet<>();
         first = false;
     }
 
@@ -31,13 +32,13 @@ public class FavoritesHandler {
 
     public static Set<String> getFavorites(Context context) {
         if(first)initialize(context);
+        if(favorites==null)
+            favorites = new HashSet<>();
         return favorites;
     }
 
     public static void addFavorite(String url, Context context) {
         if(first)initialize(context);
-        if(favorites==null)
-            favorites = new HashSet<>();
         favorites.add(url);
     }
 
