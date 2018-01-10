@@ -39,6 +39,17 @@
                     android:layout_height="wrap_content"
                     android:onClick="searchkeyword"
                     />
+                <ImageButton
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/btnSpeak"
+                    android:onClick="textToSpeach"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/holo_red_light"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_mic_black_24dp" />
             </LinearLayout>
 
         </LinearLayout>
