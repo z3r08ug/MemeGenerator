@@ -48,6 +48,16 @@
 
         <activity android:name=".view.FavoriteMemesActivity" />
         <activity android:name=".view.Main2Activity"></activity>
+
+        <provider
+            android:name=".util.GenericFileProvider"
+            android:authorities="com.example.chris.memegenerator.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
 
 </manifest>
