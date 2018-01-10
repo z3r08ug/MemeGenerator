@@ -71,10 +71,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
                     parsingKeywods.add(keywords.get(i));
                 }
                 makingbingcall(parsingKeywods);
-                
-                
-                
-                
             }
             
         }
@@ -126,8 +122,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         {
             Log.d(TAG, "onCreate: "+e.toString());
         }
-        
-        
     }
     
     public void btnRemoveFrag(View view){
@@ -143,7 +137,6 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         menuInflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         
@@ -195,13 +188,12 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         {
             Thekey.add(memes.get(i));
             Log.d(TAG, "setSearchmeme: thissss" + memes.get(i));
-            
         }
         
         
     
     }
-    public void makingbingcall(List<String> key){
+    public void makingbingcall(List<String> key) {
         ArrayList<String> Thekey = new ArrayList<>();
 //        Thekey.add("https://www.google.com/imgres?imgurl=https%3A%2F%2Ffm.cnbc.com%2Fapplications%2Fcnbc.com%2Fresources%2Fimg%2Feditorial%2F2016%2F08%2F22%2F103884430-GettyImages-139369178.1910x1000.jpg&imgrefurl=https%3A%2F%2Fwww.cnbc.com%2F2017%2F04%2F24%2Fkobe-bryant-on-what-it-really-takes-to-succeed.html&docid=jzPdTHU95PXCtM&tbnid=bn2koAavuRB0YM%3A&vet=10ahUKEwiUx_D3lsvYAhUMY98KHbfaDuAQMwiDAigBMAE..i&w=1910&h=1000&bih=607&biw=1228&q=kobe&ved=0ahUKEwiUx_D3lsvYAhUMY98KHbfaDuAQMwiDAigBMAE&iact=mrc&uact=8");
         

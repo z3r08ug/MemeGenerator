@@ -56,4 +56,5 @@ public class FavoritesHandler {
         favorites = new HashSet<>();
     }
 
+
 }
