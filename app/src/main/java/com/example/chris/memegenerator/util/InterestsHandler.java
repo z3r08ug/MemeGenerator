@@ -7,60 +7,58 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Nabeel on 1/8/2018.
+ * Created by Nabeel on 1/10/2018.
  */
 
-public class FavoritesHandler {
+public class InterestsHandler {
 
     private static boolean first = true;
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
-    private static Set<String> favorites;
+    private static Set<String> interests;
 
     private static void initialize(Context context) {
         sharedPreferences = context.getApplicationContext().getSharedPreferences("settings",Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
-        favorites = sharedPreferences.getStringSet("favorites",null);
-        if(favorites==null)favorites=new HashSet<>();
+        interests = sharedPreferences.getStringSet("interests",null);
         first = false;
     }
 
     public static void commit() {
         if(!first) {
-            editor.putStringSet("favorites",favorites);
+            editor.putStringSet("interests", interests);
             editor.commit();
         }
     }
 
-    public static Set<String> getFavorites(Context context) {
+    public static Set<String> getInterests(Context context) {
         if(first)initialize(context);
-        if(favorites==null)
-            favorites = new HashSet<>();
-        return favorites;
+        return interests;
     }
 
-    public static void addFavorite(String url, Context context) {
+    public static void addInterest(String interest, Context context) {
         if(first)initialize(context);
-        favorites.add(url);
+        if(interests==null)
+            interests=new HashSet<>();
+        interests.add(interest);
         commit();
     }
 
-    public static void removeFavorite(String url, Context context) {
+    public static void removeInterest(String interest, Context context) {
         if(first)initialize(context);
-        if(favorites!=null) {
-            if (favorites.contains(url))
-                favorites.remove(url);
+        if(interests !=null) {
+            if (interests.contains(interest))
+                interests.remove(interest);
         }
         else
-            favorites = new HashSet<>();
+            interests = new HashSet<>();
         commit();
     }
 
-    public static void removeAllFavorite(Context context) {
+    public static void removeAllInterest(Context context) {
         if(first)initialize(context);
-        favorites = new HashSet<>();
+        interests = new HashSet<>();
         commit();
     }
-
 
 }
