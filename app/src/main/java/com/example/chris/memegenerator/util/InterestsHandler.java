@@ -31,31 +31,31 @@ public class InterestsHandler {
         }
     }
 
-    public static Set<String> getFavorites(Context context) {
+    public static Set<String> getInterests(Context context) {
         if(first)initialize(context);
         return interests;
     }
 
-    public static void addFavorite(String url, Context context) {
+    public static void addInterest(String interest, Context context) {
         if(first)initialize(context);
         if(interests==null)
             interests=new HashSet<>();
-        interests.add(url);
+        interests.add(interest);
         commit();
     }
 
-    public static void removeFavorite(String url, Context context) {
+    public static void removeInterest(String interest, Context context) {
         if(first)initialize(context);
         if(interests !=null) {
-            if (interests.contains(url))
-                interests.remove(url);
+            if (interests.contains(interest))
+                interests.remove(interest);
         }
         else
             interests = new HashSet<>();
         commit();
     }
 
-    public static void removeAllFavorite(Context context) {
+    public static void removeAllInterest(Context context) {
         if(first)initialize(context);
         interests = new HashSet<>();
         commit();
