@@ -34,9 +34,11 @@ public class SplashScreen extends AppCompatActivity {
                 }else{
                     Intent homeActivity = new Intent(getApplicationContext(), MemeInterestActivity.class);
                     startActivity(homeActivity);
+                    
                 }
-//                 activity.finish();
+               
             }
         }, 3000);
+        this.finish();
     }
 }

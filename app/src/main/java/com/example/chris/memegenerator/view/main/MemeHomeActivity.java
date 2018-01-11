@@ -385,7 +385,12 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 //        android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
 //        fragmentTransaction.replace(R.id.searchFragmentFrame, searchMemeFragment).commit();
 //    }
-
-
-
+    
+    
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy: ");
+    }
 }

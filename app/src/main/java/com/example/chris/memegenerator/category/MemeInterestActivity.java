@@ -101,6 +101,7 @@ public class MemeInterestActivity extends AppCompatActivity
     {
         Intent intent = new Intent(this, MemeHomeActivity.class);
         startActivity(intent);
+        this.finish();
     }
 
 
