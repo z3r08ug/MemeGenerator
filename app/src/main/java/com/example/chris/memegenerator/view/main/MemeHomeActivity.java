@@ -26,6 +26,7 @@ import android.widget.FrameLayout;
 import com.example.chris.memegenerator.LoginActivity;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.category.MemeInterestActivity;
 import com.example.chris.memegenerator.category.MemesCategory;
 import com.example.chris.memegenerator.data.remote.FacebookMemeSearch;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
