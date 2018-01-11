@@ -117,14 +117,16 @@ shareOnFacebook.setOnClickListener(new View.OnClickListener() {
                 Log.d(TAG, "handleMessage: "+message.getData().getParcelable("bitmap"));
                 Log.d(TAG, "handleMessage: "+(message.getData().getParcelable("bitmap")==null));
                 Log.d(TAG, "handleMessage: "+(message.getData().getParcelable("bitmap") instanceof Bitmap));
-
+                
                 Bitmap savedBitmap = message.getData().getParcelable("bitmap");
                 String filePath = ImageHandler.saveImage(savedBitmap,"meme.jpg",(Activity) context);
                 if(filePath==null)
                     Toast.makeText(context, "Was unable to share image", Toast.LENGTH_SHORT).show();
                 else
-                    InstagramHandler.createInstagramIntent(filePath,"Meme",context);
-//
+                {
+                    ((Activity) context).onBackPressed();
+                    InstagramHandler.createInstagramIntent(filePath, "Meme", context);
+                }
                 return true;
             }
         });
