@@ -31,14 +31,15 @@ public class SplashScreen extends AppCompatActivity {
                 FacebookHandler facebookHandler = FacebookHandler.getInstance();
                 if (facebookHandler.getAccessToken()==null) {
                     startActivity(loginActivity);
+                    finish();
                 }else{
                     Intent homeActivity = new Intent(getApplicationContext(), MemeInterestActivity.class);
                     startActivity(homeActivity);
-                    
+                    finish();
                 }
                
             }
         }, 3000);
-        this.finish();
+        
     }
 }

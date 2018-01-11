@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -92,9 +93,11 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_meme_activity
         );
-       MemeApplication.get(this).getMainComponent().inject(this);
+        MemeApplication.get(this).getMainComponent().inject(this);
         homeToolbar = findViewById(R.id.home_toolbar);
-
+        
+        
+        
         homeToolbar.setBackgroundColor(Color.parseColor("#19B5FE"));
         viewPager = findViewById(R.id.app_main_pager);
         mainTabLayout = findViewById(R.id.app_main_tabs);
@@ -106,17 +109,17 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         Constants.whichCall(Constants.bing);
         presenter.getBingSearch("top memes", Constants.topTrending);
         viewPager.setAdapter(mainViewPagerAdapter);
-
+        
         mainTabLayout.setupWithViewPager(viewPager);
         setSupportActionBar(homeToolbar);
         mainViewPagerAdapter.notifyDataSetChanged();
-viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-        FacebookMemeSearch.KeyWordrestCall("kobe dunked the ball");
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        
         frameLayout = findViewById(R.id.searchFragmentFrame);
 //        FacebookMemeSearch.KeyWordrestCall("kobe dunked the ball");
         interests = new ArrayList<>();
         interestsMemes = new ArrayList<>();
-    
+        
         try
         {
             InputStream instream = openFileInput("interests.txt");
@@ -129,11 +132,12 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
                 {
                     while ((line = buffreader.readLine()) != null)
                         line1+=line;
+                    
                     Log.d("Chris", "onCreate: "+line1);
                     Constants.setallFALSE();
                     Constants.whichCall(Constants.bing);
                     presenter.getBingSearch(line1,Constants.interestTrending);
-
+                    
                     Log.d(TAG, "onCreate: "+line1);
                 }catch (Exception e)
                 {
@@ -145,14 +149,26 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         {
             Log.d(TAG, "onCreate: "+e.toString());
         }
+        
     }
     
-//    public void btnRemoveFrag(View view){
+    
+    
+    
+    //    public void btnRemoveFrag(View view){
 //        Log.d("great", "btnRemoveFrag: ");
 //        MemeSliderFragment memeSliderFragment = new MemeSliderFragment();
 //        getSupportFragmentManager().beginTransaction().remove(memeSliderFragment).commit();
 //        //fragmentManager.beginTransaction().remove(memeSliderFragment).commit();
 //    }
+    
+    
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        
+    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -162,55 +178,40 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-    switch (item.getItemId()){
-        case R.id.itemFavorites:
-            Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
-            startActivity(intentFav);
-            break;
-        case R.id.itemSettings:
-            Intent intentSearch = new Intent(this, MemesCategory.class);
-            startActivity(intentSearch);
-        case R.id.itemCreate:
-            Intent intentCreate = new Intent(this, CreateMemeActivity.class);
-            startActivity(intentCreate);
-            break;
-        case R.id.itemLogOut:
-            FacebookHandler facebookHandler = FacebookHandler.getInstance();
-            facebookHandler.logout();
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            break;
-    }
         
-        switch (item.getItemId()){
+        switch (item.getItemId())
+        {
             case R.id.itemFavorites:
-                Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
                 if (frameLayout.getVisibility() == View.VISIBLE)
                     onBackPressed();
+                Intent intentFav = new Intent(this, FavoriteMemesActivity.class);
                 startActivity(intentFav);
                 break;
             case R.id.itemSettings:
-                Intent intentSearch = new Intent(this, MemeInterestActivity.class);
                 if (frameLayout.getVisibility() == View.VISIBLE)
                     onBackPressed();
+                Intent intentSearch = new Intent(this, MemeInterestActivity.class);
                 startActivity(intentSearch);
                 break;
             case R.id.itemCreate:
-                Intent intentCreate = new Intent(this, CreateMemeActivity.class);
                 if (frameLayout.getVisibility() == View.VISIBLE)
                     onBackPressed();
+                Intent intentCreate = new Intent(this, CreateMemeActivity.class);
                 startActivity(intentCreate);
                 break;
-            case  R.id.itemLogOut:
+            case R.id.itemLogOut:
                 if (frameLayout.getVisibility() == View.VISIBLE)
                     onBackPressed();
+                FacebookHandler facebookHandler = FacebookHandler.getInstance();
+                facebookHandler.logout();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
-
+        
     }
-
+    
     @Override
     public void showError(String error) {
     
@@ -229,9 +230,9 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         Log.d("setInterests", "setInterestBingSearch: "+memes.size());
         TrendingInterestFragment trendingInterestFragment = TrendingInterestFragment.newInstance(memes);
     }
-
-
-
+    
+    
+    
     public void setSearchmeme(List<String> memes)
     {
         ArrayList<String> Thekey = new ArrayList<>();
@@ -243,7 +244,7 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         }
         
         
-    
+        
     }
     public void makingbingcall(List<String> key){
         ArrayList<String> Thekey = new ArrayList<>();
@@ -258,8 +259,6 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         if (frameLayout.getVisibility() == View.VISIBLE)
             onBackPressed();
         startActivity(intent);
-        
-        
     }
     
     
@@ -271,7 +270,7 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
     public void searchkeyword(View view)
     {
         final List<String> keywords = new ArrayList<>();
-
+        Constants.setallFALSE();
         Constants.whichCall(Constants.keyword);
         new Thread(new Runnable()
         {
@@ -292,12 +291,12 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
                                             for (int k = 0; k < response.body().getText().get(i).get(j).size(); k++) {
                                                 // Log.d(TAG, "onResponse: this is k: " + k);
                                                 tag = response.body().getText().get(i).get(j).get(k).getTag();
-                                                if (tag.equals("NOUN") )
+                                                if (tag.equals("NOUN")  )
                                                 {
                                                     Log.d("MYOWNTAG", "onResponse: word "+
                                                             response.body().getText().get(i).get(j).get(k).getWord()
                                                             + "\ntag is: " + tag);
-                                        
+                                                    
                                                     if (tag.equals("NOUN") && word != null && word.length() >0 && Character.isUpperCase(word.charAt(0))
                                                             && Character.isUpperCase(response.body().getText().get(i).get(j).get(k).getWord().charAt(0)))
                                                     {
@@ -312,24 +311,25 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
                                                     {
                                                         word = response.body().getText().get(i).get(j).get(k).getWord();
                                                         keywords.add(word);
-                                                        Log.d(TAG, "onResponse: saving the word "
+                                                        Log.d("keywords", "onResponse: saving the word "
                                                                 + word +
                                                                 " tag: " + tag);
                                                     }
-                                        
+                                                    
                                                 }
-                                    
+                                                
                                                 // Log.d(TAG, "KewyWordRestCall: word " + response.body().getText().get(i).get(j).get(k).getWord()
                                                 //   + "\ntag: " + response.body().getText().get(i).get(j).get(k).getTag());
                                                 //logd(MainActivity.this, " word: " +
                                                 //   response.body().getText().get(i).get(j).get(k).getWord()
                                                 //    + "\ntag: " + response.body().getText().get(i).get(j).get(k).getTag()
                                                 // , Toast.LENGTH_LONG).show();
-                                    
+                                                
                                                 // Log.d(TAG, "onResponse: get tag " + tag );
                                             }
                                         }
                                     }
+                                    
                                     Message message = handler.obtainMessage();
                                     message.what = 1;
                                     message.obj = keywords;
@@ -341,12 +341,12 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
                             public void onFailure(Call<Keywords> call, Throwable t) {
                             }
                         });
-        
+                
             }
         }).start();
         
     }
-
+    
     public void textToSpeach(View view) {
         startVoiceInput();
     }
@@ -358,14 +358,14 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
         } catch (ActivityNotFoundException a) {
-
+        
         }
     }
-
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
@@ -374,7 +374,7 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
                 }
                 break;
             }
-
+            
         }
     }
 
@@ -387,10 +387,7 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 //    }
     
     
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
+
+    
+
 }

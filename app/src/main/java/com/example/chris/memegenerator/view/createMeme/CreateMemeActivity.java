@@ -34,10 +34,12 @@ import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.services.DownloadService;
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.FacebookHandler;
+import com.example.chris.memegenerator.util.GridSpacingItemDecoration;
 import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.InstagramHandler;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
 import com.example.chris.memegenerator.util.RecyclerAdapter2;
+import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -347,7 +349,18 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
             }
         });
         rcSearchImages.setAdapter(recyclerAdapter);
+        int spanCount = 2; // 3 columns
+        int spacing = 50; // 50px
+        boolean includeEdge = false;
+        rcSearchImages.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         
+    }
+    
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(this, MemeHomeActivity.class));
     }
     
     @Override

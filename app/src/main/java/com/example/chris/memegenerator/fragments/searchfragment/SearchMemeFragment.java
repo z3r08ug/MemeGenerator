@@ -1,6 +1,7 @@
 package com.example.chris.memegenerator.fragments.searchfragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,6 +23,8 @@ import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
+import com.example.chris.memegenerator.util.Constants;
+import com.example.chris.memegenerator.util.GridSpacingItemDecoration;
 import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.MemeSliderAdapter;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
@@ -101,7 +105,10 @@ public class SearchMemeFragment extends Fragment
         memes=new ArrayList<>();
         rvSearchMeme = view.findViewById(R.id.rvSearchMeme);
         rvSearchMeme.setLayoutManager(new GridLayoutManager(this.getActivity(),2));
-
+        int spanCount = 2; // 3 columns
+        int spacing = 50; // 50px
+        boolean includeEdge = false;
+        rvSearchMeme.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
 //        ViewPager viewPager = view.findViewById(R.id.imageSliderPager);
 //        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(this.getActivity());
 //        viewPager.setAdapter(memeSliderAdapter);
@@ -110,6 +117,9 @@ public class SearchMemeFragment extends Fragment
             public void onClick(View view) {
                 Log.d("FAB", "onClick: " );
                 String getSearch =etSearch.getText().toString() + " memes";
+                InputMethodManager imm = (InputMethodManager) getContext().
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(etSearch.getWindowToken(), 0);
                 Log.d("Great", "onClick: "+getSearch);
                 loadInterestTrending(getSearch);
             }
@@ -124,6 +134,8 @@ public class SearchMemeFragment extends Fragment
     private void loadInterestTrending(String search)
     {
          final List<Image>memeUrlList= new ArrayList<>();
+        Constants.setallFALSE();
+        Constants.whichCall(Constants.bing);
         RemoteDataSource.BingResponse(search).enqueue(new Callback<BingSearch>() {
             @Override
             public void onResponse(Call<BingSearch> call, Response<BingSearch> response) {

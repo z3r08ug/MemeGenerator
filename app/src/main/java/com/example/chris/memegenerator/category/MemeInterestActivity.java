@@ -78,6 +78,7 @@ public class MemeInterestActivity extends AppCompatActivity
     public void homeActivity(View view)
     {
         List<String> interests = categoryRCAdapter.getInterests();
+        interests.add("funny memes");
         try
         {
             fos = openFileOutput("interests.txt", Context.MODE_PRIVATE);

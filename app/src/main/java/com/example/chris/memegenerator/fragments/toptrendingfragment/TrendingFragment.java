@@ -99,9 +99,13 @@ public class TrendingFragment extends Fragment {
                 
                 
 //                // memesList.clear();
-                for (int i = 0; i < memesList.size(); i++) {
-                    imageList.add(new Image(memesList.get(i)));
-                    Log.d("Great", "run Trending: " + memesList.get(i));
+                if(memesList != null)
+                {
+                    for (int i = 0; i < memesList.size(); i++)
+                    {
+                        imageList.add(new Image(memesList.get(i)));
+                        Log.d("Great", "run Trending: " + memesList.get(i));
+                    }
                 }
                     Log.d(TAG, "run:thissssssssssssss sizeee Trending" + imageList.size());
 //        recyclerAdapter = new RecyclerAdapter(memes);

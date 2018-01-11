@@ -56,6 +56,7 @@ public class MainPresenter implements MainContract.Presenter
     @Override
     public void getBingSearch(final String search, final String whichcall)
     {
+        Constants.setallFALSE();
         Constants.whichCall(Constants.bing);
         RemoteDataSource.getBingResponse(search)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -112,6 +113,7 @@ public class MainPresenter implements MainContract.Presenter
     @Override
     public void getBingKeywordSearh(final String search, final String whichCall, final Integer num)
     {
+        Constants.setallFALSE();
         Constants.whichCall(Constants.bing);
         RemoteDataSource.getkeywordResponse(search,num)
                 .observeOn(AndroidSchedulers.mainThread())

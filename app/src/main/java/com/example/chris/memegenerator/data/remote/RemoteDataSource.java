@@ -65,10 +65,7 @@ public class RemoteDataSource
             baseurl = GoogleSerachBaseUrl;
             Log.d(TAG, "create: Constant Google");
         }
-        else if(Constants.iskeyword) {
-            baseurl = KeyWordSerachBaseUrl;
-            Log.d(TAG, "create: Constant keyWord");
-        }
+        
         else if(Constants.isbing) {
             baseurl = BingSearchBaseurl;
             Log.d(TAG, "create: Constant Bing");
@@ -76,6 +73,10 @@ public class RemoteDataSource
         else if (Constants.istrending) {
             Log.d(TAG, "create: Constant Bing Trending");
             baseurl = BingSearchBaseurl;
+        }
+        else if(Constants.iskeyword) {
+            baseurl = KeyWordSerachBaseUrl;
+            Log.d(TAG, "create: Constant keyWord");
         }
         Log.d(TAG, "create: base url "+ baseurl);
         Log.d(TAG, "create: google base url"+GoogleSerachBaseUrl);

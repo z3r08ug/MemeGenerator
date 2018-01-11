@@ -1,6 +1,7 @@
 package com.example.chris.memegenerator.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +18,11 @@ import android.widget.Toast;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.util.FavoritesHandler;
+import com.example.chris.memegenerator.util.GridSpacingItemDecoration;
 import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
 import com.example.chris.memegenerator.util.RecyclerAdapter2;
+import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,10 @@ public class FavoriteMemesActivity extends AppCompatActivity {
 //                                RecyclerAdapter2 recyclerAdapter2 = new RecyclerAdapter2(posturl);
 //                                recyclerView.setAdapter(recyclerAdapter2);
         recyclerView.setLayoutManager(new GridLayoutManager(FavoriteMemesActivity.this, 2));
+        int spanCount = 2; // 3 columns
+        int spacing = 50; // 50px
+        boolean includeEdge = false;
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         recyclerView.setAdapter(new RecyclerAdapter(favlist, new RecyclerAdapter.onMemeClickListner() {
             @Override
             public void onMemeClick(Image image, int position) {
@@ -68,5 +75,12 @@ public class FavoriteMemesActivity extends AppCompatActivity {
             }
         }));
 
+    }
+    
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(this, MemeHomeActivity.class));
     }
 }

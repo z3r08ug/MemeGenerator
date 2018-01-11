@@ -10,15 +10,18 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.util.Constants;
+import com.example.chris.memegenerator.util.GridSpacingItemDecoration;
 import com.example.chris.memegenerator.util.Image;
 import com.example.chris.memegenerator.util.RecyclerAdapter;
 import com.example.chris.memegenerator.util.RecyclerAdapter2;
 import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
+import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +35,7 @@ public class Main2Activity extends AppCompatActivity
     
     private ArrayList<String> key;
     private List<Image> posturl;
+    private RecyclerView recyclerView;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,6 +48,16 @@ public class Main2Activity extends AppCompatActivity
          final String BingSearchBaseUrl = "https://api.cognitive.microsoft.com/";
         RemoteDataSource remoteDataSource = new RemoteDataSource(GoogleSerachBaseUrl, API_KEY,KeyWordBaseUrl,BingSearchBaseUrl);
         key = getIntent().getStringArrayListExtra("magic");
+        if (key == null){
+            Toast.makeText(this, "No results", Toast.LENGTH_SHORT).show();
+            onBackPressed();
+        }
+        recyclerView = findViewById(R.id.mainlayoutRecycleview);
+        recyclerView.setLayoutManager(new GridLayoutManager(Main2Activity.this, 2));
+        int spanCount = 2; // 3 columns
+        int spacing = 50; // 50px
+        boolean includeEdge = false;
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
         posturl = new ArrayList<>();
         Constants.setallFALSE();
         Constants.whichCall(Constants.bing);
@@ -64,16 +78,18 @@ public class Main2Activity extends AppCompatActivity
                                 {
                                     Log.d("TAG_POST", "onResponse: ");
                                     posturl.add(new Image(response.body().getValue().get(i).getThumbnailUrl()));
+                                    
 
                                 }
-                                RecyclerView recyclerView = findViewById(R.id.mainlayoutRecycleview);
+                                
+                                
 //                                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Main2Activity.this, 2, LinearLayoutManager.VERTICAL, false);
 //                                RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
 //                                recyclerView.setLayoutManager(layoutManager);
 //                                recyclerView.setItemAnimator(itemAnimator);
 //                                RecyclerAdapter2 recyclerAdapter2 = new RecyclerAdapter2(posturl);
 //                                recyclerView.setAdapter(recyclerAdapter2);
-                                recyclerView.setLayoutManager(new GridLayoutManager(Main2Activity.this, 2));
+                                
                                 recyclerView.setAdapter(new RecyclerAdapter(posturl, new RecyclerAdapter.onMemeClickListner() {
                                     @Override
                                     public void onMemeClick(Image image, int position) {
@@ -99,10 +115,14 @@ public class Main2Activity extends AppCompatActivity
                             Log.d("TAG_POST", "onFailure: Failed to make Bing Call");
                         }
                     });
-
         }
         
-        
-        
+    }
+    
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(this, MemeHomeActivity.class));
     }
 }

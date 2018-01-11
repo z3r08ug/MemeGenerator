@@ -31,12 +31,12 @@ public class TrendingInterestFragment extends Fragment {
 
     static List<String> memesList;
     String TAG = "Fragment interest";
-    // TODO: Rename parameter arguments, choose names that match
+   
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     // private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    
     private String mParam1;
     private RecyclerView interestRv;
     // private String mParam2;
@@ -54,7 +54,7 @@ public class TrendingInterestFragment extends Fragment {
      *               //     * @param param2 Parameter 2.
      * @return A new instance of fragment TrendingFragment.
      */
-    // TODO: Rename and change types and number of parameters
+    
     public static TrendingInterestFragment newInstance(List<String> param1) {
         Log.d("Interest_TAG", "newInstance: ");
         TrendingInterestFragment fragment = new TrendingInterestFragment();

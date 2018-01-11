@@ -47,6 +47,7 @@ public class CreateMemePresenter implements CreateMemeContract.Presenter
     @Override
     public void getBingSearch(String search, String whichCall)
     {
+        Constants.setallFALSE();
         Constants.whichCall(Constants.bing);
         RemoteDataSource.getBingResponse(search)
                 .observeOn(AndroidSchedulers.mainThread())
