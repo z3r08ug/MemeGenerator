@@ -64,8 +64,10 @@ public class Main2Activity extends AppCompatActivity
                                 {
                                     Log.d("TAG_POST", "onResponse: ");
                                     posturl.add(new Image(response.body().getValue().get(i).getThumbnailUrl()));
+
     
-                                   // posturl.add(new Image(response.body().getValue().get(i).getThumbnailUrl()));
+                                    posturl.add(new Image(response.body().getValue().get(i).getThumbnailUrl()));
+
 
                                 }
                                 RecyclerView recyclerView = findViewById(R.id.mainlayoutRecycleview);

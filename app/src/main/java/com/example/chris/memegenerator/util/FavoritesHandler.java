@@ -21,24 +21,28 @@ public class FavoritesHandler {
         sharedPreferences = context.getApplicationContext().getSharedPreferences("MyPref",Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
         favorites = sharedPreferences.getStringSet("favorites",null);
+        if(favorites==null)favorites=new HashSet<>();
         first = false;
     }
 
-    public static void commit(Context context) {
-        if(!first)
+    public static void commit() {
+        if(!first) {
+            editor.putStringSet("favorites",favorites);
             editor.commit();
+        }
     }
 
     public static Set<String> getFavorites(Context context) {
         if(first)initialize(context);
+        if(favorites==null)
+            favorites = new HashSet<>();
         return favorites;
     }
 
     public static void addFavorite(String url, Context context) {
         if(first)initialize(context);
-        if(favorites==null)
-            favorites = new HashSet<>();
         favorites.add(url);
+        commit();
     }
 
     public static void removeFavorite(String url, Context context) {
@@ -49,11 +53,13 @@ public class FavoritesHandler {
         }
         else
             favorites = new HashSet<>();
+        commit();
     }
 
     public static void removeAllFavorite(Context context) {
         if(first)initialize(context);
         favorites = new HashSet<>();
+        commit();
     }
 
 
