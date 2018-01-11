@@ -26,6 +26,7 @@ import android.widget.FrameLayout;
 import com.example.chris.memegenerator.LoginActivity;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
+import com.example.chris.memegenerator.category.MemeInterestActivity;
 import com.example.chris.memegenerator.category.MemesCategory;
 import com.example.chris.memegenerator.data.remote.FacebookMemeSearch;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
@@ -101,11 +102,9 @@ public class MemeHomeActivity extends AppCompatActivity implements MainContract.
         mainTabLayout.setBackgroundColor(Color.parseColor("#1E8BC3"));
         mainViewPagerAdapter = new MainPagerViewAdapter(getSupportFragmentManager());
         presenter.attachView(this);
-//        presenter.getBingSearch("trendingMemes", Constants.topTrending);
+        Constants.setallFALSE();
+        Constants.whichCall(Constants.bing);
         presenter.getBingSearch("top memes", Constants.topTrending);
-
-
-        presenter.getBingSearch("trendingMemes", Constants.topTrending);
         viewPager.setAdapter(mainViewPagerAdapter);
 
         mainTabLayout.setupWithViewPager(viewPager);
@@ -131,10 +130,10 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
                     while ((line = buffreader.readLine()) != null)
                         line1+=line;
                     Log.d("Chris", "onCreate: "+line1);
-
+                    Constants.setallFALSE();
+                    Constants.whichCall(Constants.bing);
                     presenter.getBingSearch(line1,Constants.interestTrending);
 
-                    presenter.getBingSearch(line1, Constants.interestTrending);
                     Log.d(TAG, "onCreate: "+line1);
                 }catch (Exception e)
                 {
@@ -248,7 +247,6 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
     }
     public void makingbingcall(List<String> key){
         ArrayList<String> Thekey = new ArrayList<>();
-        Thekey.add("https://www.google.com/imgres?imgurl=https%3A%2F%2Ffm.cnbc.com%2Fapplications%2Fcnbc.com%2Fresources%2Fimg%2Feditorial%2F2016%2F08%2F22%2F103884430-GettyImages-139369178.1910x1000.jpg&imgrefurl=https%3A%2F%2Fwww.cnbc.com%2F2017%2F04%2F24%2Fkobe-bryant-on-what-it-really-takes-to-succeed.html&docid=jzPdTHU95PXCtM&tbnid=bn2koAavuRB0YM%3A&vet=10ahUKEwiUx_D3lsvYAhUMY98KHbfaDuAQMwiDAigBMAE..i&w=1910&h=1000&bih=607&biw=1228&q=kobe&ved=0ahUKEwiUx_D3lsvYAhUMY98KHbfaDuAQMwiDAigBMAE&iact=mrc&uact=8");
         
         for (int i = 0; i <key.size() ; i++)
         {
@@ -350,7 +348,7 @@ viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     public void textToSpeach(View view) {
-
+        startVoiceInput();
     }
     private void startVoiceInput() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
