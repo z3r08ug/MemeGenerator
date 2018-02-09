@@ -6,8 +6,10 @@ package com.example.chris.memegenerator.util;
 
 public class Constants
 {
-   // public static final String BASE_URL = "http://api.wunderground.com/";
-   public static final String BASE_URL = "https://www.googleapis.com/customsearch/";
+   public static final String BASE_URL = "https://api.cognitive.microsoft.com/";
+   public static final String PIXABAY_KEY = "7972684-7ee9b46c0655eecf8e847fa90";
+   public static final String BING_KEY1 = "e5d510902e0f4b8f84d5501982c45f5e";
+   public static final String BING_KEY2 = "cfefb6237b6145a3b41b40c7e065aa9c";
    public static boolean isGoogle;
    public static boolean iskeyword ;
    public static boolean istrending ;

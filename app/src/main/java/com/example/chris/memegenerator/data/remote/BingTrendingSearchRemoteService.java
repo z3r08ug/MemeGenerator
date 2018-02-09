@@ -1,6 +1,6 @@
 package com.example.chris.memegenerator.data.remote;
 
-import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
+import com.example.chris.memegenerator.model.pojo.bingsearch.BingSearch;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

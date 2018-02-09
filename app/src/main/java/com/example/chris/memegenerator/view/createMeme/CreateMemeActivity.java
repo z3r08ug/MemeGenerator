@@ -1,7 +1,6 @@
 package com.example.chris.memegenerator.view.createMeme;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -28,25 +27,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.services.DownloadService;
 import com.example.chris.memegenerator.util.Constants;
-import com.example.chris.memegenerator.util.FacebookHandler;
+import com.example.chris.memegenerator.util.ImageObj;
+import com.example.chris.memegenerator.util.handlers.FacebookHandler;
 import com.example.chris.memegenerator.util.GridSpacingItemDecoration;
-import com.example.chris.memegenerator.util.Image;
-import com.example.chris.memegenerator.util.InstagramHandler;
-import com.example.chris.memegenerator.util.RecyclerAdapter;
-import com.example.chris.memegenerator.util.RecyclerAdapter2;
-import com.example.chris.memegenerator.view.main.MemeHomeActivity;
+import com.example.chris.memegenerator.util.handlers.InstagramHandler;
+import com.example.chris.memegenerator.util.adapters.RecyclerAdapter;
+import com.example.chris.memegenerator.view.home.MemeHomeActivity;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import javax.inject.Inject;
 
@@ -313,17 +309,17 @@ public class CreateMemeActivity extends AppCompatActivity implements ActivityCom
     @Override
     public void setBingSearch(final List<String> memes)
     {
-        List<Image> imageList = new ArrayList<>();
+        List<ImageObj> imageObjList = new ArrayList<>();
         for (String meme : memes)
         {
             Log.d(TAG, "setBingSearch: Creat MEME " + meme);
-            imageList.add(new Image(meme));
+            imageObjList.add(new ImageObj(meme));
         }
         
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
+        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(imageObjList, new RecyclerAdapter.onMemeClickListner() {
             Bitmap theBitmap;
             @Override
-            public void onMemeClick(Image image, int position) {
+            public void onMemeClick(ImageObj image, int position) {
                 
                 Handler handler = new Handler(new Handler.Callback()
                 {

@@ -1,7 +1,6 @@
 package com.example.chris.memegenerator.di.createMeme;
 
 import com.example.chris.memegenerator.view.createMeme.CreateMemeActivity;
-import com.example.chris.memegenerator.view.main.MainActivity;
 
 import dagger.Subcomponent;
 

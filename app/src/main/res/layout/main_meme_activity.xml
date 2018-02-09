@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:background="@android:color/holo_red_light"
-                    android:onClick="searchkeyword"
+                    android:onClick="parseKeyWords"
 
                     android:padding="10dp"
                     android:text="Search Meme"

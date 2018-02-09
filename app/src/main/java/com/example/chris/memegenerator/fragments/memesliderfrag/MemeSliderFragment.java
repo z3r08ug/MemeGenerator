@@ -1,9 +1,6 @@
 package com.example.chris.memegenerator.fragments.memesliderfrag;
 
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -11,16 +8,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.chris.memegenerator.R;
-import com.example.chris.memegenerator.fragments.searchfragment.SearchMemeFragment;
-import com.example.chris.memegenerator.util.Image;
-import com.example.chris.memegenerator.util.MemeSliderAdapter;
+import com.example.chris.memegenerator.util.ImageObj;
+import com.example.chris.memegenerator.util.adapters.MemeSliderAdapter;
 import com.example.chris.memegenerator.util.ZoomOutPageTransformer;
-import com.example.chris.memegenerator.view.main.MemeHomeActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -37,10 +29,10 @@ public class MemeSliderFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     
     
-    private List<Image> mParam1;
+    private List<ImageObj> mParam1;
     private String mParam2;
     static int imageurl;
-    static List<Image> imageList;
+    static List<ImageObj> imageObjList;
     public MemeSliderFragment() {
         // Required empty public constructor
     }
@@ -54,12 +46,12 @@ public class MemeSliderFragment extends Fragment {
      * @return A new instance of fragment MemeSliderFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MemeSliderFragment newInstance(List<Image> param1, int param2) {
+    public static MemeSliderFragment newInstance(List<ImageObj> param1, int param2) {
         MemeSliderFragment fragment = new MemeSliderFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_PARAM1, (Serializable) param1);
         args.putString(ARG_PARAM2, String.valueOf(param2));
-        imageList= param1;
+        imageObjList = param1;
         imageurl=param2;
         fragment.setArguments(args);
         return fragment;
@@ -69,7 +61,7 @@ public class MemeSliderFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = (List<Image>) getArguments().getSerializable(ARG_PARAM1);
+            mParam1 = (List<ImageObj>) getArguments().getSerializable(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -80,12 +72,12 @@ public class MemeSliderFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_meme_slider, container, false);
 
-        Log.d("LEt", "onCreateView: "+imageList.size());
-        for (int i = 0; i < imageList.size(); i++) {
-            Log.d("LEt", "onCreateView: "+imageList.get(i).getImageUrl());
+        Log.d("LEt", "onCreateView: "+ imageObjList.size());
+        for (int i = 0; i < imageObjList.size(); i++) {
+            Log.d("LEt", "onCreateView: "+ imageObjList.get(i).getImageUrl());
         }
         ViewPager viewPager = view.findViewById(R.id.imageSliderPager);
-        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(this.getActivity(), imageList, imageurl);
+        MemeSliderAdapter memeSliderAdapter = new MemeSliderAdapter(this.getActivity(), imageObjList, imageurl);
         Log.d("Rizwan", "onCreateView: "+imageurl);
     viewPager.setAdapter(memeSliderAdapter);
     viewPager.setCurrentItem(imageurl);

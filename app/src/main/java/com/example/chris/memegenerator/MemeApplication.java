@@ -8,9 +8,12 @@ import com.example.chris.memegenerator.di.app.AppModule;
 import com.example.chris.memegenerator.di.app.DaggerAppComponent;
 import com.example.chris.memegenerator.di.createMeme.CreateMemeComponent;
 import com.example.chris.memegenerator.di.createMeme.CreateMemeModule;
-import com.example.chris.memegenerator.di.main.MainComponent;
-import com.example.chris.memegenerator.di.main.MainModule;
-import com.example.chris.memegenerator.util.FavoritesHandler;
+import com.example.chris.memegenerator.di.memehome.MemeHomeComponent;
+import com.example.chris.memegenerator.di.memehome.MemeHomeModule;
+import com.example.chris.memegenerator.di.smartsearch.SmartSearchComponent;
+import com.example.chris.memegenerator.di.smartsearch.SmartSearchModule;
+import com.example.chris.memegenerator.util.Constants;
+import com.example.chris.memegenerator.util.handlers.FavoritesHandler;
 
 import timber.log.Timber;
 
@@ -20,16 +23,14 @@ import timber.log.Timber;
 
 public class MemeApplication extends Application
 {
-    //private static final String GoogleSerachBaseUrl = "http://"; // TODO not used
-    //private static final String API_KEY = "AIzaSyBgFi0vAWqYPVS7VvKxV5ZzPiDYcunr7Fo"; // TODO not used
-
     private static final String GoogleSerachBaseUrl = "https://www.googleapis.com/customsearch/";
     private static final String API_KEY = "69830c4d38b6259d7c9bd14adc09d2a1";
     private static final String KeyWordBaseUrl = "https://api.textgain.com/1/";
     private static final String BingSearchBaseUrl = "https://api.cognitive.microsoft.com/";
     private AppComponent appComponent;
-    private MainComponent mainComponent;
+    private MemeHomeComponent memeHomeComponent;
     private CreateMemeComponent createComponent;
+    private SmartSearchComponent smartSearchComponent;
     
     @Override
     public void onCreate()
@@ -38,7 +39,7 @@ public class MemeApplication extends Application
     
         Timber.plant(new Timber.DebugTree());
         
-        AppModule appModule = new AppModule(GoogleSerachBaseUrl, API_KEY,KeyWordBaseUrl,BingSearchBaseUrl);
+        AppModule appModule = new AppModule(GoogleSerachBaseUrl, API_KEY,KeyWordBaseUrl,BingSearchBaseUrl, Constants.BASE_URL);
         
         appComponent = DaggerAppComponent.builder()
                 .appModule(appModule)
@@ -50,14 +51,14 @@ public class MemeApplication extends Application
         return (MemeApplication) context.getApplicationContext();
     }
     
-    public MainComponent getMainComponent()
+    public MemeHomeComponent getMemeHomeComponent()
     {
-        mainComponent = appComponent.add(new MainModule());
-        return mainComponent;
+        memeHomeComponent = appComponent.add(new MemeHomeModule());
+        return memeHomeComponent;
     }
     public void clearMainComponent()
     {
-        mainComponent = null;
+        memeHomeComponent = null;
     }
     public CreateMemeComponent getCreateComponent()
     {
@@ -67,6 +68,16 @@ public class MemeApplication extends Application
     public void clearCreateMemeComponent()
     {
         createComponent = null;
+    }
+    
+    public SmartSearchComponent getSmartSearchComponent()
+    {
+        smartSearchComponent = appComponent.add(new SmartSearchModule());
+        return smartSearchComponent;
+    }
+    public void clearSmartSearchComponent()
+    {
+        smartSearchComponent = null;
     }
 
     @Override

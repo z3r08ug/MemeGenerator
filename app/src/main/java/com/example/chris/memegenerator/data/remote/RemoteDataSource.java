@@ -3,10 +3,10 @@ package com.example.chris.memegenerator.data.remote;
 import android.os.Environment;
 import android.util.Log;
 
-import com.example.chris.memegenerator.util.pojo.keywordfinder.Keywords;
+import com.example.chris.memegenerator.model.pojo.keywordfinder.Keywords;
 import com.example.chris.memegenerator.util.Constants;
-import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
-import com.example.chris.memegenerator.util.pojo.googleserach.GoogleResponse;
+import com.example.chris.memegenerator.model.pojo.bingsearch.BingSearch;
+import com.example.chris.memegenerator.model.pojo.googleserach.GoogleResponse;
 
 import java.io.File;
 
@@ -28,36 +28,36 @@ public class RemoteDataSource
     private static String GoogleSerachBaseUrl,KeyWordSerachBaseUrl, apiKey, BingSearchBaseurl;
     private static String TAG = "Remote Data Source";
     private static String baseurl;
-    // String GoogleSerachBaseUrl, apiKey;
-
+    
     public RemoteDataSource(String GoogleSerachbaseUrl,
                             String apiKey,
                             String keyWordSerachBaseUrl,
-                            String BingSearchBaseUrl )
+                            String BingSearchBaseUrl)
     {
-
+        
         this.GoogleSerachBaseUrl = GoogleSerachbaseUrl;
         this.apiKey = apiKey;
         this.KeyWordSerachBaseUrl = keyWordSerachBaseUrl;
         this.BingSearchBaseurl = BingSearchBaseUrl;
     }
-
-    private static OkHttpClient httpClientConfig(HttpLoggingInterceptor interceptor){
-        // File httpCache = new File(Context.getExternalCacheDir().getAbsolutePath() + "/tile_cache");
+    
+    private static OkHttpClient httpClientConfig(HttpLoggingInterceptor interceptor)
+    {
         File httpCacheDirectory = new File(Environment.getExternalStorageDirectory(), "HttpCache");// Here to facilitate the file directly on the SD Kagan catalog HttpCache in ， Generally put in context.getCacheDir() in
-
+        
         int cacheSize = 10 * 1024 * 1024; // 10 MiB
         Cache cache = new Cache(httpCacheDirectory, cacheSize);
         return new OkHttpClient.Builder().cache(cache).addInterceptor(interceptor).build();
-
+        
     }
-
-    private static HttpLoggingInterceptor loggingInterceptor(){
+    
+    private static HttpLoggingInterceptor loggingInterceptor()
+    {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
         httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return  httpLoggingInterceptor;
     }
-
+    
     public static Retrofit create()
     {
         baseurl = " ";
@@ -78,10 +78,7 @@ public class RemoteDataSource
             baseurl = KeyWordSerachBaseUrl;
             Log.d(TAG, "create: Constant keyWord");
         }
-        Log.d(TAG, "create: base url "+ baseurl);
-        Log.d(TAG, "create: google base url"+GoogleSerachBaseUrl);
-        Log.d(TAG, "create: keyword base url"+KeyWordSerachBaseUrl);
-        Log.d(TAG, "create: bing base url "+BingSearchBaseurl);
+        
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseurl)
                 //add converter to parse the response
@@ -93,49 +90,18 @@ public class RemoteDataSource
         
         return retrofit;
     }
-    public static Call<BingSearch> BingTrendingResponse(String search ){
-        Log.d(TAG, "BingTrendingResponse: search: " + search+ " baseUrl "+ baseurl);
-        Retrofit retrofit = create();
-        BingTrendingSearchRemoteService service = retrofit.create(BingTrendingSearchRemoteService.class);
-        return service.BingTrendingResponse(search);
-    }
+    
     public static Call<GoogleResponse> GoogleResponse(String mysearch, String date, Integer page){
         Log.d(TAG, "GoogleResponse: search " + mysearch + "baseurl " + baseurl);
-            Retrofit retrofit = create();
-            GoogleSerachRemoteService service = retrofit.create(GoogleSerachRemoteService.class);
-            return service.GoogleResponse(mysearch, date, page);
-    }
-    public static Call<Keywords> KeyWordResponse(String inputphrase){
         Retrofit retrofit = create();
-        KeyWordSerachRemoteService service = retrofit.create(KeyWordSerachRemoteService.class);
+        GoogleSearchRemoteService service = retrofit.create(GoogleSearchRemoteService.class);
+        return service.GoogleResponse(mysearch, date, page);
+    }
+    
+    public static Observable<Keywords> KeyWordResponse(String inputphrase){
+        Retrofit retrofit = create();
+        KeyWordSearchRemoteService service = retrofit.create(KeyWordSearchRemoteService.class);
         return service.KeyWordResponse(inputphrase);
     }
-    public static Call<BingSearch> BingResponse(String search ){
-        Retrofit retrofit = create();
-        BingSearchRemoteService service = retrofit.create(BingSearchRemoteService.class);
-        return service.BingResponse(search);
-    }
-
-    public static Observable<BingSearch> getBingResponse(String search)
-    {
-        Retrofit retrofit = create();
-        BingSearchRemoteService remoteService = retrofit.create(BingSearchRemoteService.class);
-        return remoteService.getBingResponse(search);
-    }
-    public static Observable<BingSearch> getkeywordResponse(String search, Integer num)
-    {
-        Retrofit retrofit = create();
-        BingSearchRemoteService remoteService = retrofit.create(BingSearchRemoteService.class);
-        return remoteService.getBingkeywordResponse(search, num);
-    }
-
-/* Todo refrofit causing error
-       public static Observable<List<GoogleResponse>> googleresult(String mysearch)
-        {
-            Retrofit retrofit = create();
-            GoogleSerachRemoteService remoteService = retrofit.create(GoogleSerachRemoteService.class);
-            return remoteService.googleresult(mysearch);
-        }
-
-*/
+    
 }

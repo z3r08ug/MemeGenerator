@@ -11,11 +11,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.chris.memegenerator.R;
-import com.example.chris.memegenerator.view.main.MemeHomeActivity;
+import com.example.chris.memegenerator.view.home.MemeHomeActivity;
 
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;

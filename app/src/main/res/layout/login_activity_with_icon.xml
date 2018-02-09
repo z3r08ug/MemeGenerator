@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/funnymemes1"
     android:orientation="vertical"
-    tools:context="com.example.chris.memegenerator.view.main.MainActivity">
+    tools:context="com.example.chris.memegenerator.view.home.MainActivity">
 
 
 

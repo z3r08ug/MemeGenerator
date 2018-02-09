@@ -1,8 +1,9 @@
 package com.example.chris.memegenerator.view.createMeme;
 
+import com.example.chris.memegenerator.data.remote.ImageRemoteDataSource;
 import com.example.chris.memegenerator.data.remote.RemoteDataSource;
 import com.example.chris.memegenerator.util.Constants;
-import com.example.chris.memegenerator.util.pojo.bingsearch.BingSearch;
+import com.example.chris.memegenerator.model.pojo.bingsearch.BingSearch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +21,15 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CreateMemePresenter implements CreateMemeContract.Presenter
 {
-    RemoteDataSource remoteDataSource;
+    ImageRemoteDataSource remoteDataSource;
     CreateMemeContract.View view;
-    BingSearch bing;
-    List<String> interestMemes;
+    List<String> memes;
     
     @Inject
-    public CreateMemePresenter(RemoteDataSource remoteDataSource)
+    public CreateMemePresenter(ImageRemoteDataSource remoteDataSource)
     {
         this.remoteDataSource = remoteDataSource;
-        interestMemes = new ArrayList<>();
+        memes = new ArrayList<>();
     }
     
     @Override
@@ -49,7 +49,7 @@ public class CreateMemePresenter implements CreateMemeContract.Presenter
     {
         Constants.setallFALSE();
         Constants.whichCall(Constants.bing);
-        RemoteDataSource.getBingResponse(search)
+        ImageRemoteDataSource.getBingPicResponse(search)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<BingSearch>()
@@ -63,7 +63,13 @@ public class CreateMemePresenter implements CreateMemeContract.Presenter
                     @Override
                     public void onNext(BingSearch bingSearch)
                     {
-                        bing = bingSearch;
+                        for (int i = 0; i < bingSearch.getValue().size(); i ++)
+                        {
+                            if (bingSearch.getValue().get(i) != null)
+                            {
+                                memes.add(bingSearch.getValue().get(i).getThumbnailUrl());
+                            }
+                        }
                     }
                     
                     @Override
@@ -76,14 +82,7 @@ public class CreateMemePresenter implements CreateMemeContract.Presenter
                     public void onComplete()
                     {
                         view.showProgress("Downloaded Memes");
-                        for (int i = 0; i < bing.getValue().size(); i ++)
-                        {
-                            if (bing.getValue().get(i) != null)
-                            {
-                                interestMemes.add(bing.getValue().get(i).getThumbnailUrl());
-                            }
-                        }
-                        view.setBingSearch(interestMemes);
+                        view.setBingSearch(memes);
                     }
                 });
     }

@@ -1,7 +1,7 @@
 package com.example.chris.memegenerator.view.createMeme;
 
-import com.example.chris.memegenerator.util.BasePresenter;
-import com.example.chris.memegenerator.util.BaseView;
+import com.example.chris.memegenerator.util.base.BasePresenter;
+import com.example.chris.memegenerator.util.base.BaseView;
 
 import java.util.List;
 

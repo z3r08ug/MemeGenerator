@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.main.SplashScreen"
+            android:name=".view.splashscreen.SplashScreen"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -26,9 +26,9 @@
         </activity>
         <activity android:name=".category.MemeInterestActivity"
             android:launchMode="singleInstance"/>
-        <activity android:name=".view.main.MemeHomeActivity"
+        <activity android:name=".view.home.MemeHomeActivity"
             android:launchMode="singleInstance"/>
-        <activity android:name=".view.main.MainActivity"
+        <activity android:name=".view.home.MainActivity"
             android:launchMode="singleInstance"></activity>
 
         <meta-data
@@ -37,12 +37,9 @@
 
         <activity android:name=".view.createMeme.CreateMemeActivity"
             android:launchMode="singleInstance"/>
-        <activity android:name=".LoginActivity"
+        <activity android:name=".view.login.LoginActivity"
             android:launchMode="singleInstance"/>
 
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -52,9 +49,9 @@
             android:authorities="com.facebook.app.FacebookContentProvider1779381205696405"
             android:exported="true" />
 
-        <activity android:name=".view.FavoriteMemesActivity"
+        <activity android:name=".view.favorites.FavoriteMemesActivity"
             android:launchMode="singleInstance"/>
-        <activity android:name=".view.Main2Activity"></activity>
+        <activity android:name=".view.smartsearch.SmartSearchActivity"></activity>
 
         <provider
             android:name=".util.GenericFileProvider"

@@ -7,7 +7,7 @@
     android:background="@drawable/lets_laugh"
     android:orientation="vertical"
 
-    tools:context="com.example.chris.memegenerator.view.main.MainActivity">
+    tools:context="com.example.chris.memegenerator.view.home.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

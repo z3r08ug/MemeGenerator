@@ -3,7 +3,6 @@ package com.example.chris.memegenerator.fragments.toptrendingfragment;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,13 +11,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.chris.memegenerator.R;
 import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragment;
 import com.example.chris.memegenerator.util.GridSpacingItemDecoration;
-import com.example.chris.memegenerator.util.Image;
-import com.example.chris.memegenerator.util.RecyclerAdapter;
+import com.example.chris.memegenerator.util.ImageObj;
+import com.example.chris.memegenerator.util.adapters.RecyclerAdapter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -95,7 +93,7 @@ public class TrendingFragment extends Fragment {
             public void run()
             {
                 
-                final List<Image> imageList = new ArrayList<>();
+                final List<ImageObj> imageObjList = new ArrayList<>();
                 
                 
 //                // memesList.clear();
@@ -103,23 +101,23 @@ public class TrendingFragment extends Fragment {
                 {
                     for (int i = 0; i < memesList.size(); i++)
                     {
-                        imageList.add(new Image(memesList.get(i)));
+                        imageObjList.add(new ImageObj(memesList.get(i)));
                         Log.d("Great", "run Trending: " + memesList.get(i));
                     }
                 }
-                    Log.d(TAG, "run:thissssssssssssss sizeee Trending" + imageList.size());
+                    Log.d(TAG, "run:thissssssssssssss sizeee Trending" + imageObjList.size());
 //        recyclerAdapter = new RecyclerAdapter(memes);
 //        topTrendingRv.setAdapter(recyclerAdapter);
-                    topTrendingRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner()
+                    topTrendingRv.setAdapter(new RecyclerAdapter(imageObjList, new RecyclerAdapter.onMemeClickListner()
                     {
                         
                         @Override
-                        public void onMemeClick(Image image, int position)
+                        public void onMemeClick(ImageObj imageObj, int position)
                         {
                             Log.d("click", "onMemeClick: Trending");
                             Log.d(TAG, "onMemeClick: "+position);
-                          //  Toast.makeText(getContext(), "Item Clicked" + image.getImageUrl(), Toast.LENGTH_LONG).show();
-                            MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, position);
+                          //  Toast.makeText(getContext(), "Item Clicked" + imageObj.getImageUrl(), Toast.LENGTH_LONG).show();
+                            MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageObjList, position);
                             FragmentManager fragmentManager = getFragmentManager();
                             fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame, memeSliderFragment).addToBackStack("Slider").commit();
                             
@@ -127,14 +125,14 @@ public class TrendingFragment extends Fragment {
                     }));
 
 
-//                topTrendingRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
+//                topTrendingRv.setAdapter(new RecyclerAdapter(imageObjList, new RecyclerAdapter.onMemeClickListner() {
 //
 //                    @Override
-//                    public void onMemeClick(Image image) {
+//                    public void onMemeClick(ImageObj image) {
 //
 //                        Log.d("click", "onMemeClick: ");
 //                        Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
-//                        MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
+//                        MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageObjList, image.getImageUrl());
 //                        FragmentManager fragmentManager = getFragmentManager();
 //                        fragmentManager.beginTransaction().replace(R.id.searchFragmentFrame,memeSliderFragment).commit();
 //
@@ -147,18 +145,18 @@ public class TrendingFragment extends Fragment {
     
 //    private void loadMemes(final RecyclerView paramRv, final List<String> stringList) {
 //
-//        final List<Image> imageList= new ArrayList<>();
+//        final List<ImageObj> imageList= new ArrayList<>();
 ////        // memes.clear();
 ////        for (int i = 0; i < 10; i++) {
 ////            //  memes.add("https://loremflickr.com/320/240?random=3");
-////            imageList.add(new Image("https://loremflickr.com/320/240"));
+////            imageList.add(new ImageObj("https://loremflickr.com/320/240"));
 ////        }
 ////        memes.clear();
 ////        for (int i = 0; i < 10; i++)
 ////            memes.add("http://techdows.com/wp-content/uploads/2010/07/Opera_logo2.png");
 //
 //        for (int i = 0; i < stringList.size(); i++) {
-//            imageList.add(new Image(stringList.get(i)));
+//            imageList.add(new ImageObj(stringList.get(i)));
 //            Log.d("Great", "run: "+stringList.get(i));
 //
 //        }
@@ -166,7 +164,7 @@ public class TrendingFragment extends Fragment {
 ////        topTrendingRv.setAdapter(recyclerAdapter);
 //        paramRv.setAdapter(new RecyclerAdapter(imageList, new RecyclerAdapter.onMemeClickListner() {
 //            @Override
-//            public void onMemeClick(Image image) {
+//            public void onMemeClick(ImageObj image) {
 //                Log.d("click", "onMemeClick: ");
 //                Toast.makeText(getContext(), "Item Clicked"+image.getImageUrl(), Toast.LENGTH_LONG).show();
 //                MemeSliderFragment memeSliderFragment = MemeSliderFragment.newInstance(imageList, image.getImageUrl());
