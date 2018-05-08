@@ -13,6 +13,12 @@ import retrofit2.http.Query;
  * Created by chris on 2/7/2018.
  */
 
+
+/**
+ * for right this second, 7 day trial, you can use either of these bing subsription keys (5/7/18)
+ * Key 1: e7e0b19756644009ac9adf50d767e5cb
+ Key 2: ba6d878f282644ebbfd20f9eac5a042c
+ */
 public interface ImageSearch
 {
     @Headers("Ocp-Apim-Subscription-Key: "+ Constants.BING_KEY1)

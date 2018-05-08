@@ -1,6 +1,7 @@
 package com.example.chris.memegenerator.data.remote;
 
 import com.example.chris.memegenerator.model.pojo.keywordfinder.Keywords;
+import com.example.chris.memegenerator.util.Constants;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -14,6 +15,6 @@ import retrofit2.http.Query;
 public interface KeyWordSearchRemoteService
 {
 
-    @GET("tag?&lang=en&key=69830c4d38b6259d7c9bd14adc09d2a1")
+    @GET("tag?&lang=en&key=" + Constants.LANUAGE_PARSER_API_KEY)
     Observable<Keywords> KeyWordResponse(@Query("q") String mysearch);
 }

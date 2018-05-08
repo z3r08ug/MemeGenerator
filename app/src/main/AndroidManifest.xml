@@ -46,7 +46,7 @@
 
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider1779381205696405"
+            android:authorities="com.facebook.app.FacebookContentProvider150360795812561"
             android:exported="true" />
 
         <activity android:name=".view.favorites.FavoriteMemesActivity"
