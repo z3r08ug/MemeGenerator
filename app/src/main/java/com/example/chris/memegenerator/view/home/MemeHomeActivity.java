@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.example.chris.memegenerator.util.SimpleRunner;
 import com.example.chris.memegenerator.view.login.LoginActivity;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
@@ -63,7 +64,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MemeHomeContr
     EditText etpost;
     List<List<String>> interestsMemes;
     List<String> keywordList;
-    
+    List<String> celebrities = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -177,6 +178,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MemeHomeContr
         {
             String tag = "";
             String word = "";
+            celebrities = SimpleRunner.readCelebrityNames();
             for (int i = 0; i < keywords.getText().size(); i++)
             {
                 // Log.d(TAG, "onResponse: this is i: " + i);
@@ -202,6 +204,11 @@ public class MemeHomeActivity extends AppCompatActivity implements MemeHomeContr
                                 Log.d(TAG, "onResponse: saving the proper_name "
                                         + proper_name +
                                         " tag: " + tag);
+                                if (celebrities.contains(proper_name))
+                                {
+                                    Log.d(TAG, "setKeywords: we've got a celebrity name...");
+                                }
+
                             }
                             else
                             {

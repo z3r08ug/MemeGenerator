@@ -38,6 +38,7 @@ public class MemeHomePresenter implements MemeHomeContract.Presenter
     List<String> searchResultsTrending = new ArrayList<>();
     List<String> searchResultsInterests = new ArrayList<>();
     
+    
     @Inject
     public MemeHomePresenter(RemoteDataSource remoteDataSource, ImageRemoteDataSource imageRemoteDataSource)
     {
@@ -119,9 +120,9 @@ public class MemeHomePresenter implements MemeHomeContract.Presenter
                     public void onNext(BingSearch bingSearch)
                     {
                         for(int i = 0; i < bingSearch.getValue().size(); i++)
-                        {
-                            searchResultsTrending.add(bingSearch.getValue().get(i).getThumbnailUrl());
-                            Log.d(TAG, "onNext: "+searchResultsTrending.get(i));
+                            {
+                                searchResultsTrending.add(bingSearch.getValue().get(i).getThumbnailUrl());
+                                Log.d(TAG, "onNext: "+searchResultsTrending.get(i));
                         }
                     }
                     
