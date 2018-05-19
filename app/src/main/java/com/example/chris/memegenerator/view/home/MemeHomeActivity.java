@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.example.chris.memegenerator.util.SimpleRunner;
+import com.example.chris.memegenerator.util.SyntaxBuilder;
 import com.example.chris.memegenerator.view.login.LoginActivity;
 import com.example.chris.memegenerator.MemeApplication;
 import com.example.chris.memegenerator.R;
@@ -174,10 +175,12 @@ public class MemeHomeActivity extends AppCompatActivity implements MemeHomeContr
     
     public void setKeywords(Keywords keywords)
     {
+        SyntaxBuilder sb = new SyntaxBuilder();
         if (keywords != null)
         {
             String tag = "";
             String word = "";
+
             celebrities = SimpleRunner.readCelebrityNames();
             for (int i = 0; i < keywords.getText().size(); i++)
             {
@@ -189,6 +192,11 @@ public class MemeHomeActivity extends AppCompatActivity implements MemeHomeContr
                     {
                         // Log.d(TAG, "onResponse: this is k: " + k);
                         tag = keywords.getText().get(i).get(j).get(k).getTag();
+                        if (tag.equals("VERB"))
+                        {
+                            word = keywords.getText().get(i).get(j).get(k).getWord();
+                            sb.addVerb(word);
+                        }
                         if (tag.equals("NOUN")  )
                         {
                             Log.d("MYOWNTAG", "onResponse: word "+
@@ -207,6 +215,11 @@ public class MemeHomeActivity extends AppCompatActivity implements MemeHomeContr
                                 if (celebrities.contains(proper_name))
                                 {
                                     Log.d(TAG, "setKeywords: we've got a celebrity name...");
+                                    sb.addCelebrity(word);
+                                }
+                                else
+                                {
+                                    sb.addName(word);  //if it's a proper name, and not a celebrity, than it's just a regular person
                                 }
 
                             }
@@ -214,6 +227,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MemeHomeContr
                             {
                                 word = keywords.getText().get(i).get(j).get(k).getWord();
                                 keywordList.add(word);
+                                sb.addNoun(word);
                                 Log.d("keywords", "onResponse: saving the word "
                                         + word +
                                         " tag: " + tag);
@@ -225,7 +239,7 @@ public class MemeHomeActivity extends AppCompatActivity implements MemeHomeContr
             }
         }
         
-        goToSmartSearchActivity();
+        goToSmartSearchActivity(sb);
     }
     
     @Override
@@ -240,11 +254,12 @@ public class MemeHomeActivity extends AppCompatActivity implements MemeHomeContr
         TrendingInterestFragment.newInstance(memes);
     }
     
-    public void goToSmartSearchActivity()
+    public void goToSmartSearchActivity(SyntaxBuilder sb)
     {
         
         Intent intent = new Intent(this, SmartSearchActivity.class);
         intent.putStringArrayListExtra("magic", (ArrayList<String>) keywordList);
+        intent.putExtra("SyntaxBuilder", sb); //SyntaxBuilder is the object we want now.  I'll keep the 'magic' arraylist in there for now
         if (frameLayout.getVisibility() == View.VISIBLE)
             onBackPressed();
         startActivity(intent);

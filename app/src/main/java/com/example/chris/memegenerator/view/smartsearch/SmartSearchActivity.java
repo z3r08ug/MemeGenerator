@@ -18,6 +18,7 @@ import com.example.chris.memegenerator.fragments.memesliderfrag.MemeSliderFragme
 import com.example.chris.memegenerator.util.Constants;
 import com.example.chris.memegenerator.util.GridSpacingItemDecoration;
 import com.example.chris.memegenerator.util.ImageObj;
+import com.example.chris.memegenerator.util.SyntaxBuilder;
 import com.example.chris.memegenerator.util.adapters.RecyclerAdapter;
 import com.example.chris.memegenerator.model.pojo.bingsearch.BingSearch;
 import com.example.chris.memegenerator.view.home.MemeHomeActivity;
@@ -39,6 +40,7 @@ public class SmartSearchActivity extends AppCompatActivity implements SmartSearc
     private List<ImageObj> posturl;
     private RecyclerView recyclerView;
     public static final String TAG = SmartSearchActivity.class.getSimpleName() + "_TAG";
+    private SyntaxBuilder sb;
     
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +51,7 @@ public class SmartSearchActivity extends AppCompatActivity implements SmartSearc
         presenter.attachView(this);
         
         key = getIntent().getStringArrayListExtra("magic");
+        sb = getIntent().getParcelableExtra("SyntaxBuilder");
         if (key == null)
         {
             Toast.makeText(this, "No results", Toast.LENGTH_SHORT).show();
